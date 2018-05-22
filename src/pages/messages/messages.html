@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Mensagens</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-fab bottom center>
+        <button ion-fab mini (click)="newMessage()" color="secondary">
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <ion-list>
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="assets/img/user1.png">
+            </ion-avatar>
+            <h2>João</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis delectus eveniet iste perspiciatis quasi sint voluptas! Deleniti dolores eius incidunt modi mollitia quasi unde vel
+                vero vitae. Eum, ipsum, tempore.</p>
+            <ion-note item-end>14:40</ion-note>
+        </ion-item>
+
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="assets/img/user2.png">
+            </ion-avatar>
+            <h2>Gabriela</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id maiores
+                necessitatibus nihil pariatur rerum voluptatem.</p>
+            <ion-note item-end>14:40</ion-note>
+        </ion-item>
+
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="assets/img/user3.png">
+            </ion-avatar>
+            <h2>Rafael</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id maiores
+                necessitatibus nihil pariatur rerum voluptatem.</p>
+            <ion-note item-end>14:40</ion-note>
+        </ion-item>
+
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="assets/img/user4.png">
+            </ion-avatar>
+            <h2>Ana</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id maiores
+                necessitatibus nihil pariatur rerum voluptatem.</p>
+            <ion-note item-end>14:40</ion-note>
+        </ion-item>
+
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="assets/img/user5.png">
+            </ion-avatar>
+            <h2>Lucas</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id maiores
+                necessitatibus nihil pariatur rerum voluptatem.</p>
+            <ion-note item-end>14:40</ion-note>
+        </ion-item>
+    </ion-list>
+</ion-content>

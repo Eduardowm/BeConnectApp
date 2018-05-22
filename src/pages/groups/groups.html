@@ -1,0 +1,28 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Grupos</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content class="cards-bg">
+    <ion-card class="adv-map" *ngFor="let item of groups" (click)="openGroup(item)">
+        <div style="position: relative">
+            <img src="assets/img/people.png">
+        </div>
+        <ion-item>
+            <ion-icon color="subtle" large item-start name='people'></ion-icon>
+            <h2>{{item.name}}</h2>
+            <p>Início em {{item.sinceOf}}</p>
+        </ion-item>
+        <ion-item actions>
+            <span ion-text item-start color="secondary" class="item-bold">3 membros</span>
+        </ion-item>
+    </ion-card>
+</ion-content>

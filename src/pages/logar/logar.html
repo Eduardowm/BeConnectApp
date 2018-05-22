@@ -1,0 +1,45 @@
+<ion-content class="dark">
+  <form (submit)="doLogin()">
+    <div class="logo"></div>
+
+    <ion-list>
+      <ion-item padding-horizontal>
+        <ion-label stacked>Igreja</ion-label>
+        <ion-select [(ngModel)]="account.church" name="church">
+          <ion-option *ngFor="let church of churchs" [value] = "church.id">{{church.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item padding-horizontal>
+        <ion-label stacked>Usuário</ion-label>
+        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+      </ion-item>
+
+      <ion-item padding-horizontal>
+        <ion-label stacked>Senha</ion-label>
+        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+      </ion-item>
+
+      <div padding>
+        <button ion-button block>{{ 'LOGIN_BUTTON' | translate }}</button>
+      </div>
+
+      <ion-grid padding>
+        <ion-row>
+          <ion-col>
+            <button color="facebook" ion-button block round>
+              <ion-icon name="logo-facebook"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button color="google" ion-button block round>
+              <ion-icon name="logo-google"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+
+    <p ion-text text-center color="light" (click)="forgotPassword()">Não lembra sua senha? <a href="javascript:;">Recupere agora mesmo</a></p>
+  </form>
+</ion-content>

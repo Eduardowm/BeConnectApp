@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Visualizar Evento</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form>
+        <ion-list>
+            <ion-item padding-horizontal>
+                <ion-label stacked>Nome</ion-label>
+                <ion-input type="text" name="name" value="{{event.name}}" disabled=""></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Frequência</ion-label>
+                <ion-input type="text" name="frequency" value="{{event.frequency}}" disabled=""></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Data do Próximo/Primeiro Encontro</ion-label>
+                <ion-input type="text" name="event_date" value="{{event.event_date}}" disabled=""></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Dia Inteiro</ion-label>
+                <ion-checkbox disabled></ion-checkbox>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Término do Evento</ion-label>
+                <ion-datetime displayFormat="MM/DD/YYYY" disabled></ion-datetime>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Pertence ao Grupo</ion-label>
+                <ion-select disabled>
+                    <ion-option value="">Nenhum</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Descrição</ion-label>
+                <ion-textarea name="descricao" disabled></ion-textarea>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>CEP</ion-label>
+                <ion-input type="text" name="cep" disabled></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Logradouro</ion-label>
+                <ion-input type="text" name="street" value="{{event.street}}" disabled></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Número</ion-label>
+                <ion-input type="text" name="number" value="{{event.number}}" disabled></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Bairro</ion-label>
+                <ion-input type="text" name="cep" disabled></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Cidade</ion-label>
+                <ion-input type="text" name="city" value="{{event.city}}" disabled></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Estado</ion-label>
+                <ion-select disabled>
+                    <ion-option value="">Nenhum</ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
+    </form>
+</ion-content>

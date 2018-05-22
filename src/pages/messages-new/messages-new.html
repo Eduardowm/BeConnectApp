@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Nova Mensagem</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <form (submit)="createMessage()">
+        <ion-list>
+            <ion-item padding-horizontal>
+                <ion-label stacked>Enviar para</ion-label>
+                <ion-select>
+                    <ion-option value="usuario">Usuário</ion-option>
+                    <ion-option value="grupo">Grupo</ion-option>
+                    <ion-option value="todos">Todos</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Destinatário</ion-label>
+                <ion-select>
+                    <ion-option value="">Nenhum</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Mensagem</ion-label>
+                <ion-textarea name="mensagem"></ion-textarea>
+            </ion-item>
+
+            <div padding>
+                <button ion-button block>Enviar</button>
+            </div>
+        </ion-list>
+    </form>
+</ion-content>

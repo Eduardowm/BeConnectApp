@@ -1,0 +1,97 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Atividades Recentes</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-segment [(ngModel)]="activities">
+            <ion-segment-button value="usuarios">
+                Usuários
+            </ion-segment-button>
+            <ion-segment-button value="grupos">
+                Grupos
+            </ion-segment-button>
+            <ion-segment-button value="eventos">
+                Eventos
+            </ion-segment-button>
+        </ion-segment>
+
+        <div [ngSwitch]="activities">
+            <ion-list *ngSwitchCase="'usuarios'">
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon name="flame" color="secondary"></ion-icon>
+                    </ion-avatar>
+                    <h2>Pedido de Oração</h2>
+                    <p>Ore por minha família nessa semana</p>
+                    <ion-note item-end>20 min</ion-note>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon name="flash" color="danger"></ion-icon>
+                    </ion-avatar>
+                    <h2>Almoço comunitário</h2>
+                    <p>Teremos almoço comunitário nesse domingo. Não deixe de levar seu prato e aproveitar o tempo com os irmãos.</p>
+                    <ion-note item-end>24 min</ion-note>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon name="megaphone"></ion-icon>
+                    </ion-avatar>
+                    <h2>Pedido de Oração</h2>
+                    <p>Ore pelo Brasil!</p>
+                    <ion-note item-end>30 min</ion-note>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon name="megaphone" color="secondary"></ion-icon>
+                    </ion-avatar>
+                    <h2>Novo usuário registrado</h2>
+                    <p>João da Silva</p>
+                    <ion-note item-end>40 min</ion-note>
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon name="add" color="warning"></ion-icon>
+                    </ion-avatar>
+                    <h2>Novo usuário registrado</h2>
+                    <p>João da Silva</p>
+                    <ion-note item-end>40 min</ion-note>
+                </ion-item>
+            </ion-list>
+
+            <ion-list *ngSwitchCase="'grupos'">
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon name="flame" color="secondary"></ion-icon>
+                    </ion-avatar>
+                    <h2>Pedido de Oração</h2>
+                    <p>Ore por minha família nessa semana</p>
+                    <ion-note item-end>20 min</ion-note>
+                </ion-item>
+            </ion-list>
+
+            <ion-list *ngSwitchCase="'eventos'">
+                <ion-item>
+                    <ion-avatar item-start>
+                        <ion-icon name="flame" color="secondary"></ion-icon>
+                    </ion-avatar>
+                    <h2>Pedido de Oração</h2>
+                    <p>Ore por minha família nessa semana</p>
+                    <ion-note item-end>20 min</ion-note>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-list>
+</ion-content>
