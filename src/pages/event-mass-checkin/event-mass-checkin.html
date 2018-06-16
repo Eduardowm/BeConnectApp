@@ -18,31 +18,26 @@
                 [(ngModel)]="churchSearch"
                 [showCancelButton]="churchSearchShouldShowCancel"
                 (ionInput)="onChurchSearchInput($event)"
-                (ionCancel)="onChurchSearchCancel($event)">
+                (ionCancel)="onChurchSearchCancel($event)"
+                placeholder="Buscar"
+        >
         </ion-searchbar>
 
-        <ion-item>
-            <ion-toggle checked="false"></ion-toggle>
-            <ion-label>
-                Hayao Miyazaki
-            </ion-label>
-            <ion-icon name='body' item-start></ion-icon>
-        </ion-item>
-
-        <ion-item>
-            <ion-toggle checked="true"></ion-toggle>
-            <ion-label>
-                Hayao Miyazaki
-            </ion-label>
-            <ion-icon name='body' item-start></ion-icon>
-        </ion-item>
-
-        <ion-item>
-            <ion-toggle checked="false"></ion-toggle>
-            <ion-label>
-                Hayao Miyazaki
-            </ion-label>
+        <ion-item *ngFor="let user of items">
+            <ion-toggle checked="{{user.check}}"></ion-toggle>
+            <ion-label>{{user.name}}</ion-label>
             <ion-icon name='body' item-start></ion-icon>
         </ion-item>
     </ion-list>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar no-border-top>
+        <ion-buttons end>
+            <button ion-button icon-end solid color="primary" (click)="save()">
+                Salvar
+                <ion-icon name="checkmark"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

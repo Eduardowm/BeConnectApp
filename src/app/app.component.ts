@@ -23,6 +23,9 @@ import {AndroidPermissions} from "@ionic-native/android-permissions";
                     <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
                         {{p.title}}
                     </button>
+                    <button menuClose ion-item (click)="exitApp()">
+                        Sair
+                    </button>
                 </ion-list>
             </ion-content>
 
@@ -37,12 +40,12 @@ export class MyApp {
     pages: any[] = [
         {title: 'Início', component: 'HomePage'},
         {title: 'Eventos', component: 'EventsPage'},
-        {title: 'Grupos', component: 'GroupsPage'},
+        // {title: 'Grupos', component: 'GroupsPage'},
         {title: 'Calendário', component: 'CalendarPage'},
-        {title: 'Feed de Notícias', component: 'FeedPage'},
-        {title: 'Mensagens', component: 'MessagesPage'},
+        // {title: 'Feed de Notícias', component: 'FeedPage'},
+        // {title: 'Mensagens', component: 'MessagesPage'},
         // {title: 'Atividades Recentes', component: 'ActivitiesPage'},
-        {title: 'Sair', component: 'LogoutPage'},
+        // {title: 'Sair', component: 'LogoutPage'},
     ]
 
     constructor(private translate: TranslateService,
@@ -110,5 +113,9 @@ export class MyApp {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
+    }
+
+    exitApp() {
+        this.platform.exitApp();
     }
 }

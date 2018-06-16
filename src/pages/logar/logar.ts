@@ -16,9 +16,12 @@ export class LogarPage {
     churchs: any;
 
     account: { email: string, password: string, church: any } = {
+        // email: 'admin@admin.com',
+        // password: 'secret',
+        // church: 1
         email: '',
         password: '',
-        church: 0
+        church: 1
     };
 
     // Our translated text strings

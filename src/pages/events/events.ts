@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {IonicPage, LoadingController, ModalController, NavController, NavParams, ActionSheetController, Platform, ToastController} from 'ionic-angular';
 import {Events} from "../../providers/events/events";
 import {SocialSharing} from "@ionic-native/social-sharing";
+import {User} from "../../providers/user/user";
+import {Groups} from "../../providers/groups/groups";
 
 /**
  * Generated class for the EventsPage page.
@@ -23,17 +25,42 @@ export class EventsPage {
                 public navParams: NavParams,
                 public modalCtrl: ModalController,
                 public events: Events,
+                public groups: Groups,
+                public user: User,
                 public loadingCtrl: LoadingController,
                 public actionsheetCtrl: ActionSheetController,
                 public platform: Platform,
                 private socialSharing: SocialSharing,
                 public toastCtrl: ToastController) {
+        this.loadEvents();
+    }
+
+    loadEvents() {
         let loading = this.loadingCtrl.create();
         loading.present();
 
-        events.next()
+        this.events.next()
             .then((result: any) => {
                 loading.dismiss();
+
+                for (let event of result) {
+                    event.has_group = false;
+
+                    this.events.isCheck(event.id)
+                        .then((result: any) => {
+                            event.check = result["check-in"];
+                        });
+                    if (event.group_id) {
+                        this.groups.getInfo(event.group_id)
+                            .then((result: any) => {
+                                if (result.status) {
+                                    event.has_group = true;
+                                    event.group = result.group;
+                                }
+                            });
+                    }
+                }
+
                 this.nextEvents = result;
             })
             .catch((error: any) => {
@@ -61,43 +88,73 @@ export class EventsPage {
     }
 
     openMenu(event) {
-        let actionSheet = this.actionsheetCtrl.create({
-            title: 'Ações',
-            cssClass: 'action-sheets-basic-page',
-            buttons: [
-                {
-                    text: 'Compartilhar',
-                    icon: !this.platform.is('ios') ? 'share' : null,
-                    handler: () => {
-                        this.openShareMenu(event);
+        if (event.check) {
+            this.actionsheetCtrl.create({
+                title: 'Ações',
+                cssClass: 'action-sheets-basic-page',
+                buttons: [
+                    {
+                        text: 'Compartilhar',
+                        icon: !this.platform.is('ios') ? 'share' : null,
+                        handler: () => {
+                            this.openShareMenu(event);
+                        }
+                    },
+                    {
+                        text: 'Checkin em Massa',
+                        icon: !this.platform.is('ios') ? 'checkmark-circle' : null,
+                        handler: () => {
+                            this.navCtrl.push('EventMassCheckinPage', {event});
+                        }
+                    },
+                    {
+                        text: 'Cancelar Checkin',
+                        icon: !this.platform.is('ios') ? 'close-circle' : null,
+                        handler: () => {
+                            this.cancelCheckin(event);
+                        }
+                    },
+                    {
+                        text: 'Cancelar',
+                        role: 'cancel', // will always sort to be on the bottom
+                        icon: !this.platform.is('ios') ? 'close' : null,
                     }
-                },
-                {
-                    text: 'Checkin em Massa',
-                    icon: !this.platform.is('ios') ? 'checkmark-circle' : null,
-                    handler: () => {
-                        this.navCtrl.push('EventMassCheckinPage');
+                ]
+            }).present();
+        } else {
+            this.actionsheetCtrl.create({
+                title: 'Ações',
+                cssClass: 'action-sheets-basic-page',
+                buttons: [
+                    {
+                        text: 'Compartilhar',
+                        icon: !this.platform.is('ios') ? 'share' : null,
+                        handler: () => {
+                            this.openShareMenu(event);
+                        }
+                    },
+                    {
+                        text: 'Checkin em Massa',
+                        icon: !this.platform.is('ios') ? 'checkmark-circle' : null,
+                        handler: () => {
+                            this.navCtrl.push('EventMassCheckinPage', {event});
+                        }
+                    },
+                    {
+                        text: 'Checkin',
+                        icon: !this.platform.is('ios') ? 'checkmark-circle-outline' : null,
+                        handler: () => {
+                            this.checkin(event);
+                        }
+                    },
+                    {
+                        text: 'Cancelar',
+                        role: 'cancel', // will always sort to be on the bottom
+                        icon: !this.platform.is('ios') ? 'close' : null,
                     }
-                },
-                {
-                    text: 'Checkin',
-                    icon: !this.platform.is('ios') ? 'checkmark-circle-outline' : null,
-                    handler: () => {
-                        this.toastCtrl.create({
-                            message: 'Checkin realizado com sucesso!',
-                            duration: 3000,
-                            position: 'top'
-                        }).present();
-                    }
-                },
-                {
-                    text: 'Cancelar',
-                    role: 'cancel', // will always sort to be on the bottom
-                    icon: !this.platform.is('ios') ? 'close' : null,
-                }
-            ]
-        });
-        actionSheet.present();
+                ]
+            }).present();
+        }
     }
 
     openShareMenu(event) {
@@ -172,5 +229,63 @@ export class EventsPage {
             ]
         });
         actionSheet.present();
+    }
+
+    checkin(event) {
+        let loading = this.loadingCtrl.create();
+        loading.present();
+
+        this.user.checkin(event.id)
+            .then((result: any) => {
+                loading.dismiss();
+
+                if (result.status) {
+                    this.toastCtrl.create({
+                        message: 'Checkin realizado com sucesso!',
+                        duration: 3000,
+                        position: 'top'
+                    }).present();
+                    this.loadEvents();
+                } else {
+                    this.toastCtrl.create({
+                        message: result.msg,
+                        duration: 3000,
+                        position: 'top'
+                    }).present();
+                }
+            })
+            .catch((error: any) => {
+                loading.dismiss();
+                // this.toast.create({ message: 'Erro ao criar o usuário. Erro: ' + error.error, position: 'botton', duration: 3000 }).present();
+            });
+    }
+
+    cancelCheckin(event) {
+        let loading = this.loadingCtrl.create();
+        loading.present();
+
+        this.user.cancelCheckin(event.id)
+            .then((result: any) => {
+                loading.dismiss();
+
+                if (result.status) {
+                    this.toastCtrl.create({
+                        message: 'Checkin cancelado com sucesso!',
+                        duration: 3000,
+                        position: 'top'
+                    }).present();
+                    this.loadEvents();
+                } else {
+                    this.toastCtrl.create({
+                        message: 'Não foi possível cancelar o checkin.',
+                        duration: 3000,
+                        position: 'top'
+                    }).present();
+                }
+            })
+            .catch((error: any) => {
+                loading.dismiss();
+                // this.toast.create({ message: 'Erro ao criar o usuário. Erro: ' + error.error, position: 'botton', duration: 3000 }).present();
+            });
     }
 }

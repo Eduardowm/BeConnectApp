@@ -23,15 +23,16 @@ export class FirstPage {
     @ViewChild(Slides) slides: Slides;
 
     churchs: any;
-    name: any;
-    email: any;
-    phone: any;
+    name: any = '';
+    email: any = '';
+    phone: any = '';
     dateBirth: any;
     church: any;
-    terms: any;
-    type: any;
+    terms: any = false;
+    type: any = '';
     churchSearch: any;
     churchSearchShouldShowCancel: boolean = true;
+    items: any;
 
     logo: string = 'assets/img/logo-escuro.png';
     logoWidth: number = 256;
@@ -52,6 +53,7 @@ export class FirstPage {
 
         this._churchs.get().then((result: any) => {
             this.churchs = result;
+            this.setItems();
         });
     }
 
@@ -74,6 +76,46 @@ export class FirstPage {
     }
 
     signup() {
+        if (this.name == '') {
+            return this.toastCtrl.create({
+                message: "O campo Nome precisa ser preenchido.",
+                duration: 3000,
+                position: 'top'
+            }).present();
+        }
+
+        if (this.email == '') {
+            return this.toastCtrl.create({
+                message: "O campo E-mail precisa ser preenchido.",
+                duration: 3000,
+                position: 'top'
+            }).present();
+        }
+
+        if (this.phone == '') {
+            return this.toastCtrl.create({
+                message: "O campo Telefone precisa ser preenchido.",
+                duration: 3000,
+                position: 'top'
+            }).present();
+        }
+
+        if (this.type == '') {
+            return this.toastCtrl.create({
+                message: "O campo Membro/Visitante precisa ser preenchido.",
+                duration: 3000,
+                position: 'top'
+            }).present();
+        }
+
+        if (!this.terms) {
+            return this.toastCtrl.create({
+                message: "O campo Termos precisa ser marcado.",
+                duration: 3000,
+                position: 'top'
+            }).present();
+        }
+
         this.slides.lockSwipes(false);
         this.slides.slideTo(3, 500);
         this.slides.lockSwipes(true);
@@ -85,7 +127,7 @@ export class FirstPage {
     //     this.slides.lockSwipes(true);
     // }
 
-    visitor() {
+    continueVisitor() {
         // send signup as visitor
         let loading = this.loadingCtrl.create();
         this.user.signup({dateBirth: this.dateBirth, name: this.name, cel: this.phone, email: this.email})
@@ -119,6 +161,12 @@ export class FirstPage {
     }
 
     continueMember(church) {
+        this.user.setChurch(church.id);
+
+        if (this.type == 'Visitante') {
+            return this.continueVisitor();
+        }
+
         this.nativeStorage.setItem('sessao', true);
 
         // send signup as member (pendent)
@@ -159,13 +207,26 @@ export class FirstPage {
         this.slides.lockSwipes(true);
     }
 
-    onChurchSearchInput(event) {
-    }
-
-    onChurchSearchCancel(event) {
-    }
-
     openTerms() {
         this.modalCtrl.create(ModalTermsPage).present();
+    }
+
+    setItems() {
+        this.items = this.churchs;
+    }
+
+    onChurchSearchInput(ev: any) {
+        this.setItems();
+        let val = ev.target.value;
+
+        if (val && val.trim() !== '') {
+            this.items = this.items.filter(function (item) {
+                return item.name.toLowerCase().includes(val.toLowerCase());
+            });
+        }
+    }
+
+    onChurchSearchCancel(ev: any) {
+        this.setItems();
     }
 }

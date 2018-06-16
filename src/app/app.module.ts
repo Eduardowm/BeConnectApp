@@ -23,6 +23,7 @@ import {AndroidPermissions} from "@ionic-native/android-permissions";
 import {ModalTermsPage} from "../pages/modal-terms/modal-terms";
 import {SocialSharing} from "@ionic-native/social-sharing";
 import {DatePipe} from '@angular/common';
+import {BackgroundGeolocation} from '@ionic-native/background-geolocation';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -82,6 +83,7 @@ export function provideSettings(storage: Storage) {
         NativeStorage,
         SocialSharing,
         DatePipe,
+        BackgroundGeolocation,
         AndroidPermissions,
         {provide: Settings, useFactory: provideSettings, deps: [Storage]},
         // Keep this to enable Ionic's runtime error handling during development

@@ -43,16 +43,8 @@
         </ion-grid>
     </div>
 
-    <ion-item-group>
-        <ion-item-divider color="light">26 de Junho de 2018</ion-item-divider>
-        <ion-item (click)="abrirEvento()">Evento 1 <ion-badge item-end>12:00</ion-badge></ion-item>
-        <ion-item (click)="abrirEvento()">Evento 2 <ion-badge item-end>12:00</ion-badge></ion-item>
-    </ion-item-group>
-
-    <ion-item-group>
-        <ion-item-divider color="light">30 de Setembro de 2018</ion-item-divider>
-        <ion-item (click)="abrirEvento()">Evento 3 <ion-badge item-end>12:00</ion-badge></ion-item>
-        <ion-item (click)="abrirEvento()">Evento 4 <ion-badge item-end>12:00</ion-badge></ion-item>
-        <ion-item (click)="abrirEvento()">Evento 5 <ion-badge item-end>12:00</ion-badge></ion-item>
+    <ion-item-group *ngFor="let eventGroup of nextCalendarEvents">
+        <ion-item-divider color="light">{{eventGroup.date}}</ion-item-divider>
+        <ion-item *ngFor="let event of eventGroup.events" (click)="abrirEvento(event)">{{event.name}}<ion-badge item-end>{{event.time}}</ion-badge></ion-item>
     </ion-item-group>
 </ion-content>

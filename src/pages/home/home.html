@@ -10,15 +10,15 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-fab bottom center>
-        <button ion-fab mini (click)="openMenu()" color="secondary">
-            <ion-icon name="add"></ion-icon>
-        </button>
-    </ion-fab>
+    <!--<ion-fab bottom center>-->
+        <!--<button ion-fab mini (click)="openMenu()" color="secondary">-->
+            <!--<ion-icon name="add"></ion-icon>-->
+        <!--</button>-->
+    <!--</ion-fab>-->
 
     <ion-segment [(ngModel)]="pet">
         <ion-segment-button value="inicio">Início</ion-segment-button>
-        <ion-segment-button value="mensagens">Mensagens</ion-segment-button>
+        <!--<ion-segment-button value="mensagens">Mensagens</ion-segment-button>-->
     </ion-segment>
 
     <div [ngSwitch]="pet">
@@ -51,20 +51,20 @@
                     </ion-row>
                 </ion-card>
 
-                <button ion-button block large round class="btn-card" (click)="abrirProximosEventos()">Ver Próximos Eventos</button>
+                <button ion-button block round class="btn-card" (click)="abrirProximosEventos()">Ver Próximos Eventos</button>
             </ion-list>
 
-            <ion-list>
-                <ion-list-header>Grupos</ion-list-header>
-                <ion-item *ngFor="let item of userGroups" (click)="openGroup(item)">
-                    <ion-avatar item-start>
-                        <!--<img [src]="item.imgProfile" alt="">-->
-                        <ion-icon name="people"></ion-icon>
-                    </ion-avatar>
-                    <h2>{{item.name}}</h2>
-                    <p>{{item.notes}}</p>
-                </ion-item>
-            </ion-list>
+            <!--<ion-list>-->
+                <!--<ion-list-header>Grupos</ion-list-header>-->
+                <!--<ion-item *ngFor="let item of userGroups" (click)="openGroup(item)">-->
+                    <!--<ion-avatar item-start>-->
+                        <!--&lt;!&ndash;<img [src]="item.imgProfile" alt="">&ndash;&gt;-->
+                        <!--<ion-icon name="people"></ion-icon>-->
+                    <!--</ion-avatar>-->
+                    <!--<h2>{{item.name}}</h2>-->
+                    <!--<p>{{item.notes}}</p>-->
+                <!--</ion-item>-->
+            <!--</ion-list>-->
 
             <ion-list-header>Calendário</ion-list-header>
             <ion-item-group *ngFor="let item of nextWeekCalendarEvents">
@@ -76,192 +76,192 @@
                 <ion-item *ngIf="item.events_counter <= 0">Nenhum evento neste dia</ion-item>
             </ion-item-group>
 
-            <ion-list>
-                <ion-list-header>Feed de Notícias</ion-list-header>
-                <ion-segment [(ngModel)]="feed">
-                    <ion-segment-button value="geral">
-                        Geral
-                    </ion-segment-button>
-                    <ion-segment-button value="grupos">
-                        Grupos
-                    </ion-segment-button>
-                </ion-segment>
+            <!--<ion-list>-->
+                <!--<ion-list-header>Feed de Notícias</ion-list-header>-->
+                <!--<ion-segment [(ngModel)]="feed">-->
+                    <!--<ion-segment-button value="geral">-->
+                        <!--Geral-->
+                    <!--</ion-segment-button>-->
+                    <!--<ion-segment-button value="grupos">-->
+                        <!--Grupos-->
+                    <!--</ion-segment-button>-->
+                <!--</ion-segment>-->
 
-                <div [ngSwitch]="feed">
-                    <ion-list *ngSwitchCase="'geral'">
-                        <ion-item-sliding *ngFor="let item of feeds">
-                            <ion-item>
-                                <ion-avatar item-start>
-                                    <ion-icon name="{{item.icon}}" color="{{item.color}}"></ion-icon>
-                                </ion-avatar>
-                                <h2>{{item.title}}</h2>
-                                <p>{{item.description}}</p>
-                                <ion-note item-end>{{item.elapsed_time}}</ion-note>
-                            </ion-item>
-                            <ion-item-options>
-                                <button ion-button color="primary" icon-start (click)="boostFeed()">
-                                    <ion-icon name="jet"></ion-icon>
-                                    Impulsionar
-                                </button>
-                            </ion-item-options>
-                        </ion-item-sliding>
-                    </ion-list>
+                <!--<div [ngSwitch]="feed">-->
+                    <!--<ion-list *ngSwitchCase="'geral'">-->
+                        <!--<ion-item-sliding *ngFor="let item of feeds">-->
+                            <!--<ion-item>-->
+                                <!--<ion-avatar item-start>-->
+                                    <!--<ion-icon name="{{item.icon}}" color="{{item.color}}"></ion-icon>-->
+                                <!--</ion-avatar>-->
+                                <!--<h2>{{item.title}}</h2>-->
+                                <!--<p>{{item.description}}</p>-->
+                                <!--<ion-note item-end>{{item.elapsed_time}}</ion-note>-->
+                            <!--</ion-item>-->
+                            <!--<ion-item-options>-->
+                                <!--<button ion-button color="primary" icon-start (click)="boostFeed()">-->
+                                    <!--<ion-icon name="jet"></ion-icon>-->
+                                    <!--Impulsionar-->
+                                <!--</button>-->
+                            <!--</ion-item-options>-->
+                        <!--</ion-item-sliding>-->
+                    <!--</ion-list>-->
 
-                    <ion-list *ngSwitchCase="'grupos'">
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <ion-icon name="flame" color="secondary"></ion-icon>
-                            </ion-avatar>
-                            <h2>Pedido de Oração</h2>
-                            <p>Ore por minha família nessa semana</p>
-                            <ion-note item-end>20 min</ion-note>
-                        </ion-item>
-                    </ion-list>
-                </div>
-            </ion-list>
+                    <!--<ion-list *ngSwitchCase="'grupos'">-->
+                        <!--<ion-item>-->
+                            <!--<ion-avatar item-start>-->
+                                <!--<ion-icon name="flame" color="secondary"></ion-icon>-->
+                            <!--</ion-avatar>-->
+                            <!--<h2>Pedido de Oração</h2>-->
+                            <!--<p>Ore por minha família nessa semana</p>-->
+                            <!--<ion-note item-end>20 min</ion-note>-->
+                        <!--</ion-item>-->
+                    <!--</ion-list>-->
+                <!--</div>-->
+            <!--</ion-list>-->
 
-            <ion-list>
-                <ion-list-header>Atividades Recentes</ion-list-header>
-                <ion-segment [(ngModel)]="activities">
-                    <ion-segment-button value="usuarios">
-                        Usuários
-                    </ion-segment-button>
-                    <ion-segment-button value="grupos">
-                        Grupos
-                    </ion-segment-button>
-                    <ion-segment-button value="eventos">
-                        Eventos
-                    </ion-segment-button>
-                </ion-segment>
+            <!--<ion-list>-->
+                <!--<ion-list-header>Atividades Recentes</ion-list-header>-->
+                <!--<ion-segment [(ngModel)]="activities">-->
+                    <!--<ion-segment-button value="usuarios">-->
+                        <!--Usuários-->
+                    <!--</ion-segment-button>-->
+                    <!--<ion-segment-button value="grupos">-->
+                        <!--Grupos-->
+                    <!--</ion-segment-button>-->
+                    <!--<ion-segment-button value="eventos">-->
+                        <!--Eventos-->
+                    <!--</ion-segment-button>-->
+                <!--</ion-segment>-->
 
-                <div [ngSwitch]="activities">
-                    <ion-list *ngSwitchCase="'usuarios'">
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <ion-icon name="flame" color="secondary"></ion-icon>
-                            </ion-avatar>
-                            <h2>Pedido de Oração</h2>
-                            <p>Ore por minha família nessa semana</p>
-                            <ion-note item-end>20 min</ion-note>
-                        </ion-item>
+                <!--<div [ngSwitch]="activities">-->
+                    <!--<ion-list *ngSwitchCase="'usuarios'">-->
+                        <!--<ion-item>-->
+                            <!--<ion-avatar item-start>-->
+                                <!--<ion-icon name="flame" color="secondary"></ion-icon>-->
+                            <!--</ion-avatar>-->
+                            <!--<h2>Pedido de Oração</h2>-->
+                            <!--<p>Ore por minha família nessa semana</p>-->
+                            <!--<ion-note item-end>20 min</ion-note>-->
+                        <!--</ion-item>-->
 
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <ion-icon name="flash" color="danger"></ion-icon>
-                            </ion-avatar>
-                            <h2>Almoço comunitário</h2>
-                            <p>Teremos almoço comunitário nesse domingo. Não deixe de levar seu prato e aproveitar o tempo com os irmãos.</p>
-                            <ion-note item-end>24 min</ion-note>
-                        </ion-item>
+                        <!--<ion-item>-->
+                            <!--<ion-avatar item-start>-->
+                                <!--<ion-icon name="flash" color="danger"></ion-icon>-->
+                            <!--</ion-avatar>-->
+                            <!--<h2>Almoço comunitário</h2>-->
+                            <!--<p>Teremos almoço comunitário nesse domingo. Não deixe de levar seu prato e aproveitar o tempo com os irmãos.</p>-->
+                            <!--<ion-note item-end>24 min</ion-note>-->
+                        <!--</ion-item>-->
 
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <ion-icon name="megaphone"></ion-icon>
-                            </ion-avatar>
-                            <h2>Pedido de Oração</h2>
-                            <p>Ore pelo Brasil!</p>
-                            <ion-note item-end>30 min</ion-note>
-                        </ion-item>
+                        <!--<ion-item>-->
+                            <!--<ion-avatar item-start>-->
+                                <!--<ion-icon name="megaphone"></ion-icon>-->
+                            <!--</ion-avatar>-->
+                            <!--<h2>Pedido de Oração</h2>-->
+                            <!--<p>Ore pelo Brasil!</p>-->
+                            <!--<ion-note item-end>30 min</ion-note>-->
+                        <!--</ion-item>-->
 
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <ion-icon name="megaphone" color="secondary"></ion-icon>
-                            </ion-avatar>
-                            <h2>Novo usuário registrado</h2>
-                            <p>João da Silva</p>
-                            <ion-note item-end>40 min</ion-note>
-                        </ion-item>
+                        <!--<ion-item>-->
+                            <!--<ion-avatar item-start>-->
+                                <!--<ion-icon name="megaphone" color="secondary"></ion-icon>-->
+                            <!--</ion-avatar>-->
+                            <!--<h2>Novo usuário registrado</h2>-->
+                            <!--<p>João da Silva</p>-->
+                            <!--<ion-note item-end>40 min</ion-note>-->
+                        <!--</ion-item>-->
 
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <ion-icon name="add" color="warning"></ion-icon>
-                            </ion-avatar>
-                            <h2>Novo usuário registrado</h2>
-                            <p>João da Silva</p>
-                            <ion-note item-end>40 min</ion-note>
-                        </ion-item>
-                    </ion-list>
+                        <!--<ion-item>-->
+                            <!--<ion-avatar item-start>-->
+                                <!--<ion-icon name="add" color="warning"></ion-icon>-->
+                            <!--</ion-avatar>-->
+                            <!--<h2>Novo usuário registrado</h2>-->
+                            <!--<p>João da Silva</p>-->
+                            <!--<ion-note item-end>40 min</ion-note>-->
+                        <!--</ion-item>-->
+                    <!--</ion-list>-->
 
-                    <ion-list *ngSwitchCase="'grupos'">
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <ion-icon name="flame" color="secondary"></ion-icon>
-                            </ion-avatar>
-                            <h2>Pedido de Oração</h2>
-                            <p>Ore por minha família nessa semana</p>
-                            <ion-note item-end>20 min</ion-note>
-                        </ion-item>
-                    </ion-list>
+                    <!--<ion-list *ngSwitchCase="'grupos'">-->
+                        <!--<ion-item>-->
+                            <!--<ion-avatar item-start>-->
+                                <!--<ion-icon name="flame" color="secondary"></ion-icon>-->
+                            <!--</ion-avatar>-->
+                            <!--<h2>Pedido de Oração</h2>-->
+                            <!--<p>Ore por minha família nessa semana</p>-->
+                            <!--<ion-note item-end>20 min</ion-note>-->
+                        <!--</ion-item>-->
+                    <!--</ion-list>-->
 
-                    <ion-list *ngSwitchCase="'eventos'">
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <ion-icon name="flame" color="secondary"></ion-icon>
-                            </ion-avatar>
-                            <h2>Pedido de Oração</h2>
-                            <p>Ore por minha família nessa semana</p>
-                            <ion-note item-end>20 min</ion-note>
-                        </ion-item>
-                    </ion-list>
-                </div>
-            </ion-list>
+                    <!--<ion-list *ngSwitchCase="'eventos'">-->
+                        <!--<ion-item>-->
+                            <!--<ion-avatar item-start>-->
+                                <!--<ion-icon name="flame" color="secondary"></ion-icon>-->
+                            <!--</ion-avatar>-->
+                            <!--<h2>Pedido de Oração</h2>-->
+                            <!--<p>Ore por minha família nessa semana</p>-->
+                            <!--<ion-note item-end>20 min</ion-note>-->
+                        <!--</ion-item>-->
+                    <!--</ion-list>-->
+                <!--</div>-->
+            <!--</ion-list>-->
         </div>
 
-        <ion-list *ngSwitchCase="'mensagens'">
-            <ion-item>
-                <ion-avatar item-start>
-                    <img src="assets/img/user1.png">
-                </ion-avatar>
-                <h2>João</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis delectus eveniet iste perspiciatis quasi sint voluptas! Deleniti dolores eius incidunt modi mollitia quasi unde
-                    vel
-                    vero vitae. Eum, ipsum, tempore.</p>
-                <ion-note item-end>25/06/2019<br/>12:00</ion-note>
-            </ion-item>
+        <!--<ion-list *ngSwitchCase="'mensagens'">-->
+            <!--<ion-item>-->
+                <!--<ion-avatar item-start>-->
+                    <!--<img src="assets/img/user1.png">-->
+                <!--</ion-avatar>-->
+                <!--<h2>João</h2>-->
+                <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis delectus eveniet iste perspiciatis quasi sint voluptas! Deleniti dolores eius incidunt modi mollitia quasi unde-->
+                    <!--vel-->
+                    <!--vero vitae. Eum, ipsum, tempore.</p>-->
+                <!--<ion-note item-end>25/06/2019<br/>12:00</ion-note>-->
+            <!--</ion-item>-->
 
-            <ion-item>
-                <ion-avatar item-start>
-                    <img src="assets/img/user2.png">
-                </ion-avatar>
-                <h2>Gabriela</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id
-                    maiores
-                    necessitatibus nihil pariatur rerum voluptatem.</p>
-                <ion-note item-end>25/06/2019<br/>12:00</ion-note>
-            </ion-item>
+            <!--<ion-item>-->
+                <!--<ion-avatar item-start>-->
+                    <!--<img src="assets/img/user2.png">-->
+                <!--</ion-avatar>-->
+                <!--<h2>Gabriela</h2>-->
+                <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id-->
+                    <!--maiores-->
+                    <!--necessitatibus nihil pariatur rerum voluptatem.</p>-->
+                <!--<ion-note item-end>25/06/2019<br/>12:00</ion-note>-->
+            <!--</ion-item>-->
 
-            <ion-item>
-                <ion-avatar item-start>
-                    <img src="assets/img/user3.png">
-                </ion-avatar>
-                <h2>Rafael</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id
-                    maiores
-                    necessitatibus nihil pariatur rerum voluptatem.</p>
-                <ion-note item-end>25/06/2019<br/>12:00</ion-note>
-            </ion-item>
+            <!--<ion-item>-->
+                <!--<ion-avatar item-start>-->
+                    <!--<img src="assets/img/user3.png">-->
+                <!--</ion-avatar>-->
+                <!--<h2>Rafael</h2>-->
+                <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id-->
+                    <!--maiores-->
+                    <!--necessitatibus nihil pariatur rerum voluptatem.</p>-->
+                <!--<ion-note item-end>25/06/2019<br/>12:00</ion-note>-->
+            <!--</ion-item>-->
 
-            <ion-item>
-                <ion-avatar item-start>
-                    <img src="assets/img/user4.png">
-                </ion-avatar>
-                <h2>Ana</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id
-                    maiores
-                    necessitatibus nihil pariatur rerum voluptatem.</p>
-                <ion-note item-end>25/06/2019<br/>12:00</ion-note>
-            </ion-item>
+            <!--<ion-item>-->
+                <!--<ion-avatar item-start>-->
+                    <!--<img src="assets/img/user4.png">-->
+                <!--</ion-avatar>-->
+                <!--<h2>Ana</h2>-->
+                <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id-->
+                    <!--maiores-->
+                    <!--necessitatibus nihil pariatur rerum voluptatem.</p>-->
+                <!--<ion-note item-end>25/06/2019<br/>12:00</ion-note>-->
+            <!--</ion-item>-->
 
-            <ion-item>
-                <ion-avatar item-start>
-                    <img src="assets/img/user5.png">
-                </ion-avatar>
-                <h2>Lucas</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id
-                    maiores
-                    necessitatibus nihil pariatur rerum voluptatem.</p>
-                <ion-note item-end>25/06/2019<br/>12:00</ion-note>
-            </ion-item>
-        </ion-list>
+            <!--<ion-item>-->
+                <!--<ion-avatar item-start>-->
+                    <!--<img src="assets/img/user5.png">-->
+                <!--</ion-avatar>-->
+                <!--<h2>Lucas</h2>-->
+                <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at, beatae dignissimos doloremque illo nesciunt provident rerum similique? Aspernatur assumenda cumque dicta error id-->
+                    <!--maiores-->
+                    <!--necessitatibus nihil pariatur rerum voluptatem.</p>-->
+                <!--<ion-note item-end>25/06/2019<br/>12:00</ion-note>-->
+            <!--</ion-item>-->
+        <!--</ion-list>-->
     </div>
 </ion-content>

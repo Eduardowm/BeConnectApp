@@ -90,5 +90,15 @@
     <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
     <allow-navigation href="http://192.168.0.18:8100" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.0" />
+    <plugin name="cordova-plugin-mauron85-background-geolocation" spec="^2.3.5">
+        <variable name="GOOGLE_PLAY_SERVICES_VERSION" value="11+" />
+        <variable name="ANDROID_SUPPORT_LIBRARY_VERSION" value="23+" />
+        <variable name="ICON" value="@mipmap/icon" />
+        <variable name="SMALL_ICON" value="@mipmap/icon" />
+        <variable name="ACCOUNT_NAME" value="@string/app_name" />
+        <variable name="ACCOUNT_LABEL" value="@string/app_name" />
+        <variable name="ACCOUNT_TYPE" value="$PACKAGE_NAME.account" />
+        <variable name="CONTENT_AUTHORITY" value="$PACKAGE_NAME" />
+    </plugin>
     <engine name="android" spec="7.0.0" />
 </widget>

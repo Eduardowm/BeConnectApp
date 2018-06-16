@@ -1,99 +1,100 @@
 <ion-content>
-  <div class="logo">
-    <ion-img [src]="logo" [width]="logoWidth" [height]="logoHeight"></ion-img>
-  </div>
+    <div class="logo">
+        <ion-img [src]="logo" [width]="logoWidth" [height]="logoHeight"></ion-img>
+    </div>
 
-  <ion-slides>
-    <ion-slide>
-      <h1>Conectando pessoas a comunidades cristãs</h1>
-      <p>Seja a conexão</p>
-      <button ion-button color="primary" (click)="nextSlide()" block round>Vamos lá!</button>
-    </ion-slide>
+    <ion-slides>
+        <ion-slide>
+            <h1>Conectando pessoas a comunidades cristãs</h1>
+            <p>Seja a conexão</p>
+            <button ion-button color="primary" (click)="nextSlide()" block round>Vamos lá!</button>
+        </ion-slide>
 
-    <ion-slide>
-      <h1>Você já possui cadastro?</h1>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <button ion-button color="primary" (click)="hasRegister(true)" block round>Sim</button>
-          </ion-col>
-          <ion-col>
-            <button ion-button color="secondary" (click)="hasRegister(false)" block round>Não</button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-slide>
+        <ion-slide>
+            <h1>Você já possui cadastro?</h1>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <button ion-button color="primary" (click)="hasRegister(true)" block round>Sim</button>
+                    </ion-col>
+                    <ion-col>
+                        <button ion-button color="secondary" (click)="hasRegister(false)" block round>Não</button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
 
-    <ion-slide>
-      <ion-list>
-        <ion-item>
-          <ion-label stacked>Nome</ion-label>
-          <ion-input type="text" [(ngModel)]="name"></ion-input>
-        </ion-item>
+        <ion-slide>
+            <ion-list>
+                <ion-item>
+                    <ion-label stacked>Nome</ion-label>
+                    <ion-input type="text" [(ngModel)]="name"></ion-input>
+                </ion-item>
 
-        <ion-item>
-          <ion-label stacked>E-mail</ion-label>
-          <ion-input type="email" [(ngModel)]="email"></ion-input>
-        </ion-item>
+                <ion-item>
+                    <ion-label stacked>E-mail</ion-label>
+                    <ion-input type="email" [(ngModel)]="email"></ion-input>
+                </ion-item>
 
-        <ion-item>
-          <ion-label stacked>Telefone</ion-label>
-          <ion-input type="text" [(ngModel)]="phone"></ion-input>
-        </ion-item>
+                <ion-item>
+                    <ion-label stacked>Telefone</ion-label>
+                    <ion-input type="text" [(ngModel)]="phone"></ion-input>
+                </ion-item>
 
-        <ion-item padding-horizontal>
-          <ion-label stacked>Você é um membro ou um visitante?</ion-label>
-          <ion-select [(ngModel)]="type">
-            <ion-option>Membro</ion-option>
-            <ion-option>Visitante</ion-option>
-          </ion-select>
-        </ion-item>
+                <ion-item padding-horizontal>
+                    <ion-label stacked>Você é um membro ou um visitante?</ion-label>
+                    <ion-select [(ngModel)]="type">
+                        <ion-option>Membro</ion-option>
+                        <ion-option>Visitante</ion-option>
+                    </ion-select>
+                </ion-item>
 
-        <ion-item>
-          <ion-label (click)="openTerms()" z-index-top><a href="javascript:;">Li e aceito os termos de uso</a></ion-label>
-          <ion-checkbox [(ngModel)]="terms"></ion-checkbox>
-        </ion-item>
+                <ion-item>
+                    <ion-label (click)="openTerms()" z-index-top><a href="javascript:;">Li e aceito os termos de uso</a></ion-label>
+                    <ion-checkbox [(ngModel)]="terms"></ion-checkbox>
+                </ion-item>
 
-        <div padding>
-          <button ion-button color="primary" block round (click)="signup()">Cadastrar</button>
-        </div>
+                <div padding>
+                    <button ion-button color="primary" block round (click)="signup()">Cadastrar</button>
+                </div>
 
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <button color="facebook" ion-button block round>
-                <ion-icon name="logo-facebook"></ion-icon>
-              </button>
-            </ion-col>
-            <ion-col>
-              <button color="google" ion-button block round>
-                <ion-icon name="logo-google"></ion-icon>
-              </button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-list>
-    </ion-slide>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <button color="facebook" ion-button block round>
+                                <ion-icon name="logo-facebook"></ion-icon>
+                            </button>
+                        </ion-col>
+                        <ion-col>
+                            <button color="google" ion-button block round>
+                                <ion-icon name="logo-google"></ion-icon>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-list>
+        </ion-slide>
 
-    <ion-slide>
-      <h1>Qual é a sua igreja?</h1>
-      <ion-list>
-        <ion-searchbar
-                [(ngModel)]="churchSearch"
-                [showCancelButton]="churchSearchShouldShowCancel"
-                (ionInput)="onChurchSearchInput($event)"
-                (ionCancel)="onChurchSearchCancel($event)">
-        </ion-searchbar>
+        <ion-slide>
+            <h1>Qual é a sua igreja?</h1>
+            <ion-list>
+                <ion-searchbar
+                        [(ngModel)]="churchSearch"
+                        [showCancelButton]="churchSearchShouldShowCancel"
+                        (ionInput)="onChurchSearchInput($event)"
+                        (ionCancel)="onChurchSearchCancel($event)"
+                        placeholder="Buscar">
+                </ion-searchbar>
 
-        <ion-item *ngFor="let church of churchs" (click)="continueMember(church)">
-          <ion-thumbnail item-start>
-            <img src="assets/img/church2.png">
-          </ion-thumbnail>
-          <h2>{{church.name}}</h2>
-          <!--<p>Hayao Miyazaki • 1988</p>-->
-          <!--<button ion-button clear item-end>View</button>-->
-        </ion-item>
-      </ion-list>
-    </ion-slide>
-  </ion-slides>
+                <ion-item *ngFor="let church of items" (click)="continueMember(church)">
+                    <ion-thumbnail item-start>
+                        <img src="assets/img/church2.png">
+                    </ion-thumbnail>
+                    <h2>{{church.name}}</h2>
+                    <!--<p>Hayao Miyazaki • 1988</p>-->
+                    <!--<button ion-button clear item-end>View</button>-->
+                </ion-item>
+            </ion-list>
+        </ion-slide>
+    </ion-slides>
 </ion-content>

@@ -1,6 +1,11 @@
 <ion-header>
     <ion-navbar>
         <ion-title>Novo Evento</ion-title>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="viewCtrl.dismiss()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
@@ -9,74 +14,112 @@
         <ion-list>
             <ion-item padding-horizontal>
                 <ion-label stacked>Nome</ion-label>
-                <ion-input type="text" name="nome"></ion-input>
+                <ion-input type="text" name="nome" [(ngModel)]="data.name" name="name"></ion-input>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Frequência</ion-label>
-                <ion-select>
-                    <ion-option value="">Encontro Único</ion-option>
+                <ion-select [(ngModel)]="data.frequency" name="frequency">
+                    <ion-option value="Encontro Único">Encontro Único</ion-option>
+                    <ion-option value="Diário">Diário</ion-option>
+                    <ion-option value="Quinzenal">Quinzenal</ion-option>
+                    <ion-option value="Semanal">Semanal</ion-option>
+                    <ion-option value="Mensal">Mensal</ion-option>
                 </ion-select>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Data do Próximo/Primeiro Encontro</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY"></ion-datetime>
+                <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="data.eventDate" name="eventDate"></ion-datetime>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Dia Inteiro</ion-label>
-                <ion-checkbox></ion-checkbox>
+                <ion-checkbox [(ngModel)]="data.allDay" name="allDay"></ion-checkbox>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Término do Evento</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY"></ion-datetime>
+                <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="data.endEventDate" name="endEventDate"></ion-datetime>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Hora Inicio</ion-label>
+                <ion-datetime displayFormat="HH:mm" [(ngModel)]="data.startTime" name="startTime"></ion-datetime>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Hora Fim</ion-label>
+                <ion-datetime displayFormat="HH:mm" [(ngModel)]="data.endTime" name="endTime"></ion-datetime>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Pertence ao Grupo</ion-label>
-                <ion-select>
+                <ion-select [(ngModel)]="data.group_id" name="group">
                     <ion-option value="">Nenhum</ion-option>
+                    <ion-option *ngFor="let group of groups" [value]="group.id">{{group.name}}</ion-option>
                 </ion-select>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Descrição</ion-label>
-                <ion-textarea name="descricao"></ion-textarea>
+                <ion-textarea [(ngModel)]="data.description" name="description"></ion-textarea>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>CEP</ion-label>
-                <ion-input type="text" name="cep"></ion-input>
+                <ion-input type="text" name="zipCode" [(ngModel)]="data.zipCode"></ion-input>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Logradouro</ion-label>
-                <ion-input type="text" name="cep"></ion-input>
+                <ion-input type="text" name="street" [(ngModel)]="data.street"></ion-input>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Número</ion-label>
-                <ion-input type="text" name="cep"></ion-input>
+                <ion-input type="text" name="number" [(ngModel)]="data.number"></ion-input>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Bairro</ion-label>
-                <ion-input type="text" name="cep"></ion-input>
+                <ion-input type="text" name="neighborhood" [(ngModel)]="data.neighborhood"></ion-input>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Cidade</ion-label>
-                <ion-select>
-                    <ion-option value="">Nenhum</ion-option>
-                </ion-select>
+                <ion-input type="text" name="city" [(ngModel)]="data.city"></ion-input>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Estado</ion-label>
-                <ion-select>
-                    <ion-option value="">Nenhum</ion-option>
+                <ion-select name="state" [(ngModel)]="data.state">
+                    <ion-option value="">Selecione</ion-option>
+                    <ion-option value="AC">Acre</ion-option>
+                    <ion-option value="AL">Alagoas</ion-option>
+                    <ion-option value="AP">Amapá</ion-option>
+                    <ion-option value="AM">Amazonas</ion-option>
+                    <ion-option value="BA">Bahia</ion-option>
+                    <ion-option value="CE">Ceará</ion-option>
+                    <ion-option value="DF">Distrito Federal</ion-option>
+                    <ion-option value="ES">Espírito Santo</ion-option>
+                    <ion-option value="GO">Goías</ion-option>
+                    <ion-option value="MA">Maranhão</ion-option>
+                    <ion-option value="MT">Mato Grosso</ion-option>
+                    <ion-option value="MS">Mato Grosso do Sul</ion-option>
+                    <ion-option value="PB">Paraíba</ion-option>
+                    <ion-option value="PR">Paraná</ion-option>
+                    <ion-option value="PE">Pernambuco</ion-option>
+                    <ion-option value="PI">Piauí</ion-option>
+                    <ion-option value="RJ">Rio de Janeiro</ion-option>
+                    <ion-option value="RN">Rio Grande do Norte</ion-option>
+                    <ion-option value="RS">Rio Grande do Sul</ion-option>
+                    <ion-option value="RO">Rondônia</ion-option>
+                    <ion-option value="RR">Roraima</ion-option>
+                    <ion-option value="SC">Santa Catarina</ion-option>
+                    <ion-option value="SP">São Paulo</ion-option>
+                    <ion-option value="SE">Sergipe</ion-option>
+                    <ion-option value="TO">Tocantins</ion-option>
                 </ion-select>
             </ion-item>
 

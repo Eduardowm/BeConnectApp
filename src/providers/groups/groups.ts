@@ -23,6 +23,18 @@ export class Groups {
         });
     }
 
+    getInfo(id: any) {
+        return new Promise((resolve, reject) => {
+            this.api.get('getGroupInfo/' + id)
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
     people(groupId: number) {
         return new Promise((resolve, reject) => {
             this.api.get('group-people', groupId)

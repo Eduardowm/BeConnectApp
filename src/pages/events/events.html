@@ -13,7 +13,9 @@
 
 <ion-content class="cards-bg">
     <ion-fab bottom center>
-        <button ion-fab mini (click)="newEvent()" color="secondary"><ion-icon name="add"></ion-icon></button>
+        <button ion-fab mini (click)="newEvent()" color="secondary">
+            <ion-icon name="add"></ion-icon>
+        </button>
     </ion-fab>
 
     <ion-card class="adv-map" *ngFor="let item of nextEvents">
@@ -28,12 +30,15 @@
         <ion-item>
             <ion-icon color="subtle" large item-start name='flame'></ion-icon>
             <h2>{{item.name}}</h2>
-            <p>{{item.event_date}}</p>
+            <p>{{item.sub}} inscrito(s) - {{item.event_date}}</p>
+        </ion-item>
+        <ion-item *ngIf="item.has_group">
+            <ion-icon color="subtle" large item-start name='people'></ion-icon>
+            <h2>{{item.group.name}}</h2>
         </ion-item>
         <ion-item>
-            <ion-icon color="subtle" large item-start name='people'></ion-icon>
-            <h2>Grupo 1</h2>
-            <p>Luzerne Proença Arruda, 137 - Sorocaba</p>
+            <ion-icon color="subtle" large item-start name='flag'></ion-icon>
+            <p>{{item.street}}, {{item.number}} - {{item.city}}</p>
         </ion-item>
         <ion-item actions>
             <span ion-text item-start color="secondary" class="item-bold">18 min</span>
