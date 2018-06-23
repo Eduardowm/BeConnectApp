@@ -49,7 +49,7 @@ export class MyApp {
     ]
 
     constructor(private translate: TranslateService,
-                platform: Platform,
+                public platform: Platform,
                 settings: Settings,
                 private config: Config,
                 private statusBar: StatusBar,

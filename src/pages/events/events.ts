@@ -87,9 +87,23 @@ export class EventsPage {
         this.navCtrl.push('EventViewPage', {event: item});
     }
 
+    addEventMassCheckinButton(actionsheet, event) {
+        if (this.user.getRole() == 'Lider' || this.user.getRole() == 'Administrador') {
+            actionsheet.addButton(
+                {
+                    text: 'Checkin em Massa',
+                    icon: !this.platform.is('ios') ? 'checkmark-circle' : null,
+                    handler: () => {
+                        this.navCtrl.push('EventMassCheckinPage', {event});
+                    }
+                },
+            );
+        }
+    }
+
     openMenu(event) {
         if (event.check) {
-            this.actionsheetCtrl.create({
+            let as = this.actionsheetCtrl.create({
                 title: 'Ações',
                 cssClass: 'action-sheets-basic-page',
                 buttons: [
@@ -98,13 +112,6 @@ export class EventsPage {
                         icon: !this.platform.is('ios') ? 'share' : null,
                         handler: () => {
                             this.openShareMenu(event);
-                        }
-                    },
-                    {
-                        text: 'Checkin em Massa',
-                        icon: !this.platform.is('ios') ? 'checkmark-circle' : null,
-                        handler: () => {
-                            this.navCtrl.push('EventMassCheckinPage', {event});
                         }
                     },
                     {
@@ -120,9 +127,11 @@ export class EventsPage {
                         icon: !this.platform.is('ios') ? 'close' : null,
                     }
                 ]
-            }).present();
+            });
+            this.addEventMassCheckinButton(as, event);
+            as.present();
         } else {
-            this.actionsheetCtrl.create({
+            let as = this.actionsheetCtrl.create({
                 title: 'Ações',
                 cssClass: 'action-sheets-basic-page',
                 buttons: [
@@ -131,13 +140,6 @@ export class EventsPage {
                         icon: !this.platform.is('ios') ? 'share' : null,
                         handler: () => {
                             this.openShareMenu(event);
-                        }
-                    },
-                    {
-                        text: 'Checkin em Massa',
-                        icon: !this.platform.is('ios') ? 'checkmark-circle' : null,
-                        handler: () => {
-                            this.navCtrl.push('EventMassCheckinPage', {event});
                         }
                     },
                     {
@@ -153,7 +155,9 @@ export class EventsPage {
                         icon: !this.platform.is('ios') ? 'close' : null,
                     }
                 ]
-            }).present();
+            });
+            this.addEventMassCheckinButton(as, event);
+            as.present();
         }
     }
 

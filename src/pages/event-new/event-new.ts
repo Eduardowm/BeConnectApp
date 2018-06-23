@@ -81,7 +81,7 @@ export class EventNewPage {
                         duration: 3000,
                         position: 'top'
                     }).present();
-                    this.navCtrl.push('EventsPage');
+                    this.navCtrl.pop();
                 } else {
                     this.toastCtrl.create({
                         message: result.msg,

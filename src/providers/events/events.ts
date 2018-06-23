@@ -23,7 +23,7 @@ export class Events {
         });
     }
 
-    next(quantity: any = 5) {
+    next(quantity: any = 100) {
         return new Promise((resolve, reject) => {
             let churchId = this.user.getChurch();
             this.api.get('next-events/' + quantity + '/' + churchId)

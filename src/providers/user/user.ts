@@ -121,4 +121,8 @@ export class User {
     setChurch(v: any) {
         this._church = v;
     }
+
+    getRole() {
+        return this._role;
+    }
 }

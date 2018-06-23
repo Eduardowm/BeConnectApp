@@ -24,7 +24,7 @@
         </ion-searchbar>
 
         <ion-item *ngFor="let user of items">
-            <ion-toggle checked="{{user.check}}"></ion-toggle>
+            <ion-toggle [(ngModel)]="user.check"></ion-toggle>
             <ion-label>{{user.name}}</ion-label>
             <ion-icon name='body' item-start></ion-icon>
         </ion-item>

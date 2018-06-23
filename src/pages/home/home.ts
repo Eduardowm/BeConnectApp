@@ -18,7 +18,7 @@ export class HomePage {
     nextEvents: any;
     nextEvent: any = {
         "name": "Evento 1",
-        "event_date": "25/06/2019 - 00:00:00"
+        "event_date": "2019-06-25 00:00:00"
     };
 
     todayEvents: any;
@@ -336,7 +336,7 @@ export class HomePage {
          */
 
         for (let item of this.nextWeekEvents) {
-            let weekDay = this.datePipe.transform(item.event_date, 'EEEE');
+            let weekDay = this.toTitleCase(this.datePipe.transform(item.event_date, 'EEEE'));
             let object = null;
 
             for (let entry of tmp) {
@@ -349,18 +349,24 @@ export class HomePage {
             if (!object) {
                 object = {
                     week_day: weekDay,
-                    date: this.datePipe.transform(item.event_date, 'd/M/yy'),
+                    date: this.datePipe.transform(item.event_date, 'dd/MM/yy'),
                     events: [],
                     events_counter: 0
                 };
                 tmp.push(object);
             }
 
-            object.events.push(item.description);
+            object.events.push(item);
             object.events_counter++;
         }
 
         this.nextWeekCalendarEvents = tmp;
+    }
+
+    toTitleCase(str) {
+        return str.replace(/\w\S*/g, function(txt){
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
     }
 
     private getLocations(latitude, longitude) {
@@ -477,5 +483,9 @@ export class HomePage {
             .catch((error: any) => {
                 // this.toast.create({ message: 'Erro ao criar o usuário. Erro: ' + error.error, position: 'botton', duration: 3000 }).present();
             });
+    }
+
+    openEvent(item) {
+        this.navCtrl.push('EventViewPage', {event: item});
     }
 }

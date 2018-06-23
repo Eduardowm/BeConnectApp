@@ -153,8 +153,8 @@ export class CalendarPage {
         this.nextCalendarEvents = [];
 
         for (let item of this.nextEvents) {
-            let eventMonth = this.datePipe.transform(item.event_date, 'MMMM');
-            if (this.currentMonth == this.monthNames[this.getKeyByValue(this.usMonthNames, eventMonth)]) {
+            let eventMonth = this.toTitleCase(this.datePipe.transform(item.event_date, 'MMMM'));
+            if (this.currentMonth == eventMonth) { //this.monthNames[this.getKeyByValue(this.usMonthNames, eventMonth)]) {
                 tmp.push(item);
             }
         }
@@ -181,5 +181,11 @@ export class CalendarPage {
 
             object.events.push({id: item.id, name: item.name, time: this.datePipe.transform(item.event_date, 'HH:mm')});
         }
+    }
+
+    toTitleCase(str) {
+        return str.replace(/\w\S*/g, function(txt){
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
     }
 }

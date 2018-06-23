@@ -24,6 +24,11 @@ import {ModalTermsPage} from "../pages/modal-terms/modal-terms";
 import {SocialSharing} from "@ionic-native/social-sharing";
 import {DatePipe} from '@angular/common';
 import {BackgroundGeolocation} from '@ionic-native/background-geolocation';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import lcoalePt from '@angular/common/locales/pt';
+
+registerLocaleData(lcoalePt);
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -61,7 +66,12 @@ export function provideSettings(storage: Storage) {
                 deps: [HttpClient]
             }
         }),
-        IonicModule.forRoot(MyApp),
+        IonicModule.forRoot(MyApp, {
+            monthNames: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
+            monthShortNames: ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez' ],
+            dayNames: ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado' ],
+            dayShortNames: ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab' ],
+        }),
         IonicStorageModule.forRoot()
     ],
     bootstrap: [IonicApp],
@@ -87,7 +97,8 @@ export function provideSettings(storage: Storage) {
         AndroidPermissions,
         {provide: Settings, useFactory: provideSettings, deps: [Storage]},
         // Keep this to enable Ionic's runtime error handling during development
-        {provide: ErrorHandler, useClass: IonicErrorHandler}
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        { provide: LOCALE_ID, useValue: "pt" },
     ]
 })
 export class AppModule {

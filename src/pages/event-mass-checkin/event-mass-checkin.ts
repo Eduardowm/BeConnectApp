@@ -23,10 +23,10 @@ export class EventMassCheckinPage {
     subList: any = {
         status: true,
         people: [
-            {id: 0, event_id: 0, person_id: 0, name: "Hayao Miyazaki", check: true},
-            {id: 0, event_id: 0, person_id: 0, name: "Hayao Miyazaki", check: false},
-            {id: 0, event_id: 0, person_id: 0, name: "Hayao Miyazaki", check: true},
-            {id: 0, event_id: 0, person_id: 0, name: "Hayao Miyazaki", check: false},
+            // {id: 0, event_id: 0, person_id: 0, name: "Hayao Miyazaki", check: true},
+            // {id: 0, event_id: 0, person_id: 0, name: "Hayao Miyazaki", check: false},
+            // {id: 0, event_id: 0, person_id: 0, name: "Hayao Miyazaki", check: true},
+            // {id: 0, event_id: 0, person_id: 0, name: "Hayao Miyazaki", check: false},
         ]
     };
 
@@ -36,6 +36,7 @@ export class EventMassCheckinPage {
                 public toastCtrl: ToastController,
                 public events: Events) {
         this.event = navParams.get('event');
+        console.log(navParams.get('event'));
 
         this.loadSub();
     }
