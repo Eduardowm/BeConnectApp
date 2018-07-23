@@ -35,7 +35,7 @@ export class HomePage {
     currentDate: any;
 
     feeds: any = [
-        {
+        /*{
             icon: 'flame',
             color: 'secondary',
             title: 'Pedido de Oração',
@@ -69,7 +69,7 @@ export class HomePage {
             title: 'Novo usuário registrado',
             description: 'João da Silva',
             elapsed_time: '40 min'
-        },
+        },*/
     ];
 
     nextWeekEvents: any;
@@ -474,7 +474,7 @@ export class HomePage {
                     }).present();
                 } else {
                     this.toastCtrl.create({
-                        message: 'Não foi possível realizar o checkin.',
+                        message: (result.msg ? result.msg : 'Não foi possível realizar o checkin.'),
                         duration: 3000,
                         position: 'top'
                     }).present();

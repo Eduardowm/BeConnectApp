@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, LoadingController, NavController} from 'ionic-angular';
 import {ViewChild} from '@angular/core';
-import {Slides, ToastController, ModalController} from 'ionic-angular';
+import {Slides, ToastController, ModalController, Platform} from 'ionic-angular';
 import {NativeStorage} from "@ionic-native/native-storage";
 import {Churchs} from "../../providers/churchs/churchs";
 import {MainPage} from '../pages';
@@ -44,23 +44,27 @@ export class FirstPage {
                 public toastCtrl: ToastController,
                 public modalCtrl: ModalController,
                 public user: User,
-                public loadingCtrl: LoadingController) {
+                public loadingCtrl: LoadingController,
+                public platform: Platform) {
     }
 
     ionViewDidLoad() {
         this.slides.lockSwipes(true);
-        this.checarSessao();
 
         this._churchs.get().then((result: any) => {
             this.churchs = result;
             this.setItems();
         });
+
+        this.platform.ready().then((readySource) => {
+            this.checarSessao();
+        });
     }
 
     checarSessao() {
-        // this.nativeStorage.getItem('sessao').then(
-        //     data => this.navCtrl.push('LogarPage'),
-        // );
+        this.nativeStorage.getItem('sessao').then(
+            data => this.navCtrl.setRoot('LogarPage'),
+        );
     }
 
     hasRegister(register) {

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {IonicPage, LoadingController, NavController, ToastController} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, Platform, ToastController} from 'ionic-angular';
 
 import {User} from '../../providers/providers';
 import {MainPage} from '../pages';
@@ -33,11 +33,19 @@ export class LogarPage {
                 public translateService: TranslateService,
                 public loadingCtrl: LoadingController,
                 private nativeStorage: NativeStorage,
-                public _churchs: Churchs) {
+                public _churchs: Churchs,
+                public platform: Platform) {
 
         this.translateService.get('LOGIN_ERROR').subscribe((value) => {
             this.loginErrorString = value;
         });
+
+        if (!this.platform.is('cordova')) {
+            this.account.email = 'admin@admin.com';
+            this.account.password = 'secret';
+            this.account.church = 1;
+            this.doLogin();
+        }
 
         this.nativeStorage.getItem('login').then(
             data => this.account.email = data,
@@ -46,6 +54,14 @@ export class LogarPage {
 
         this.nativeStorage.getItem('church').then(
             data => this.account.church = data,
+            error => console.error(error)
+        );
+
+        this.nativeStorage.getItem('password').then(
+            data => {
+                this.account.password = data;
+                this.doLogin();
+            },
             error => console.error(error)
         );
 
@@ -85,6 +101,7 @@ export class LogarPage {
                             error => console.error('Error storing item', error)
                         );
                     this.nativeStorage.setItem('church', this.account.church);
+                    this.nativeStorage.setItem('password', this.account.password);
 
                     this.navCtrl.setRoot(MainPage);
                     this.navCtrl.popToRoot();

@@ -1,0 +1,54 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Minha Conta</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+    <img src="{{user.imgProfile}}" class="profile-img"/>
+
+    <ion-list>
+        <ion-item>
+            <ion-label stacked color="primary">Nome</ion-label>
+            <ion-input placeholder="Nome"[(ngModel)]="user.name" name="name" readonly></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-item>
+            <ion-label stacked color="primary">E-mail</ion-label>
+            <ion-input placeholder="E-mail"[(ngModel)]="user.email" name="email" type="email" readonly></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-item>
+            <ion-label stacked color="primary">Celular</ion-label>
+            <ion-input placeholder="Celular"[(ngModel)]="user.cel" name="cel" readonly></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-item>
+            <ion-label stacked color="primary">Telefone</ion-label>
+            <ion-input placeholder="Telefone"[(ngModel)]="user.tel" name="tel" readonly></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-item>
+            <ion-label stacked color="primary">Perfil</ion-label>
+            <ion-input placeholder="Perfil"[(ngModel)]="user.role" name="role" readonly></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <div padding>
+        <button ion-button round block (click)="changePassword()">Alterar Senha</button>
+    </div>
+</ion-content>

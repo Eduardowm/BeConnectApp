@@ -2,12 +2,15 @@ import {Component, ViewChild} from '@angular/core';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 import {TranslateService} from '@ngx-translate/core';
-import {Config, Nav, Platform} from 'ionic-angular';
+import {Config, Nav, Platform, AlertController, LoadingController} from 'ionic-angular';
 
-import {FirstRunPage} from '../pages/pages';
+import {FirstRunPage, MainPage} from '../pages/pages';
 import {Settings} from '../providers/providers';
 import {AndroidPermissions} from "@ionic-native/android-permissions";
-// import {OneSignal} from "@ionic-native/onesignal";
+import {OneSignal} from "@ionic-native/onesignal";
+import {Churchs} from "../providers/churchs/churchs";
+import {User} from "../providers/user/user";
+import {NativeStorage} from "@ionic-native/native-storage";
 
 @Component({
     template: `
@@ -15,6 +18,11 @@ import {AndroidPermissions} from "@ionic-native/android-permissions";
             <ion-header>
                 <ion-toolbar>
                     <ion-title>BeConnect</ion-title>
+                    <ion-buttons end>
+                        <button ion-button icon-only (click)="changeChurch()">
+                            <img src="assets/img/church_icon.png" class="church-icon" />
+                        </button>
+                    </ion-buttons>
                 </ion-toolbar>
             </ion-header>
 
@@ -39,6 +47,7 @@ export class MyApp {
 
     pages: any[] = [
         {title: 'Início', component: 'HomePage'},
+        {title: 'Minha Conta', component: 'ProfilePage'},
         {title: 'Eventos', component: 'EventsPage'},
         // {title: 'Grupos', component: 'GroupsPage'},
         {title: 'Calendário', component: 'CalendarPage'},
@@ -54,7 +63,13 @@ export class MyApp {
                 private config: Config,
                 private statusBar: StatusBar,
                 private splashScreen: SplashScreen,
-                private androidPermissions: AndroidPermissions) {
+                private androidPermissions: AndroidPermissions,
+                private oneSignal: OneSignal,
+                public alertCtrl: AlertController,
+                public _churchs: Churchs,
+                public loadingCtrl: LoadingController,
+                public user: User,
+                private nativeStorage: NativeStorage) {
         this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION, this.androidPermissions.PERMISSION.ACCESS_NOTIFICATION_POLICY]);
 
         // private oneSignal: OneSignal) {
@@ -63,6 +78,23 @@ export class MyApp {
             // Here you can do any higher level native things you might need.
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+
+            this.oneSignal.startInit('454e77f7-d525-4ade-af8d-6dc5e064e35d', '144808574070');
+            this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+            this.oneSignal.handleNotificationReceived().subscribe(() => {
+                // do something when notification is received
+            });
+            // this.oneSignal.handleNotificationOpened().subscribe((data) => {
+            // do something when a notification is opened
+            // this.nav.push('ValidarLeadPage', {
+            //     lead_id: data.notification.payload.additionalData.lead_id
+            // });
+            // });
+            this.oneSignal.endInit();
+
+            // this.oneSignal.addSubscriptionObserver().subscribe((state) => {
+            //     this.user.setPlayerId(state.to.userId);
+            // });
 
             // this.oneSignal.startInit('e0bbe73b-82e0-4566-a70f-cfbe584a3de4', '921803056883');
             // this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
@@ -116,6 +148,48 @@ export class MyApp {
     }
 
     exitApp() {
+        this.nativeStorage.remove('login');
+        this.nativeStorage.remove('church');
+        this.nativeStorage.remove('password');
         this.platform.exitApp();
+    }
+
+    changeChurch() {
+        let loading = this.loadingCtrl.create();
+        loading.present();
+
+        this._churchs.get()
+            .then((result: any) => {
+                loading.dismiss();
+
+                let alert = this.alertCtrl.create();
+                alert.setTitle('Qual igreja você deseja acessar?');
+
+                for (let church of result) {
+                    alert.addInput({
+                        type: 'radio',
+                        label: church.name,
+                        value: church.id,
+                        checked: (church.id == this.user.getChurch())
+                    });
+                }
+
+                alert.addButton('Cancelar');
+                alert.addButton({
+                    text: 'OK',
+                    handler: data => {
+                        if (data != this.user.getChurch()) {
+                            this.user.setChurch(data);
+                            this.nav.setRoot(MainPage);
+                            this.nav.popToRoot();
+                        }
+                    }
+                });
+                alert.present();
+            })
+            .catch((error: any) => {
+                loading.dismiss();
+                // this.toast.create({ message: 'Erro ao criar o usuário. Erro: ' + error.error, position: 'botton', duration: 3000 }).present();
+            });
     }
 }

@@ -21,7 +21,7 @@ export class CalendarPage {
 
     nextEvents: any = [];
     nextCalendarEvents: any = [
-        {
+        /*{
             date: '27 de Junho de 2018',
             events: [
                 {name: 'Evento 1', time: '12:00'},
@@ -34,7 +34,7 @@ export class CalendarPage {
                 {name: 'Evento 1', time: '12:00'},
                 {name: 'Evento 2', time: '12:00'},
             ]
-        },
+        },*/
     ];
 
     constructor(public navCtrl: NavController,

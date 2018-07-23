@@ -30,8 +30,8 @@
                     <!--<button ion-button outline round>Ver mais</button>-->
                     <!--</ion-badge>-->
                 </ion-list-header>
-                <ion-card (click)="abrirProximoEvento()">
-                    <img src="assets/img/church1.png">
+                <ion-card>
+                    <img src="assets/img/church1.png" (click)="abrirProximoEvento()">
                     <ion-card-content>
                         <ion-card-title>{{nextEvent.name}}</ion-card-title>
                         <p>
@@ -46,6 +46,12 @@
                             <button ion-button clear small color="danger" icon-start>
                                 <ion-icon name='star'></ion-icon>
                                 {{nextEvent.event_date | date: 'dd/MM/yy HH:mm'}}
+                            </button>
+                        </ion-col>
+                        <ion-col text-right>
+                            <button ion-button clear small color="secondary" icon-start (click)="checkin(nextEvent.id)">
+                                <ion-icon name='checkmark-circle-outline'></ion-icon>
+                                Checkin
                             </button>
                         </ion-col>
                     </ion-row>

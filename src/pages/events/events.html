@@ -29,7 +29,7 @@
         </div>
         <ion-item>
             <ion-icon color="subtle" large item-start name='flame'></ion-icon>
-            <h2>{{item.name}}</h2>
+            <h2 (click)="openEvent(item)">{{item.name}}</h2>
             <p>{{item.sub}} inscrito(s) - {{item.event_date}}</p>
         </ion-item>
         <ion-item *ngIf="item.has_group">

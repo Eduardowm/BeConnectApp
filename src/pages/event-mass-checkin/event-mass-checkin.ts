@@ -72,7 +72,7 @@ export class EventMassCheckinPage {
 
             for (let value of this.subList.people) {
                 if (value.check) {
-                    checkList.push(value.person_id);
+                    checkList.push(value.id);
                 }
             }
 

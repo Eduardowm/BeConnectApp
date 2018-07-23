@@ -19,7 +19,7 @@
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Frequência</ion-label>
-                <ion-select [(ngModel)]="data.frequency" name="frequency">
+                <ion-select [(ngModel)]="data.frequency" name="frequency" cancelText="Cancelar">
                     <ion-option value="Encontro Único">Encontro Único</ion-option>
                     <ion-option value="Diário">Diário</ion-option>
                     <ion-option value="Quinzenal">Quinzenal</ion-option>
@@ -30,7 +30,7 @@
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Data do Próximo/Primeiro Encontro</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="data.eventDate" name="eventDate"></ion-datetime>
+                <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="data.eventDate" name="eventDate" doneText="Ok" okText="Ok" cancelText="Cancelar" todayText="Hoje" nowText="Agora"></ion-datetime>
             </ion-item>
 
             <ion-item padding-horizontal>
@@ -40,22 +40,22 @@
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Término do Evento</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="data.endEventDate" name="endEventDate"></ion-datetime>
+                <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="data.endEventDate" name="endEventDate" doneText="Ok" okText="Ok" cancelText="Cancelar" todayText="Hoje" nowText="Agora"></ion-datetime>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Hora Inicio</ion-label>
-                <ion-datetime displayFormat="HH:mm" [(ngModel)]="data.startTime" name="startTime"></ion-datetime>
+                <ion-datetime displayFormat="HH:mm" [(ngModel)]="data.startTime" name="startTime" doneText="Ok" okText="Ok" cancelText="Cancelar" todayText="Hoje" nowText="Agora"></ion-datetime>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Hora Fim</ion-label>
-                <ion-datetime displayFormat="HH:mm" [(ngModel)]="data.endTime" name="endTime"></ion-datetime>
+                <ion-datetime displayFormat="HH:mm" [(ngModel)]="data.endTime" name="endTime" doneText="Ok" okText="Ok" cancelText="Cancelar" todayText="Hoje" nowText="Agora"></ion-datetime>
             </ion-item>
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Pertence ao Grupo</ion-label>
-                <ion-select [(ngModel)]="data.group_id" name="group">
+                <ion-select [(ngModel)]="data.group_id" name="group" cancelText="Cancelar">
                     <ion-option value="">Nenhum</ion-option>
                     <ion-option *ngFor="let group of groups" [value]="group.id">{{group.name}}</ion-option>
                 </ion-select>
@@ -93,7 +93,7 @@
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Estado</ion-label>
-                <ion-select name="state" [(ngModel)]="data.state">
+                <ion-select name="state" [(ngModel)]="data.state" cancelText="Cancelar">
                     <ion-option value="">Selecione</ion-option>
                     <ion-option value="AC">Acre</ion-option>
                     <ion-option value="AL">Alagoas</ion-option>

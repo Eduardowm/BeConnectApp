@@ -11,6 +11,7 @@ export class User {
     _user: any = 1;
     _church: any = 1;
     _role: any;
+    _userInfo: any;
 
     constructor(public api: Api, private oneSignal: OneSignal) {
     }
@@ -21,6 +22,7 @@ export class User {
                 .subscribe((result: any) => {
                         if (result.status) {
                             this._loggedIn(result, accountInfo);
+                            this._userInfo = result;
                         }
 
                         resolve(result);
@@ -93,6 +95,18 @@ export class User {
         });
     }
 
+    changePassword(data) {
+        return new Promise((resolve, reject) => {
+            this.api.post('change-password', {person_id: this.getUser(), password: data.nova_senha})
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
     /**
      * Log the user out, which forgets the session
      */
@@ -124,5 +138,9 @@ export class User {
 
     getRole() {
         return this._role;
+    }
+
+    getUserInfo() {
+        return this._userInfo;
     }
 }

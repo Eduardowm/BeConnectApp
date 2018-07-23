@@ -43,7 +43,7 @@
 
                 <ion-item padding-horizontal>
                     <ion-label stacked>Você é um membro ou um visitante?</ion-label>
-                    <ion-select [(ngModel)]="type">
+                    <ion-select [(ngModel)]="type" cancelText="Cancelar">
                         <ion-option>Membro</ion-option>
                         <ion-option>Visitante</ion-option>
                     </ion-select>
@@ -58,20 +58,20 @@
                     <button ion-button color="primary" block round (click)="signup()">Cadastrar</button>
                 </div>
 
-                <ion-grid>
-                    <ion-row>
-                        <ion-col>
-                            <button color="facebook" ion-button block round>
-                                <ion-icon name="logo-facebook"></ion-icon>
-                            </button>
-                        </ion-col>
-                        <ion-col>
-                            <button color="google" ion-button block round>
-                                <ion-icon name="logo-google"></ion-icon>
-                            </button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
+                <!--<ion-grid>-->
+                    <!--<ion-row>-->
+                        <!--<ion-col>-->
+                            <!--<button color="facebook" ion-button block round>-->
+                                <!--<ion-icon name="logo-facebook"></ion-icon>-->
+                            <!--</button>-->
+                        <!--</ion-col>-->
+                        <!--<ion-col>-->
+                            <!--<button color="google" ion-button block round>-->
+                                <!--<ion-icon name="logo-google"></ion-icon>-->
+                            <!--</button>-->
+                        <!--</ion-col>-->
+                    <!--</ion-row>-->
+                <!--</ion-grid>-->
             </ion-list>
         </ion-slide>
 
