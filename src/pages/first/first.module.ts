@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
+import {BrMaskerModule} from "brmasker-ionic-3";
 
 import { FirstPage } from './first';
 
@@ -10,7 +11,8 @@ import { FirstPage } from './first';
     ],
     imports: [
         IonicPageModule.forChild(FirstPage),
-        TranslateModule.forChild()
+        TranslateModule.forChild(),
+        BrMaskerModule
     ],
     exports: [
         FirstPage

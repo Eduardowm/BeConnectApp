@@ -30,7 +30,7 @@
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Data do Próximo/Primeiro Encontro</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="data.eventDate" name="eventDate" doneText="Ok" okText="Ok" cancelText="Cancelar" todayText="Hoje" nowText="Agora"></ion-datetime>
+                <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="DD MM YYYY" [(ngModel)]="data.eventDate" name="eventDate" doneText="Ok" okText="Ok" cancelText="Cancelar" todayText="Hoje" nowText="Agora"></ion-datetime>
             </ion-item>
 
             <ion-item padding-horizontal>
@@ -40,7 +40,7 @@
 
             <ion-item padding-horizontal>
                 <ion-label stacked>Término do Evento</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="data.endEventDate" name="endEventDate" doneText="Ok" okText="Ok" cancelText="Cancelar" todayText="Hoje" nowText="Agora"></ion-datetime>
+                <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="DD MM YYYY" [(ngModel)]="data.endEventDate" name="endEventDate" doneText="Ok" okText="Ok" cancelText="Cancelar" todayText="Hoje" nowText="Agora"></ion-datetime>
             </ion-item>
 
             <ion-item padding-horizontal>

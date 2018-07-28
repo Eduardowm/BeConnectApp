@@ -54,6 +54,14 @@ export class EventMassCheckinPage {
                     loading.dismiss();
 
                     this.subList = result;
+
+                    for (let person of this.subList.people) {
+                        if (!person.imgProfile.startsWith('http')) {
+                            person.imgProfile = 'https://beconnect.com.br/' + person.imgProfile;
+                        }
+                        console.log(person.imgProfile);
+                    }
+
                     this.setItems();
                 })
                 .catch((error: any) => {

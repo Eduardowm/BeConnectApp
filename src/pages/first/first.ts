@@ -134,7 +134,9 @@ export class FirstPage {
     continueVisitor() {
         // send signup as visitor
         let loading = this.loadingCtrl.create();
-        this.user.signup({dateBirth: this.dateBirth, name: this.name, cel: this.phone, email: this.email})
+        loading.present();
+
+        this.user.signup({dateBirth: this.dateBirth, name: this.name, cel: this.phone, email: this.email, role: "Visitante"})
             .then((resp: any) => {
                 loading.dismiss();
 
@@ -175,7 +177,9 @@ export class FirstPage {
 
         // send signup as member (pendent)
         let loading = this.loadingCtrl.create();
-        this.user.signup({dateBirth: this.dateBirth, name: this.name, cel: this.phone, email: this.email, church_id: church.id})
+        loading.present();
+
+        this.user.signup({dateBirth: this.dateBirth, name: this.name, cel: this.phone, email: this.email, church_id: church.id, role: "Membro"})
             .then((resp: any) => {
                 loading.dismiss();
 

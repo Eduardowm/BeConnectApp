@@ -4,6 +4,7 @@ import {Events} from "../../providers/events/events";
 import {User} from "../../providers/providers";
 import {DatePipe} from '@angular/common';
 import {BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse} from '@ionic-native/background-geolocation';
+import {LocationTrackerProvider} from "../../providers/location-tracker/location-tracker";
 
 @IonicPage()
 @Component({
@@ -137,7 +138,8 @@ export class HomePage {
                 public alertCtrl: AlertController,
                 public toastCtrl: ToastController,
                 private datePipe: DatePipe,
-                private backgroundGeolocation: BackgroundGeolocation) {
+                private backgroundGeolocation: BackgroundGeolocation,
+                public locationTracker: LocationTrackerProvider) {
         this.date = new Date();
         this.monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
         this.getDaysOfMonth();
@@ -170,7 +172,8 @@ export class HomePage {
             .then((result: any) => {
                 if (result.status) {
                     this.todayEvents = result;
-                    this.startBackgroundGeolocation();
+                    this.locationTracker.startTracking(result);
+                    // this.startBackgroundGeolocation();
                 }
             })
             .catch((error: any) => {
@@ -370,6 +373,7 @@ export class HomePage {
     }
 
     private getLocations(latitude, longitude) {
+        alert(latitude + " - " + longitude);
         let i = 0;
 
         while (i < this.todayEvents.coords.length) {
@@ -437,10 +441,10 @@ export class HomePage {
 
     private startBackgroundGeolocation() {
         const config: BackgroundGeolocationConfig = {
-            desiredAccuracy: 10,
+            desiredAccuracy: 0,
             stationaryRadius: 20,
-            distanceFilter: 50,
-            interval: 300000, //5 minutos
+            distanceFilter: 10,
+            interval: 2000, //5 minutos
             notificationTitle: 'Beconnect',
             notificationText: 'Monitorando localização',
             debug: false, //  enable this hear sounds for background-geolocation life-cycle.
