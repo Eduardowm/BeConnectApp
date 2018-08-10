@@ -61,7 +61,19 @@ export class User {
 
     forgotPassword(email: any) {
         return new Promise((resolve, reject) => {
-            this.api.post('forgot-password', {email: email})
+            this.api.get('recover-password/' + email, {})
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    getCode(code: any) {
+        return new Promise((resolve, reject) => {
+            this.api.get('get-code/' + code, {})
                 .subscribe((result: any) => {
                         resolve(result);
                     },
@@ -95,9 +107,9 @@ export class User {
         });
     }
 
-    changePassword(data) {
+    changePassword(person_id, password) {
         return new Promise((resolve, reject) => {
-            this.api.post('change-password', {person_id: this.getUser(), password: data.nova_senha})
+            this.api.post('change-password', {person_id, password})
                 .subscribe((result: any) => {
                         resolve(result);
                     },

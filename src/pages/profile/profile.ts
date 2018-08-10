@@ -75,7 +75,7 @@ export class ProfilePage {
         let loading = this.loadingCtrl.create();
         loading.present();
 
-        this.userApi.changePassword(data)
+        this.userApi.changePassword(this.userApi.getUser(), data.nova_senha)
             .then((result: any) => {
                 loading.dismiss();
 
@@ -85,6 +85,7 @@ export class ProfilePage {
                         duration: 3000,
                         position: 'top'
                     }).present();
+                    this.navCtrl.popToRoot();
                 } else {
                     this.toastCtrl.create({
                         message: result.msg,

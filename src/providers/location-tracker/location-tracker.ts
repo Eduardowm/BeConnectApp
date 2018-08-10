@@ -4,6 +4,7 @@ import {Geolocation, Geoposition} from '@ionic-native/geolocation';
 import 'rxjs/add/operator/filter';
 import {User} from "../user/user";
 import {ToastController} from "ionic-angular";
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @Injectable()
 export class LocationTrackerProvider {
@@ -16,7 +17,8 @@ export class LocationTrackerProvider {
                 private backgroundGeolocation: BackgroundGeolocation,
                 private geolocation: Geolocation,
                 public user: User,
-                public toastCtrl: ToastController) {
+                public toastCtrl: ToastController,
+                private localNotifications: LocalNotifications) {
     }
 
     startTracking(events) {
@@ -148,11 +150,13 @@ export class LocationTrackerProvider {
         this.user.checkin(coordEvent.event_id)
             .then((result: any) => {
                 if (result.status) {
-                    this.toastCtrl.create({
-                        message: 'Checkin realizado com sucesso!',
-                        duration: 3000,
-                        position: 'top'
-                    }).present();
+                    this.localNotifications.schedule({text: 'Checkin realizado com sucesso!'});
+
+                    // this.toastCtrl.create({
+                    //     message: 'Checkin realizado com sucesso!',
+                    //     duration: 3000,
+                    //     position: 'top'
+                    // }).present();
                 } else {
                     this.toastCtrl.create({
                         message: (result.msg ? result.msg : 'Não foi possível realizar o checkin.'),
