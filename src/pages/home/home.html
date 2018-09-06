@@ -45,7 +45,7 @@
                         <ion-col text-left>
                             <button ion-button clear small color="danger" icon-start>
                                 <ion-icon name='star'></ion-icon>
-                                {{nextEvent.event_date | date: 'dd/MM/yy HH:mm'}}
+                                {{nextEvent.event_date | dateFormat: 'DD/MM/YY HH:mm'}}
                             </button>
                         </ion-col>
                         <ion-col text-right>
@@ -80,7 +80,7 @@
                 </ion-item-divider>
                 <ion-item *ngFor="let subItem of item.events" (click)="openEvent(subItem)">
                     {{subItem.name}}
-                    <ion-badge item-end ion-text color="secondary">{{subItem.event_date | date: 'HH:mm'}}</ion-badge>
+                    <ion-badge item-end ion-text color="secondary">{{subItem.event_date | dateFormat: 'HH:mm'}}</ion-badge>
                 </ion-item>
                 <ion-item *ngIf="item.events_counter <= 0">Nenhum evento neste dia</ion-item>
             </ion-item-group>

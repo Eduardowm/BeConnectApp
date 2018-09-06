@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
-import {FirstRunPage} from "../pages";
+// import {FirstRunPage} from "../pages";
 import {User} from "../../providers/user/user";
 
 @IonicPage()

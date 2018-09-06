@@ -12,6 +12,9 @@ import {Churchs} from "../providers/churchs/churchs";
 import {User} from "../providers/user/user";
 import {NativeStorage} from "@ionic-native/native-storage";
 
+import firebaseConfig from '../app/firebase-config';
+import * as firebase from 'firebase';
+
 @Component({
     template: `
         <ion-menu [content]="content">
@@ -20,7 +23,7 @@ import {NativeStorage} from "@ionic-native/native-storage";
                     <ion-title>BeConnect</ion-title>
                     <ion-buttons end>
                         <button ion-button icon-only (click)="changeChurch()">
-                            <img src="assets/img/church_icon.png" class="church-icon" />
+                            <img src="assets/img/church_icon.png" class="church-icon"/>
                         </button>
                     </ion-buttons>
                 </ion-toolbar>
@@ -112,6 +115,8 @@ export class MyApp {
             // this.oneSignal.endInit();
         });
         this.initTranslate();
+
+        firebase.initializeApp(firebaseConfig);
     }
 
     initTranslate() {
@@ -148,6 +153,7 @@ export class MyApp {
     }
 
     exitApp() {
+        firebase.auth().signOut();
         this.nativeStorage.remove('login');
         this.nativeStorage.remove('church');
         this.nativeStorage.remove('password');

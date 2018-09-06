@@ -7,6 +7,8 @@ import {MainPage} from '../pages';
 import {NativeStorage} from "@ionic-native/native-storage";
 import {Churchs} from "../../providers/churchs/churchs";
 
+import * as firebase from 'firebase';
+
 @IonicPage()
 @Component({
     selector: 'page-logar',
@@ -15,14 +17,17 @@ import {Churchs} from "../../providers/churchs/churchs";
 export class LogarPage {
     churchs: any;
 
-    account: { email: string, password: string, church: any } = {
+    account: { email: string, password: string, church: any, token: any } = {
         // email: 'admin@admin.com',
         // password: 'secret',
         // church: 1
         email: '',
         password: '',
-        church: 1
+        church: 1,
+        token: null
     };
+
+    waitingLoginSocial: boolean = false;
 
     // Our translated text strings
     private loginErrorString: string;
@@ -44,7 +49,7 @@ export class LogarPage {
             this.account.email = 'admin@admin.com';
             this.account.password = 'secret';
             this.account.church = 1;
-            this.doLogin();
+            // this.doLogin();
         }
 
         this.nativeStorage.getItem('login').then(
@@ -65,6 +70,10 @@ export class LogarPage {
             error => console.error(error)
         );
 
+        this.nativeStorage.getItem('waiting-login-social').then(data => {
+            this.waitingLoginSocial = true;
+        });
+
         let loading = this.loadingCtrl.create();
         loading.present();
 
@@ -82,6 +91,10 @@ export class LogarPage {
                 loading.dismiss();
                 // this.toast.create({ message: 'Erro ao criar o usuário. Erro: ' + error.error, position: 'botton', duration: 3000 }).present();
             });
+    }
+
+    ionViewDidLoad() {
+        this.firebaseInit();
     }
 
     // Attempt to login in through our User service
@@ -127,36 +140,150 @@ export class LogarPage {
                 });
                 toast.present();
             });
-
-        // this.user.login(this.account).subscribe((resp: any) => {
-        //     loading.dismiss();
-        //
-        //     if (resp.sucesso) {
-        //         this.nativeStorage.setItem('login', this.account.email);
-        //         this.navCtrl.push(MainPage);
-        //     } else {
-        //         let toast = this.toastCtrl.create({
-        //             message: resp.mensagem,
-        //             duration: 3000,
-        //             position: 'top'
-        //         });
-        //         toast.present();
-        //     }
-        // }, (err) => {
-        //     loading.dismiss();
-        //
-        //     this.navCtrl.push(MainPage);
-        //     // Unable to log in
-        //     let toast = this.toastCtrl.create({
-        //         message: this.loginErrorString,
-        //         duration: 3000,
-        //         position: 'top'
-        //     });
-        //     toast.present();
-        // });
     }
 
     forgotPassword() {
         this.navCtrl.push('ForgotPasswordPage');
     }
+
+    loginFacebook() {
+        let that = this;
+
+        firebase.auth().signOut()
+            .then(() => {
+                this.nativeStorage.setItem('waiting-login-social', true);
+
+                const provider = new firebase.auth.FacebookAuthProvider();
+                provider.addScope('public_profile');
+
+                firebase.auth().signInWithRedirect(provider).then(function () {
+                    return firebase.auth().getRedirectResult();
+                }).then(function (result) {
+                    console.log("loginFacebook: ", result);
+                    that.loginSocial(result.user);
+
+                }).catch(function (error) {
+                    // Handle Errors here.
+                    // var errorCode = error.code;
+                    // var errorMessage = error.message;
+                });
+            });
+    }
+
+    loginGoogle() {
+        let that = this;
+
+        firebase.auth().signOut()
+            .then(() => {
+                this.nativeStorage.setItem('waiting-login-social', true);
+
+                const provider = new firebase.auth.GoogleAuthProvider();
+                provider.addScope('profile');
+                provider.addScope('email');
+
+                // firebase.auth().signInWithRedirect(provider)
+                //     .then(() => {
+                // });
+
+                firebase.auth().signInWithRedirect(provider).then(function () {
+                    return firebase.auth().getRedirectResult();
+                }).then(function (result) {
+                    console.log("loginGoogle: ", result);
+                    that.loginSocial(result.user);
+
+                    // This gives you a Google Access Token.
+                    // You can use it to access the Google API.
+                    // var token = result.credential.accessToken;
+                    // The signed-in user info.
+                    // var user = result.user;
+                    // ...
+                }).catch(function (error) {
+                    // Handle Errors here.
+                    // var errorCode = error.code;
+                    // var errorMessage = error.message;
+                });
+            });
+    }
+
+    logout() {
+        firebase.auth().signOut()
+            .then(() => {
+            });
+    }
+
+    firebaseLoginResult() {
+        let that = this;
+
+        if (this.waitingLoginSocial) {
+            let loading = this.loadingCtrl.create();
+            loading.present();
+
+            firebase.auth().onAuthStateChanged((user) => {
+                console.log("firebaseLoginResult", user);
+                // displayName, email, emailVerified, phoneNumber, photoURL, uid
+
+                if (user) {
+                    that.loginSocial(user);
+                    loading.dismiss();
+                } else {
+                    loading.dismiss();
+                    this.toastCtrl.create({
+                        message: 'Não foi possível autenticar seu usuário.',
+                        duration: 3000,
+                        position: 'top'
+                    }).present();
+                }
+            })
+        }
+    }
+
+    firebaseInit() {
+        this.firebaseLoginResult();
+    }
+
+    loginSocial(user) {
+        this.nativeStorage.remove('waiting-login-social');
+
+        // this.user.loginSocial({name: user.displayName, email: user.email, phone: user.phoneNumber, picture_url: user.photoURL, token: user.uid})
+        this.account.token = user.uid;
+        this.user.login(this.account)
+            .then((resp: any) => {
+                if (resp.status) {
+                    this.nativeStorage.setItem('sessao', true);
+                    this.nativeStorage.setItem('login', this.account.email)
+                        .then(
+                            () => console.log('Stored item!'),
+                            error => console.error('Error storing item', error)
+                        );
+                    this.nativeStorage.setItem('church', this.account.church);
+                    this.nativeStorage.setItem('password', this.account.password);
+
+                    this.navCtrl.setRoot(MainPage);
+                    this.navCtrl.popToRoot();
+                } else {
+                    this.toastCtrl.create({
+                        message: 'Não foi possível acessar utilizando os dados informados.',
+                        duration: 3000,
+                        position: 'top'
+                    }).present();
+                }
+            })
+            .catch((error: any) => {
+                this.navCtrl.setRoot(MainPage);
+                this.navCtrl.popToRoot();
+                // this.navCtrl.push(MainPage);
+                // Unable to log in
+                let toast = this.toastCtrl.create({
+                    message: this.loginErrorString,
+                    duration: 3000,
+                    position: 'top'
+                });
+                toast.present();
+            });
+
+        // this.auth.user.name = user.displayName;
+        // this.auth.user.photo = user.photoURL;
+        // this.navCtrl.setRoot(HomePage);
+    }
+
 }

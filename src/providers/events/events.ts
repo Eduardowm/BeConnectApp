@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 
-import {Event} from '../../models/event';
+// import {Event} from '../../models/event';
 import {Api} from '../api/api';
-import {HttpHeaders} from "@angular/common/http";
+// import {HttpHeaders} from "@angular/common/http";
 import {User} from "../../providers/user/user";
 
 @Injectable()
@@ -51,7 +51,7 @@ export class Events {
 
     today() {
         return new Promise((resolve, reject) => {
-            let churchId = this.user.getChurch();
+            // let churchId = this.user.getChurch();
             this.api.get('today-events/' + this.user.getUser())
                 .subscribe((result: any) => {
                         resolve(result);
@@ -64,7 +64,7 @@ export class Events {
 
     isCheck(eventId: any) {
         return new Promise((resolve, reject) => {
-            let churchId = this.user.getChurch();
+            // let churchId = this.user.getChurch();
             this.api.get('is-check/' + eventId + '/' + this.user.getUser())
                 .subscribe((result: any) => {
                         resolve(result);
@@ -77,7 +77,7 @@ export class Events {
 
     new(data: any) {
         return new Promise((resolve, reject) => {
-            let churchId = this.user.getChurch();
+            // let churchId = this.user.getChurch();
             this.api.post('store-event/' + this.user.getUser(), data)
                 .subscribe((result: any) => {
                         resolve(result);
@@ -90,7 +90,7 @@ export class Events {
 
     saveMassCheckin(checkList: any, eventId: any) {
         return new Promise((resolve, reject) => {
-            let churchId = this.user.getChurch();
+            // let churchId = this.user.getChurch();
             this.api.post('checkin-all', {people: checkList, id: eventId})
                 .subscribe((result: any) => {
                         resolve(result);
@@ -103,7 +103,7 @@ export class Events {
 
     getSubList(eventId: any) {
         return new Promise((resolve, reject) => {
-            let churchId = this.user.getChurch();
+            // let churchId = this.user.getChurch();
             this.api.get('event-list-sub/' + eventId, {}
                 // ,{
                 // headers: new HttpHeaders()

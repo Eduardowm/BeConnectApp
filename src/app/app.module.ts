@@ -28,9 +28,10 @@ import {Geolocation} from '@ionic-native/geolocation';
 import {LOCALE_ID} from '@angular/core';
 import {registerLocaleData} from '@angular/common';
 import lcoalePt from '@angular/common/locales/pt';
-import {BrMaskerModule} from "brmasker-ionic-3";
+// import {BrMaskerModule} from "brmasker-ionic-3";
 import {LocationTrackerProvider} from '../providers/location-tracker/location-tracker';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import {DateFormatPipe} from "../pipes/date-format/date-format";
 
 registerLocaleData(lcoalePt);
 
@@ -106,6 +107,7 @@ export function provideSettings(storage: Storage) {
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         {provide: LOCALE_ID, useValue: "pt"},
         LocationTrackerProvider,
+        DateFormatPipe
     ]
 })
 export class AppModule {

@@ -3,8 +3,6 @@ import 'rxjs/add/operator/toPromise';
 import {Injectable} from '@angular/core';
 
 import {Api} from '../api/api';
-import {HttpHeaders} from "@angular/common/http";
-import {OneSignal} from "@ionic-native/onesignal";
 
 @Injectable()
 export class User {
@@ -13,7 +11,7 @@ export class User {
     _role: any;
     _userInfo: any;
 
-    constructor(public api: Api, private oneSignal: OneSignal) {
+    constructor(public api: Api) {
     }
 
     login(accountInfo: any) {
@@ -35,7 +33,7 @@ export class User {
 
     signup(data: any) {
         return new Promise((resolve, reject) => {
-            let personId = this._user;
+            // let personId = this._user;
             this.api.post('store-person', data)
                 .subscribe((result: any) => {
                         resolve(result);

@@ -3,7 +3,7 @@ import {ActionSheetController, AlertController, IonicPage, LoadingController, Na
 import {Events} from "../../providers/events/events";
 import {User} from "../../providers/providers";
 import {DatePipe} from '@angular/common';
-import {BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse} from '@ionic-native/background-geolocation';
+// import {BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse} from '@ionic-native/background-geolocation';
 import {LocationTrackerProvider} from "../../providers/location-tracker/location-tracker";
 
 @IonicPage()
@@ -138,7 +138,7 @@ export class HomePage {
                 public alertCtrl: AlertController,
                 public toastCtrl: ToastController,
                 private datePipe: DatePipe,
-                private backgroundGeolocation: BackgroundGeolocation,
+                // private backgroundGeolocation: BackgroundGeolocation,
                 public locationTracker: LocationTrackerProvider) {
         this.date = new Date();
         this.monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
@@ -372,100 +372,100 @@ export class HomePage {
         });
     }
 
-    private getLocations(latitude, longitude) {
-        alert(latitude + " - " + longitude);
-        let i = 0;
+    // private getLocations(latitude, longitude) {
+    //     alert(latitude + " - " + longitude);
+    //     let i = 0;
+    //
+    //     while (i < this.todayEvents.coords.length) {
+    //         //Se a latitude do usuário for igual a latitude do evento,
+    //         // e se a longitude for igual a longitude do evento
+    //         if (latitude == this.todayEvents.coords[i].lat && longitude == this.todayEvents.coords[i].lng) {
+    //             let start = this.todayEvents.coords[i].startTime; //Horário de inicio do evento
+    //             let start_hour = start.charAt(0) + start.charAt(1); //Hora de inicio do evento
+    //             let start_minutes = start.charAt(3) + start.charAt(4); //Minuto de inicio do evento
+    //             let end = this.todayEvents.coords[i].endTime; //Hora de término do evento (Pode estar em branco)
+    //             let date = new Date(); //object date
+    //             let hour = date.getHours(); //Hora Atual
+    //             let minutes = date.getMinutes(); //Minuto Atual
+    //
+    //             // Se a hora atual for igual ao começo do evento, e alguns minutos após o início do evento
+    //             if (hour == start_hour && minutes >= start_minutes) {
+    //                 this.checkin(this.todayEvents.coords[i].event_id);
+    //             }
+    //
+    //             // Se a hora atual for maior que a hora de início do evento
+    //             else if (hour > start_hour) {
+    //                 // Se não houver término previsto
+    //                 if (end == "") {
+    //                     this.checkin(this.todayEvents.coords[i].event_id);
+    //                 } else {
+    //                     // Separa a hora final
+    //                     let end_hour = end.charAt(0) + end.charAt(1);
+    //
+    //                     // Separa o minuto final
+    //                     let end_minutes = end.charAt(3) + end.charAt(4);
+    //
+    //                     // Se a hora atual for menor que a hora de término
+    //                     if (hour < end_hour) {
+    //                         this.checkin(this.todayEvents.coords[i].event_id);
+    //                     }
+    //
+    //                     // Na hora final alguns minutos antes
+    //                     else if (hour == end_hour && minutes <= end_minutes) {
+    //                         this.checkin(this.todayEvents.coords[i].event_id);
+    //                     }
+    //
+    //                     // Na hora final do evento, porem alguns minutos depois do término
+    //                     // ou
+    //                     // algumas horas depois do fim,
+    //
+    //                     // Pode retirar este 'else if', foi só para teste e deixar o código mais claro
+    //                     // else if (hour == end_hour && minutes > end_minutes || hour > end_hour) {
+    //                     //     console.log('check-in negado');
+    //                     // }
+    //                 }
+    //             }
+    //
+    //             // Antes da hora correta
+    //
+    //             // Pode retirar este 'else', foi só para teste e deixar o código mais claro
+    //             // else {
+    //             //     console.log('check-in negado');
+    //             // }
+    //
+    //         }
+    //
+    //         i++;
+    //     }
+    // }
 
-        while (i < this.todayEvents.coords.length) {
-            //Se a latitude do usuário for igual a latitude do evento,
-            // e se a longitude for igual a longitude do evento
-            if (latitude == this.todayEvents.coords[i].lat && longitude == this.todayEvents.coords[i].lng) {
-                let start = this.todayEvents.coords[i].startTime; //Horário de inicio do evento
-                let start_hour = start.charAt(0) + start.charAt(1); //Hora de inicio do evento
-                let start_minutes = start.charAt(3) + start.charAt(4); //Minuto de inicio do evento
-                let end = this.todayEvents.coords[i].endTime; //Hora de término do evento (Pode estar em branco)
-                let date = new Date(); //object date
-                let hour = date.getHours(); //Hora Atual
-                let minutes = date.getMinutes(); //Minuto Atual
-
-                // Se a hora atual for igual ao começo do evento, e alguns minutos após o início do evento
-                if (hour == start_hour && minutes >= start_minutes) {
-                    this.checkin(this.todayEvents.coords[i].event_id);
-                }
-
-                // Se a hora atual for maior que a hora de início do evento
-                else if (hour > start_hour) {
-                    // Se não houver término previsto
-                    if (end == "") {
-                        this.checkin(this.todayEvents.coords[i].event_id);
-                    } else {
-                        // Separa a hora final
-                        let end_hour = end.charAt(0) + end.charAt(1);
-
-                        // Separa o minuto final
-                        let end_minutes = end.charAt(3) + end.charAt(4);
-
-                        // Se a hora atual for menor que a hora de término
-                        if (hour < end_hour) {
-                            this.checkin(this.todayEvents.coords[i].event_id);
-                        }
-
-                        // Na hora final alguns minutos antes
-                        else if (hour == end_hour && minutes <= end_minutes) {
-                            this.checkin(this.todayEvents.coords[i].event_id);
-                        }
-
-                        // Na hora final do evento, porem alguns minutos depois do término
-                        // ou
-                        // algumas horas depois do fim,
-
-                        // Pode retirar este 'else if', foi só para teste e deixar o código mais claro
-                        // else if (hour == end_hour && minutes > end_minutes || hour > end_hour) {
-                        //     console.log('check-in negado');
-                        // }
-                    }
-                }
-
-                // Antes da hora correta
-
-                // Pode retirar este 'else', foi só para teste e deixar o código mais claro
-                // else {
-                //     console.log('check-in negado');
-                // }
-
-            }
-
-            i++;
-        }
-    }
-
-    private startBackgroundGeolocation() {
-        const config: BackgroundGeolocationConfig = {
-            desiredAccuracy: 0,
-            stationaryRadius: 20,
-            distanceFilter: 10,
-            interval: 2000, //5 minutos
-            notificationTitle: 'Beconnect',
-            notificationText: 'Monitorando localização',
-            debug: false, //  enable this hear sounds for background-geolocation life-cycle.
-            stopOnTerminate: false, // enable this to clear background location settings when the app terminates
-        };
-
-        this.backgroundGeolocation.configure(config)
-            .subscribe((location: BackgroundGeolocationResponse) => {
-                this.getLocations(location.latitude, location.longitude);
-                // IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
-                // and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
-                // IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
-                //this.backgroundGeolocation.finish(); // FOR IOS ONLY
-            });
-
-        // start recording location
-        this.backgroundGeolocation.start();
-
-        // If you wish to turn OFF background-tracking, call the #stop method.
-        //this.backgroundGeolocation.stop();
-    }
+    // private startBackgroundGeolocation() {
+    //     const config: BackgroundGeolocationConfig = {
+    //         desiredAccuracy: 0,
+    //         stationaryRadius: 20,
+    //         distanceFilter: 10,
+    //         interval: 2000, //5 minutos
+    //         notificationTitle: 'Beconnect',
+    //         notificationText: 'Monitorando localização',
+    //         debug: false, //  enable this hear sounds for background-geolocation life-cycle.
+    //         stopOnTerminate: false, // enable this to clear background location settings when the app terminates
+    //     };
+    //
+    //     this.backgroundGeolocation.configure(config)
+    //         .subscribe((location: BackgroundGeolocationResponse) => {
+    //             this.getLocations(location.latitude, location.longitude);
+    //             // IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
+    //             // and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
+    //             // IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
+    //             //this.backgroundGeolocation.finish(); // FOR IOS ONLY
+    //         });
+    //
+    //     // start recording location
+    //     this.backgroundGeolocation.start();
+    //
+    //     // If you wish to turn OFF background-tracking, call the #stop method.
+    //     //this.backgroundGeolocation.stop();
+    // }
 
     checkin(eventId) {
         this.user.checkin(eventId)
