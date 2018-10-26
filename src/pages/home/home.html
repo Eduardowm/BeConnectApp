@@ -1,11 +1,16 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>BeConnect</ion-title>
-        <ion-buttons end>
+        <ion-buttons start>
             <button ion-button icon-only menuToggle>
-                <ion-icon name="menu"></ion-icon>
+                <img src="assets/img/logo.png" class="header-icon"/>
             </button>
         </ion-buttons>
+
+        <!--<ion-title text-center>Mesas</ion-title>-->
+
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
     </ion-navbar>
 </ion-header>
 
@@ -17,7 +22,7 @@
     <!--</ion-fab>-->
 
     <ion-segment [(ngModel)]="pet">
-        <ion-segment-button value="inicio">Início</ion-segment-button>
+        <!--<ion-segment-button value="inicio">Início</ion-segment-button>-->
         <!--<ion-segment-button value="mensagens">Mensagens</ion-segment-button>-->
     </ion-segment>
 
@@ -57,7 +62,7 @@
                     </ion-row>
                 </ion-card>
 
-                <button ion-button block round class="btn-card" (click)="abrirProximosEventos()">Eventos</button>
+                <button ion-button block round class="btn-card" (click)="abrirProximosEventos()">Ver Mais Eventos</button>
             </ion-list>
 
             <!--<ion-list>-->

@@ -31,7 +31,7 @@ export class ProfilePage {
                 public loadingCtrl: LoadingController,
                 public toastCtrl: ToastController) {
         this.user = userApi.getUserInfo();
-        this.user.imgProfile = 'https://beconnect.com.br/' + this.user.imgProfile;
+        // this.user.imgProfile = 'https://beconnect.com.br/' + this.user.imgProfile;
     }
 
     ionViewDidLoad() {

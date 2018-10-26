@@ -30,11 +30,24 @@ import * as firebase from 'firebase';
             </ion-header>
 
             <ion-content>
+                <ion-grid class="avatar-box" *ngIf="user.getUserInfo()">
+                    <ion-row>
+                        <ion-col col-12>
+                            <img [src]="user.getUserInfo().imgProfile" class="avatar-img" *ngIf="user.getUserInfo().imgProfile"/>
+                            <img src="../assets/img/default-avatar.png" class="avatar-img" *ngIf="!user.getUserInfo().imgProfile"/>
+                            <p class="avatar-title">{{user.getUserInfo().name}}</p>
+                            <p class="avatar-email">{{user.getUserInfo().email}}</p>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                
                 <ion-list>
-                    <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+                    <button menuClose ion-item *ngFor="let p of pages" menuItem (click)="openPage(p)">
+                        <ion-icon name="{{p.icon}}"></ion-icon>
                         {{p.title}}
                     </button>
-                    <button menuClose ion-item (click)="exitApp()">
+                    <button menuClose ion-item menuItem (click)="exitApp()">
+                        <ion-icon name="exit"></ion-icon>
                         Sair
                     </button>
                 </ion-list>
@@ -49,16 +62,16 @@ export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
     pages: any[] = [
-        {title: 'Início', component: 'HomePage'},
-        {title: 'Minha Conta', component: 'ProfilePage'},
-        {title: 'Eventos', component: 'EventsPage'},
+        {title: 'Início', component: 'HomePage', icon: 'home'},
+        {title: 'Minha Conta', component: 'ProfilePage', icon: 'contact'},
+        {title: 'Eventos', component: 'EventsPage', icon: 'ice-cream'},
         // {title: 'Grupos', component: 'GroupsPage'},
-        {title: 'Calendário', component: 'CalendarPage'},
+        {title: 'Calendário', component: 'CalendarPage', icon: 'calendar'},
         // {title: 'Feed de Notícias', component: 'FeedPage'},
         // {title: 'Mensagens', component: 'MessagesPage'},
         // {title: 'Atividades Recentes', component: 'ActivitiesPage'},
         // {title: 'Sair', component: 'LogoutPage'},
-    ]
+    ];
 
     constructor(private translate: TranslateService,
                 public platform: Platform,

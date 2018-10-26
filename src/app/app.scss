@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/v2/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -95,7 +94,7 @@ h2 {
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-*{
+* {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -114,4 +113,69 @@ h2 {
 
 .church-icon {
   max-width: 36px;
+}
+
+.avatar-box {
+  text-align: center;
+  //padding: 0;
+  background-image: url("../assets/img/bg-menu.png");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  padding: 3rem;
+
+  .avatar-img {
+    border-width: 5px;
+    border-style: solid;
+    border-radius: 100%;
+    border-color: #fafafa;
+    max-height: 100px;
+  }
+
+  .avatar-title {
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+
+  .avatar-email {
+    color: #ffffff;
+    margin-top: .5rem;
+  }
+}
+
+.tabs-md .tabbar {
+  background: map_get($colors, primary);
+  box-shadow: 0px 15px 50px 3px black;
+}
+
+.tabs-md .tab-button, .tabs-md .tab-button .tab-button-icon {
+  color: #b6b6b6;
+}
+
+.tabs-md .tab-button[aria-selected=true], .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+  color: #ffffff;
+}
+
+[menuItem] {
+  .label {
+    display: flex;
+    align-items: center;
+  }
+
+  .icon {
+    margin-right: 0.5rem;
+  }
+}
+
+.header-icon {
+  max-width: 32px;
+}
+
+[card-full] {
+  margin: 0;
+  width: 100%;
+}
+
+[no-padding-top] {
+  padding-top: 0;
 }

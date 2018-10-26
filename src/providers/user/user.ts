@@ -20,6 +20,8 @@ export class User {
                 .subscribe((result: any) => {
                         if (result.status) {
                             this._loggedIn(result, accountInfo);
+
+                            result.imgProfile = 'https://beconnect.com.br/' + result.imgProfile;
                             this._userInfo = result;
                         }
 

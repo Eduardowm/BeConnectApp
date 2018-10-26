@@ -119,13 +119,13 @@ export class FirstPage {
             }).present();
         }
 
-        if (this.data.cel == '') {
-            return this.toastCtrl.create({
-                message: "O campo Telefone precisa ser preenchido.",
-                duration: 3000,
-                position: 'top'
-            }).present();
-        }
+        // if (this.data.cel == '') {
+        //     return this.toastCtrl.create({
+        //         message: "O campo Telefone precisa ser preenchido.",
+        //         duration: 3000,
+        //         position: 'top'
+        //     }).present();
+        // }
 
         if (this.validarObrigatorios()) {
             this.slides.lockSwipes(false);

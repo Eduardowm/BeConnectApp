@@ -249,6 +249,7 @@ export class HomePage {
 
     abrirProximoEvento() {
         let nextEvent = this.nextEvent;
+        // this.navCtrl.push('EventTabsPage', {event: nextEvent});
         this.navCtrl.push('EventViewPage', {event: nextEvent});
     }
 

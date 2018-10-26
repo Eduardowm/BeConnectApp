@@ -1,3 +1,77 @@
 page-event-view {
+  .header-background {
+    display: block;
+    width: 100vw;
+    height: 20vh;
+    //background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url("../assets/img/church1.png")
+  }
 
+  .map-background {
+    width: 100vw;
+    height: 15vh;
+    background-repeat: no-repeat;
+    background: url("../assets/img/google-maps.png");
+    display: flex;
+    justify-content: start;
+    align-items: flex-end;
+    background-size: cover;
+    background-position: left;
+    margin: 1rem 0;
+    padding: 0 1rem;
+  }
+
+  [enter-top] {
+    margin-top: -4rem;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: 1.4rem;
+  }
+
+  h4 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: red;
+  }
+
+  .event-img {
+    background: white;
+    padding: 1rem;
+    border-radius: 3px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  ion-item {
+    ion-avatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  button {
+    ion-icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .label {
+    white-space: normal;
+  }
 }
