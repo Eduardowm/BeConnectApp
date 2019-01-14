@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>Enviar Feedback</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <p text-center>Obrigado por nos deixar saber o que você ama e o que podemos fazer melhor!</p>
+
+    <form>
+        <ion-list>
+            <ion-item padding-horizontal>
+                <ion-label stacked>Digite Seu Feedback</ion-label>
+                <ion-textarea [(ngModel)]="data.feedback" name="feedback" rows="10"></ion-textarea>
+            </ion-item>
+
+            <div padding>
+                <button ion-button block>Enviar Feedback</button>
+            </div>
+        </ion-list>
+    </form>
+</ion-content>

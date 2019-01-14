@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Perfil</ion-title>
+    </ion-navbar>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col col-4>
+                <img [src]="participant.picture_url">
+            </ion-col>
+            <ion-col col-8>
+                <p><b>{{participant.name}}</b></p>
+                <p>{{participant.description}}</p>
+                <p>{{participant.address}}</p>
+                <p>{{participant.badge}}</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row text-center>
+            <ion-col>
+                <ion-icon name="star-outline"></ion-icon>
+                <p>Favoritar</p>
+            </ion-col>
+            <ion-col>
+                <ion-icon name="chatbubbles"></ion-icon>
+                <p>Dizer Olá</p>
+            </ion-col>
+            <ion-col>
+                <ion-icon name="mail"></ion-icon>
+                <p>Mensagens</p>
+            </ion-col>
+            <ion-col>
+                <ion-icon name="hand"></ion-icon>
+                <p>Vamos se Conhecer</p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-header>
+
+<ion-content>
+    <ion-grid no-padding no-margin>
+        <ion-row>
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item-divider color="light">Notas Pessoais</ion-item-divider>
+                    <ion-item><a href="javascript:;">
+                        <ion-icon name='add'></ion-icon>
+                        Escrever</a></ion-item>
+                </ion-item-group>
+            </ion-col>
+
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item-divider color="light">Informações de Contato</ion-item-divider>
+                    <ion-item>
+                        <p text-center>
+                            <b>Mantenha contato com {{participant.name}} através da troca de informações de contato</b>
+                            <button ion-button color="primary">Trocar Informações</button>
+                        </p>
+                    </ion-item>
+                </ion-item-group>
+            </ion-col>
+
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item-divider color="light">Afiliações</ion-item-divider>
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <ion-icon name='home'></ion-icon>
+                        </ion-avatar>
+                        <h2>{{participant.description}}</h2>
+                    </ion-item>
+                </ion-item-group>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

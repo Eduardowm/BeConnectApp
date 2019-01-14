@@ -5,6 +5,7 @@ import {User} from "../../providers/providers";
 import {DatePipe} from '@angular/common';
 // import {BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse} from '@ionic-native/background-geolocation';
 import {LocationTrackerProvider} from "../../providers/location-tracker/location-tracker";
+import {DateFormatPipe} from "../../pipes/date-format/date-format";
 
 @IonicPage()
 @Component({
@@ -137,7 +138,7 @@ export class HomePage {
                 public actionSheetCtrl: ActionSheetController,
                 public alertCtrl: AlertController,
                 public toastCtrl: ToastController,
-                private datePipe: DatePipe,
+                private datePipe: DateFormatPipe,
                 // private backgroundGeolocation: BackgroundGeolocation,
                 public locationTracker: LocationTrackerProvider) {
         this.date = new Date();
@@ -249,8 +250,8 @@ export class HomePage {
 
     abrirProximoEvento() {
         let nextEvent = this.nextEvent;
-        // this.navCtrl.push('EventTabsPage', {event: nextEvent});
-        this.navCtrl.push('EventViewPage', {event: nextEvent});
+        this.navCtrl.push('EventTabsPage', {event: nextEvent});
+        // this.navCtrl.push('EventViewPage', {event: nextEvent});
     }
 
     openNewFeedModal() {
@@ -340,7 +341,7 @@ export class HomePage {
          */
 
         for (let item of this.nextWeekEvents) {
-            let weekDay = this.toTitleCase(this.datePipe.transform(item.event_date, 'EEEE'));
+            let weekDay = this.toTitleCase(this.datePipe.transform(item.event_date, 'dddd'));//'EEEE'));
             let object = null;
 
             for (let entry of tmp) {
@@ -353,7 +354,7 @@ export class HomePage {
             if (!object) {
                 object = {
                     week_day: weekDay,
-                    date: this.datePipe.transform(item.event_date, 'dd/MM/yy'),
+                    date: this.datePipe.transform(item.event_date, 'DD/MM/YYYY'),//'dd/MM/yy'),
                     events: [],
                     events_counter: 0
                 };

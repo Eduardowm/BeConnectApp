@@ -1,0 +1,19 @@
+page-event-message-create {
+  .list-avatar-page {
+    ion-note {
+      font-size: 12px;
+      align-self: flex-start;
+      margin-top: 14px;
+    }
+  }
+
+  p, .label {
+    white-space: normal;
+  }
+
+  .label {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+}

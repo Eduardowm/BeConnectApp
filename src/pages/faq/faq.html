@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>Guia de Uso BeConnect</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card *ngFor="let topic of topics">
+        <ion-card-content>
+            <ion-card-title (click)="toggleTopic(topic)">{{topic.name}}</ion-card-title>
+            <p *ngIf="topic.show">{{topic.content}}</p>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -11,9 +11,15 @@
 
 </ion-header>
 
-
-<ion-content padding>
+<ion-content>
     <ion-list>
+        <div text-center>
+            <button ion-button color="primary">
+                <ion-icon name="qr-scanner" class="margin-right"></ion-icon>
+                Check-In Via QR Code
+            </button>
+        </div>
+
         <ion-searchbar
                 [(ngModel)]="churchSearch"
                 [showCancelButton]="churchSearchShouldShowCancel"
@@ -27,7 +33,7 @@
             <ion-toggle [(ngModel)]="user.check"></ion-toggle>
             <ion-label>{{user.name}}</ion-label>
             <!--<ion-icon name='body' item-start></ion-icon>-->
-            <img [src]="user.imgProfile" item-start class="user-img" />
+            <img [src]="user.imgProfile" item-start class="user-img"/>
         </ion-item>
     </ion-list>
 </ion-content>

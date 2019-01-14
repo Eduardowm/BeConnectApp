@@ -5,261 +5,267 @@
 </ion-header>
 
 <ion-content>
-    <!--<ion-grid text-center no-padding>-->
-    <!--<ion-row>-->
-    <!--<ion-col>-->
-    <!--<span class="header-background"></span>-->
-    <!--</ion-col>-->
-    <!--</ion-row>-->
+    <ion-grid text-center no-padding>
+        <ion-row>
+            <ion-col>
+                <span class="header-background"></span>
+            </ion-col>
+        </ion-row>
 
-    <!--<ion-row enter-top>-->
-    <!--<ion-col col-4 offset-4>-->
-    <!--<img src="assets/img/church_icon_colored.png" class="event-img"/>-->
-    <!--</ion-col>-->
+        <ion-row enter-top>
+            <ion-col col-4 offset-4>
+                <img src="assets/img/church_icon_colored.png" class="event-img"/>
+            </ion-col>
 
-    <!--<ion-col col-12>-->
-    <!--<h1>{{event.name}}</h1>-->
-    <!--<h2>{{event.event_date | dateFormat: 'MMM DD HH:mm'}} | {{event.street}}, {{event.number}}, {{event.city}}</h2>-->
-    <!--<a href="javascript:;">Trocar evento</a>-->
-    <!--</ion-col>-->
+            <ion-col col-12>
+                <h1>{{event.name}}</h1>
+                <h2>{{event.event_date | dateFormat: 'MMM DD HH:mm'}} | {{event.street}}, {{event.number}}, {{event.city}}</h2>
+                <a href="javascript:;">Trocar evento</a>
+            </ion-col>
 
-    <!--<ion-col col-12>-->
-    <!--<div class="map-background">-->
-    <!--<h3>Ver Localização</h3>-->
-    <!--</div>-->
-    <!--</ion-col>-->
+            <ion-col col-12>
+                <div class="map-background">
+                    <h3>Ver Localização</h3>
+                </div>
+            </ion-col>
 
-    <!--<ion-col col-12>-->
-    <!--<h3>Administrativo</h3>-->
-    <!--<h4>* Acesso restrito para administradores</h4>-->
-    <!--<ion-list>-->
-    <!--<ion-item>-->
-    <!--<ion-avatar item-start>-->
-    <!--<ion-icon name="megaphone"></ion-icon>-->
-    <!--</ion-avatar>-->
-    <!--Enviar Anúncio-->
-    <!--</ion-item>-->
-    <!--<ion-item>-->
-    <!--<ion-avatar item-start>-->
-    <!--<ion-icon name="checkbox"></ion-icon>-->
-    <!--</ion-avatar>-->
-    <!--Check-In em Massa-->
-    <!--</ion-item>-->
-    <!--<ion-item>-->
-    <!--<ion-avatar item-start>-->
-    <!--<ion-icon name="cloud-download"></ion-icon>-->
-    <!--</ion-avatar>-->
-    <!--Relatório de Download do Aplicativo-->
-    <!--</ion-item>-->
-    <!--<ion-item>-->
-    <!--<ion-avatar item-start>-->
-    <!--<ion-icon name="analytics"></ion-icon>-->
-    <!--</ion-avatar>-->
-    <!--Relatório de Leads-->
-    <!--</ion-item>-->
-    <!--<ion-item>-->
-    <!--<ion-avatar item-start>-->
-    <!--<ion-icon name="code-working"></ion-icon>-->
-    <!--</ion-avatar>-->
-    <!--Outros-->
-    <!--</ion-item>-->
-    <!--</ion-list>-->
-    <!--</ion-col>-->
+            <ion-col col-12>
+                <h3>Administrativo</h3>
+                <h4>* Acesso restrito para administradores</h4>
+                <ion-list>
+                    <ion-item (click)="sendAnnouncement()">
+                        <ion-avatar item-start>
+                            <ion-icon name="megaphone"></ion-icon>
+                        </ion-avatar>
+                        Enviar Anúncio
+                    </ion-item>
+                    <ion-item (click)="checkinAttendees()">
+                        <ion-avatar item-start>
+                            <ion-icon name="people"></ion-icon>
+                        </ion-avatar>
+                        Check-In em Massa
+                    </ion-item>
+                    <ion-item (click)="checkinSessions()">
+                        <ion-avatar item-start>
+                            <ion-icon name="checkbox"></ion-icon>
+                        </ion-avatar>
+                        Check-In de Sessões
+                    </ion-item>
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <ion-icon name="cloud-download"></ion-icon>
+                        </ion-avatar>
+                        Relatório de Download do Aplicativo
+                    </ion-item>
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <ion-icon name="analytics"></ion-icon>
+                        </ion-avatar>
+                        Relatório de Leads
+                    </ion-item>
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <ion-icon name="code-working"></ion-icon>
+                        </ion-avatar>
+                        Outros
+                    </ion-item>
+                </ion-list>
+            </ion-col>
 
-    <!--<ion-col col-12>-->
-    <!--<h3>Geração de Leads</h3>-->
-    <!--<h4>* Acesso restrito para patrocinadores e expositores</h4>-->
-    <!--<ion-list>-->
-    <!--<ion-item>-->
-    <!--<ion-avatar item-start>-->
-    <!--<ion-icon name="barcode"></ion-icon>-->
-    <!--</ion-avatar>-->
-    <!--Escanear QR Code ou Adicionar Lead Manualmente-->
-    <!--</ion-item>-->
-    <!--</ion-list>-->
-    <!--</ion-col>-->
+            <ion-col col-12>
+                <h3>Geração de Leads</h3>
+                <h4>* Acesso restrito para patrocinadores e expositores</h4>
+                <ion-list>
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <ion-icon name="barcode"></ion-icon>
+                        </ion-avatar>
+                        Escanear QR Code ou Adicionar Lead Manualmente
+                    </ion-item>
+                </ion-list>
+            </ion-col>
 
-    <!--<ion-col col-12>-->
-    <!--<h3>Recursos</h3>-->
-    <!--<ion-grid>-->
-    <!--<ion-row>-->
-    <!--<ion-col col-6>-->
-    <!--<button ion-button block outline>-->
-    <!--<ion-icon name="map"></ion-icon>-->
-    <!--Logísticas-->
-    <!--</button>-->
-    <!--</ion-col>-->
-    <!--<ion-col col-6>-->
-    <!--<button ion-button block outline>-->
-    <!--<ion-icon name="images"></ion-icon>-->
-    <!--Fotos-->
-    <!--</button>-->
-    <!--</ion-col>-->
-    <!--<ion-col col-6>-->
-    <!--<button ion-button block outline>-->
-    <!--<ion-icon name="briefcase"></ion-icon>-->
-    <!--Expositores-->
-    <!--</button>-->
-    <!--</ion-col>-->
-    <!--<ion-col col-6>-->
-    <!--<button ion-button block outline>-->
-    <!--<ion-icon name="pie"></ion-icon>-->
-    <!--Enquetes-->
-    <!--</button>-->
-    <!--</ion-col>-->
-    <!--<ion-col col-6>-->
-    <!--<button ion-button block outline>-->
-    <!--<ion-icon name="pricetag"></ion-icon>-->
-    <!--Patrocinadores-->
-    <!--</button>-->
-    <!--</ion-col>-->
-    <!--<ion-col col-6>-->
-    <!--<button ion-button block outline>-->
-    <!--<ion-icon name="search"></ion-icon>-->
-    <!--Pesquisas-->
-    <!--</button>-->
-    <!--</ion-col>-->
-    <!--<ion-col col-6>-->
-    <!--<button ion-button block outline>-->
-    <!--<ion-icon name="document"></ion-icon>-->
-    <!--Documentos-->
-    <!--</button>-->
-    <!--</ion-col>-->
-    <!--<ion-col col-6>-->
-    <!--<button ion-button block outline>-->
-    <!--<ion-icon name="logo-twitter"></ion-icon>-->
-    <!--Twitter-->
-    <!--</button>-->
-    <!--</ion-col>-->
-    <!--</ion-row>-->
-    <!--</ion-grid>-->
-    <!--</ion-col>-->
-    <!--</ion-row>-->
-    <!--</ion-grid>-->
+            <ion-col col-12>
+                <h3>Recursos</h3>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-6>
+                            <button ion-button block outline>
+                                <ion-icon name="map"></ion-icon>
+                                Logísticas
+                            </button>
+                        </ion-col>
+                        <ion-col col-6>
+                            <button ion-button block outline>
+                                <ion-icon name="images"></ion-icon>
+                                Fotos
+                            </button>
+                        </ion-col>
+                        <ion-col col-6>
+                            <button ion-button block outline>
+                                <ion-icon name="briefcase"></ion-icon>
+                                Expositores
+                            </button>
+                        </ion-col>
+                        <ion-col col-6>
+                            <button ion-button block outline>
+                                <ion-icon name="pie"></ion-icon>
+                                Enquetes
+                            </button>
+                        </ion-col>
+                        <ion-col col-6>
+                            <button ion-button block outline>
+                                <ion-icon name="pricetag"></ion-icon>
+                                Patrocinadores
+                            </button>
+                        </ion-col>
+                        <ion-col col-6>
+                            <button ion-button block outline>
+                                <ion-icon name="search"></ion-icon>
+                                Pesquisas
+                            </button>
+                        </ion-col>
+                        <ion-col col-6>
+                            <button ion-button block outline>
+                                <ion-icon name="document"></ion-icon>
+                                Documentos
+                            </button>
+                        </ion-col>
+                        <ion-col col-6>
+                            <button ion-button block outline>
+                                <ion-icon name="logo-twitter"></ion-icon>
+                                Twitter
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
     <!--<ion-card card-full>-->
 
-    <!--<img src="assets/img/church1.png"/>-->
+        <!--<img src="assets/img/church1.png"/>-->
 
-    <!--<ion-row no-padding>-->
-    <!--<ion-col text-left>-->
-    <!--<button ion-button clear small color="danger" icon-start>-->
-    <!--<ion-icon name='star'></ion-icon>-->
-    <!--{{event.event_date | dateFormat: 'DD/MM/YY HH:mm'}}-->
-    <!--</button>-->
-    <!--</ion-col>-->
-    <!--<ion-col text-right>-->
-    <!--<button ion-button clear small color="secondary" icon-start (click)="checkin(event.id)">-->
-    <!--<ion-icon name='checkmark-circle-outline'></ion-icon>-->
-    <!--Checkin-->
-    <!--</button>-->
-    <!--</ion-col>-->
-    <!--</ion-row>-->
+        <!--<ion-row no-padding>-->
+            <!--<ion-col text-left>-->
+                <!--<button ion-button clear small color="danger" icon-start>-->
+                    <!--<ion-icon name='star'></ion-icon>-->
+                    <!--{{event.event_date | dateFormat: 'DD/MM/YY HH:mm'}}-->
+                <!--</button>-->
+            <!--</ion-col>-->
+            <!--<ion-col text-right>-->
+                <!--<button ion-button clear small color="secondary" icon-start (click)="checkin(event.id)">-->
+                    <!--<ion-icon name='checkmark-circle-outline'></ion-icon>-->
+                    <!--Checkin-->
+                <!--</button>-->
+            <!--</ion-col>-->
+        <!--</ion-row>-->
 
-    <!--<ion-card-content no-padding-top>-->
-    <!--<ion-card-title></ion-card-title>-->
-    <!--<p>-->
-    <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consequuntur iure mollitia necessitatibus saepe! Commodi consequatur hic in reiciendis voluptas. Adipisci-->
-    <!--autem-->
-    <!--blanditiis dicta dolorum illum molestias quibusdam saepe sequi!-->
-    <!--</p>-->
-    <!--</ion-card-content>-->
+        <!--<ion-card-content no-padding-top>-->
+            <!--<ion-card-title></ion-card-title>-->
+            <!--<p>-->
+                <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consequuntur iure mollitia necessitatibus saepe! Commodi consequatur hic in reiciendis voluptas. Adipisci-->
+                <!--autem-->
+                <!--blanditiis dicta dolorum illum molestias quibusdam saepe sequi!-->
+            <!--</p>-->
+        <!--</ion-card-content>-->
 
-    <!--<ion-item>-->
-    <!--<ion-icon name='people' item-start style="color: #d03e84"></ion-icon>-->
-    <!--Participantes-->
-    <!--<ion-badge item-end>253</ion-badge>-->
-    <!--</ion-item>-->
+        <!--<ion-item>-->
+            <!--<ion-icon name='people' item-start style="color: #d03e84"></ion-icon>-->
+            <!--Participantes-->
+            <!--<ion-badge item-end>253</ion-badge>-->
+        <!--</ion-item>-->
 
-    <!--<ion-item>-->
-    <!--<ion-icon name='image' item-start style="color: #55acee"></ion-icon>-->
-    <!--Fotos-->
-    <!--<ion-badge item-end>35</ion-badge>-->
-    <!--</ion-item>-->
+        <!--<ion-item>-->
+            <!--<ion-icon name='image' item-start style="color: #55acee"></ion-icon>-->
+            <!--Fotos-->
+            <!--<ion-badge item-end>35</ion-badge>-->
+        <!--</ion-item>-->
 
-    <!--<ion-item>-->
-    <!--<ion-icon name='chatboxes' item-start style="color: #d03e84"></ion-icon>-->
-    <!--Comentários-->
-    <!--<ion-badge item-end>100</ion-badge>-->
-    <!--</ion-item>-->
+        <!--<ion-item>-->
+            <!--<ion-icon name='chatboxes' item-start style="color: #d03e84"></ion-icon>-->
+            <!--Comentários-->
+            <!--<ion-badge item-end>100</ion-badge>-->
+        <!--</ion-item>-->
 
-    <!--<ion-item>-->
-    <!--<ion-icon name='bonfire' item-start style="color: #55acee"></ion-icon>-->
-    <!--Atividades-->
-    <!--<ion-badge item-end>16</ion-badge>-->
-    <!--</ion-item>-->
+        <!--<ion-item>-->
+            <!--<ion-icon name='bonfire' item-start style="color: #55acee"></ion-icon>-->
+            <!--Atividades-->
+            <!--<ion-badge item-end>16</ion-badge>-->
+        <!--</ion-item>-->
     <!--</ion-card>-->
 
-    <form>
-        <ion-list>
-            <ion-item padding-horizontal>
-                <ion-label stacked>Nome</ion-label>
-                <ion-input type="text" name="name" value="{{event.name}}" disabled=""></ion-input>
-            </ion-item>
+    <!--<form>-->
+    <!--<ion-list>-->
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Nome</ion-label>-->
+    <!--<ion-input type="text" name="name" value="{{event.name}}" disabled=""></ion-input>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>Frequência</ion-label>
-                <ion-input type="text" name="frequency" value="{{event.frequency}}" disabled=""></ion-input>
-            </ion-item>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Frequência</ion-label>-->
+    <!--<ion-input type="text" name="frequency" value="{{event.frequency}}" disabled=""></ion-input>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>Data do Próximo/Primeiro Encontro</ion-label>
-                <ion-input type="text" name="event_date" value="{{event.event_date}}" disabled=""></ion-input>
-            </ion-item>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Data do Próximo/Primeiro Encontro</ion-label>-->
+    <!--<ion-input type="text" name="event_date" value="{{event.event_date}}" disabled=""></ion-input>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>Dia Inteiro</ion-label>
-                <ion-checkbox disabled></ion-checkbox>
-            </ion-item>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Dia Inteiro</ion-label>-->
+    <!--<ion-checkbox disabled></ion-checkbox>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>Término do Evento</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="DD MM YYYY" disabled doneText="Ok" okText="Ok" cancelText="Cancelar" todayText="Hoje" nowText="Agora"></ion-datetime>
-            </ion-item>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Término do Evento</ion-label>-->
+    <!--<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="DD MM YYYY" disabled doneText="Ok" okText="Ok" cancelText="Cancelar" todayText="Hoje" nowText="Agora"></ion-datetime>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>Pertence ao Grupo</ion-label>
-                <ion-select disabled cancelText="Cancelar">
-                    <ion-option value="">Nenhum</ion-option>
-                </ion-select>
-            </ion-item>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Pertence ao Grupo</ion-label>-->
+    <!--<ion-select disabled cancelText="Cancelar">-->
+    <!--<ion-option value="">Nenhum</ion-option>-->
+    <!--</ion-select>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>Descrição</ion-label>
-                <ion-textarea name="descricao" disabled></ion-textarea>
-            </ion-item>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Descrição</ion-label>-->
+    <!--<ion-textarea name="descricao" disabled></ion-textarea>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>CEP</ion-label>
-                <ion-input type="text" name="cep" disabled></ion-input>
-            </ion-item>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>CEP</ion-label>-->
+    <!--<ion-input type="text" name="cep" disabled></ion-input>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>Logradouro</ion-label>
-                <ion-input type="text" name="street" value="{{event.street}}" disabled></ion-input>
-            </ion-item>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Logradouro</ion-label>-->
+    <!--<ion-input type="text" name="street" value="{{event.street}}" disabled></ion-input>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>Número</ion-label>
-                <ion-input type="text" name="number" value="{{event.number}}" disabled></ion-input>
-            </ion-item>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Número</ion-label>-->
+    <!--<ion-input type="text" name="number" value="{{event.number}}" disabled></ion-input>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>Bairro</ion-label>
-                <ion-input type="text" name="cep" disabled></ion-input>
-            </ion-item>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Bairro</ion-label>-->
+    <!--<ion-input type="text" name="cep" disabled></ion-input>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>Cidade</ion-label>
-                <ion-input type="text" name="city" value="{{event.city}}" disabled></ion-input>
-            </ion-item>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Cidade</ion-label>-->
+    <!--<ion-input type="text" name="city" value="{{event.city}}" disabled></ion-input>-->
+    <!--</ion-item>-->
 
-            <ion-item padding-horizontal>
-                <ion-label stacked>Estado</ion-label>
-                <ion-select disabled cancelText="Cancelar">
-                    <ion-option value="">Nenhum</ion-option>
-                </ion-select>
-            </ion-item>
-        </ion-list>
-    </form>
+    <!--<ion-item padding-horizontal>-->
+    <!--<ion-label stacked>Estado</ion-label>-->
+    <!--<ion-select disabled cancelText="Cancelar">-->
+    <!--<ion-option value="">Nenhum</ion-option>-->
+    <!--</ion-select>-->
+    <!--</ion-item>-->
+    <!--</ion-list>-->
+    <!--</form>-->
 </ion-content>

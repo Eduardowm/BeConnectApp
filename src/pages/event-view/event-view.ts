@@ -24,4 +24,15 @@ export class EventViewPage {
         console.log('ionViewDidLoad EventViewPage');
     }
 
+    sendAnnouncement() {
+        this.navCtrl.push('EventSendAnnouncementPage', {event: this.event});
+    }
+
+    checkinAttendees() {
+        this.navCtrl.push('EventCheckInPage', {event: this.event});
+    }
+
+    checkinSessions() {
+        this.navCtrl.push('EventSessionCheckInPage', {event: this.event});
+    }
 }

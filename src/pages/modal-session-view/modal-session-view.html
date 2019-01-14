@@ -1,0 +1,96 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Detalhes da Sessão</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only>
+                <ion-icon name="share"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid no-padding no-margin>
+        <ion-row>
+            <ion-col col-12 text-center>
+                <h1>{{session.name}}</h1>
+                <h2>{{session.start_date | dateFormat: 'MMM DD HH:mm'}} - {{session.end_date | dateFormat: 'MMM DD HH:mm'}}</h2>
+                <a href="javascript:;" class="link-location">Localização: {{session.location}}
+                    <button ion-button color="primary" outline small icon-start>
+                        <ion-icon name='map'></ion-icon>
+                        Ver Mapa
+                    </button>
+                </a>
+                <p><span class="blue-circle"></span> Lanche e Pausa</p>
+            </ion-col>
+
+            <ion-col col-12 text-center>
+                <ion-item-group>
+                    <ion-item-divider color="light">
+                        <ion-icon name='add'></ion-icon>
+                        Adicionar a Minha Agenda
+                    </ion-item-divider>
+                    <ion-item-divider color="light">{{session.people_confirmed_count}} presentes</ion-item-divider>
+                    <ion-item-divider color="light">
+                        <ion-grid no-padding no-margin>
+                            <ion-row>
+                                <ion-col>
+                                    <button ion-button color="primary" outline small icon-start>
+                                        <ion-icon name='heart'></ion-icon>
+                                        Curtir ({{session.likes_count}})
+                                    </button>
+                                </ion-col>
+                                <ion-col>
+                                    <button ion-button color="primary" outline small icon-start>
+                                        <ion-icon name='chatbubbles'></ion-icon>
+                                        Comentar ({{session.comments_count}})
+                                    </button>
+                                </ion-col>
+                                <ion-col>
+                                    <button ion-button color="primary" outline small icon-start>
+                                        <ion-icon name='star'></ion-icon>
+                                        Avaliar
+                                    </button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-item-divider>
+                </ion-item-group>
+            </ion-col>
+
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item-divider color="light">Descrição</ion-item-divider>
+                    <ion-item>{{session.description}}</ion-item>
+                </ion-item-group>
+            </ion-col>
+
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item-divider color="light">Notas Pessoais</ion-item-divider>
+                    <ion-item><a href="javascript:;">
+                        <ion-icon name='add'></ion-icon>
+                        Escrever</a></ion-item>
+                </ion-item-group>
+            </ion-col>
+
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item-divider color="light">Curtidas ({{session.likes_count}})</ion-item-divider>
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <img src="assets/img/user5.png">
+                        </ion-avatar>
+                        <h2>ichko</h2>
+                        <p>Ichko</p>
+                        <ion-note item-end><a href="javascript:;">Bio</a></ion-note>
+                    </ion-item>
+                    <ion-item text-center>
+                        <a href="javascript:;">Mostrar todas curtidas</a>
+                    </ion-item>
+                </ion-item-group>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

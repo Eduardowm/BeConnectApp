@@ -1,18 +1,48 @@
-<!--
-  Generated template for the EventCheckInPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>EventCheckIn</ion-title>
-  </ion-navbar>
-
+    <ion-navbar>
+        <ion-title>Check-in em Massa</ion-title>
+    </ion-navbar>
 </ion-header>
 
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <h5 text-center>BeConnect deixa seus Check-Ins fáceis e rápidos!</h5>
+            </ion-col>
+        </ion-row>
 
-<ion-content padding>
+        <ion-row class="box" text-center>
+            <ion-col col-12>
+                <p><b>3 Formas de Realizar Check-Ins:</b></p>
+            </ion-col>
 
+            <ion-col col-3>
+                <ion-icon name="qr-scanner"></ion-icon>
+            </ion-col>
+            <ion-col col-9>
+                <p>Escanear QR Codes com o aplicativo</p>
+            </ion-col>
+
+            <ion-col col-3>
+                <ion-icon name="search"></ion-icon>
+            </ion-col>
+            <ion-col col-9>
+                <p>Encontrar o participante pelo seu nome</p>
+            </ion-col>
+
+            <ion-col col-3>
+                <ion-icon name="laptop"></ion-icon>
+            </ion-col>
+            <ion-col col-9>
+                <p>Utilizando o painel web do BeConnect com o seu computador</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <button ion-button block (click)="start()">Vamos Começar!</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

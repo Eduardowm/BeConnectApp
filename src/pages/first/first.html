@@ -42,13 +42,13 @@
                 </ion-item>
 
                 <ion-item>
-                    <ion-label stacked>Telefone</ion-label>
+                    <ion-label stacked>Telefone (opcional)</ion-label>
                     <ion-input type="text" [(ngModel)]="data.cel" [brmasker]="{mask:'00 00000-0000', len:13}"></ion-input>
                 </ion-item>
 
                 <ion-item padding-horizontal>
                     <ion-label stacked>Você é um membro ou um visitante?</ion-label>
-                    <ion-select [(ngModel)]="data.type" cancelText="Cancelar">
+                    <ion-select [(ngModel)]="data.role" cancelText="Cancelar">
                         <ion-option>Membro</ion-option>
                         <ion-option>Visitante</ion-option>
                     </ion-select>

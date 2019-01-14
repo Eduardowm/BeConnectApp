@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>Comunidade</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="toggleSearchbar()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="toggleSearchbar()">
+                <ion-icon name="notifications"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar no-border-top *ngIf="searchVisible">
+        <ion-searchbar placeholder="Buscar" (ionInput)="onSearchInput($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngFor="let topic of topics" (click)="openTopic(topic)">
+        <ion-item>
+            <ion-grid no-padding no-margin>
+                <ion-row>
+                    <ion-col col-1>
+                        <ion-icon name="{{topic.icon}}"></ion-icon>
+                    </ion-col>
+                    <ion-col>
+                        <h1>{{topic.title}}</h1>
+                    </ion-col>
+                    <ion-col col-2 text-right>
+                        <small>{{topic.date | dateFormat: 'MMM, DD'}}</small>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col>
+                        <p><b>{{topic.sub_title}}</b></p>
+                        <p>{{topic.description}}</p>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col>
+                        <small>
+                            <ion-icon name="chatbubbles"></ion-icon>
+                            {{topic.messages_count}} message{{topic.messages_count > 1 ? 's' : ''}}
+                        </small>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+</ion-content>

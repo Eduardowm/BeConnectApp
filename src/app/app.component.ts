@@ -32,11 +32,13 @@ import * as firebase from 'firebase';
             <ion-content>
                 <ion-grid class="avatar-box" *ngIf="user.getUserInfo()">
                     <ion-row>
-                        <ion-col col-12>
+                        <ion-col col-4>
                             <img [src]="user.getUserInfo().imgProfile" class="avatar-img" *ngIf="user.getUserInfo().imgProfile"/>
                             <img src="../assets/img/default-avatar.png" class="avatar-img" *ngIf="!user.getUserInfo().imgProfile"/>
+                        </ion-col>
+                        <ion-col col-8>
                             <p class="avatar-title">{{user.getUserInfo().name}}</p>
-                            <p class="avatar-email">{{user.getUserInfo().email}}</p>
+                            <p class="avatar-email" (click)="openPage({component: 'ProfilePage'})"><ion-icon name="create"></ion-icon> Editar Perfil</p>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
@@ -46,10 +48,10 @@ import * as firebase from 'firebase';
                         <ion-icon name="{{p.icon}}"></ion-icon>
                         {{p.title}}
                     </button>
-                    <button menuClose ion-item menuItem (click)="exitApp()">
-                        <ion-icon name="exit"></ion-icon>
-                        Sair
-                    </button>
+                    <!--<button menuClose ion-item menuItem (click)="exitApp()">-->
+                        <!--<ion-icon name="exit"></ion-icon>-->
+                        <!--Sair-->
+                    <!--</button>-->
                 </ion-list>
             </ion-content>
 
@@ -62,15 +64,24 @@ export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
     pages: any[] = [
-        {title: 'Início', component: 'HomePage', icon: 'home'},
-        {title: 'Minha Conta', component: 'ProfilePage', icon: 'contact'},
-        {title: 'Eventos', component: 'EventsPage', icon: 'ice-cream'},
-        // {title: 'Grupos', component: 'GroupsPage'},
-        {title: 'Calendário', component: 'CalendarPage', icon: 'calendar'},
-        // {title: 'Feed de Notícias', component: 'FeedPage'},
-        // {title: 'Mensagens', component: 'MessagesPage'},
-        // {title: 'Atividades Recentes', component: 'ActivitiesPage'},
-        // {title: 'Sair', component: 'LogoutPage'},
+        {title: 'Meu Contato & QR Code', component: 'ContactInfoPage', icon: 'contact'},
+        {title: 'Meus Contatos', component: 'ContactsPage', icon: 'book'},
+        {title: 'Minhas Anotações', component: 'NotesPage', icon: 'create'},
+        {title: 'Configurações', component: 'SettingsPage', icon: 'cog'},
+        {title: 'Ver Meus Eventos', component: 'MyEventsPage', icon: 'list-box'},
+        {title: 'Utilizar Para o Meu Evento', component: 'UseForMyEventPage', icon: 'phone-portrait'},
+        {title: 'Guia de Uso BeConnect', component: 'FaqPage', icon: 'help-buoy'},
+        {title: 'Enviar Feedback', component: 'FeedbackPage', icon: 'chatbubbles'}
+
+        // {title: 'Início', component: 'HomePage', icon: 'home'},
+        // {title: 'Minha Conta', component: 'ProfilePage', icon: 'contact'},
+        // {title: 'Eventos', component: 'EventsPage', icon: 'ice-cream'},
+        // // {title: 'Grupos', component: 'GroupsPage'},
+        // {title: 'Calendário', component: 'CalendarPage', icon: 'calendar'},
+        // // {title: 'Feed de Notícias', component: 'FeedPage'},
+        // // {title: 'Mensagens', component: 'MessagesPage'},
+        // // {title: 'Atividades Recentes', component: 'ActivitiesPage'},
+        // // {title: 'Sair', component: 'LogoutPage'},
     ];
 
     constructor(private translate: TranslateService,
@@ -170,7 +181,9 @@ export class MyApp {
         this.nativeStorage.remove('login');
         this.nativeStorage.remove('church');
         this.nativeStorage.remove('password');
-        this.platform.exitApp();
+        //this.platform.exitApp();
+        this.nav.setRoot("LogarPage");
+        this.nav.popToRoot();
     }
 
     changeChurch() {

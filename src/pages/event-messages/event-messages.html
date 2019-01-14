@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>Mensagens</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="createMessage()">
+                <ion-icon name="create"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngFor="let chat of chats" (click)="openChat(chat)">
+        <ion-item border-bottom>
+            <ion-grid no-padding no-margin>
+                <ion-row>
+                    <ion-col col-2>
+                        <ion-avatar>
+                            <img src="{{chat.user_img_url}}"/>
+                            <ion-badge class="sticky-badge" color="danger">{{chat.unread_messages_count}}</ion-badge>
+                        </ion-avatar>
+                    </ion-col>
+                    <ion-col col-8>
+                        <h1>{{chat.user_name}}</h1>
+                        <p>{{chat.last_message}}</p>
+                    </ion-col>
+                    <ion-col col-2 text-right>
+                        <small>{{chat.last_message_date | dateFormat: 'DD/MM/YY'}}</small>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+</ion-content>

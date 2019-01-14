@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>
+            <ion-select [(ngModel)]="participants" name="participants" cancelText="Cancelar" multiple="true" placeholder="Filtrar">
+                <ion-option value="">Todos Participantes ({{participantsCount}})</ion-option>
+            </ion-select>
+        </ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="toggleSearchbar()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar no-border-top *ngIf="searchVisible">
+        <ion-searchbar placeholder="Buscar" (ionInput)="onSearchInput($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngFor="let participant of participants" (click)="openParticipant(participant)">
+        <ion-item>
+            <ion-grid no-padding no-margin>
+                <ion-row align-items-center>
+                    <ion-col col-2 col-start>
+                        <ion-avatar item-start no-margin>
+                            <img [src]="participant.picture_url">
+                        </ion-avatar>
+                        <ion-icon name="star-outline"></ion-icon>
+                    </ion-col>
+
+                    <ion-col col-7>
+                        <h1>{{participant.name}}</h1>
+                        <h3>{{participant.description}}</h3>
+                        <h3>{{participant.address}}</h3>
+                        <ion-badge>{{participant.badge}}</ion-badge>
+                    </ion-col>
+
+                    <ion-col col-3 text-center>
+                        <p ion-text color="secondary"><ion-icon name="chatbubbles"></ion-icon> <span>Diga Olá</span></p>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+</ion-content>

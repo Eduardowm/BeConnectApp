@@ -5,7 +5,6 @@ import {Slides, ToastController, ModalController, Platform} from 'ionic-angular'
 import {NativeStorage} from "@ionic-native/native-storage";
 import {Churchs} from "../../providers/churchs/churchs";
 import {MainPage} from '../pages';
-import {ModalTermsPage} from '../modal-terms/modal-terms';
 import {User} from "../../providers/user/user";
 
 import * as firebase from 'firebase';
@@ -32,11 +31,10 @@ export class FirstPage {
         email: '',
         cel: '',
         dateBirth: null,
-        church: null,
+        church_id: null,
         terms: false,
-        type: '',
         token: null,
-        role: 'Visitante',
+        role: '',
     };
 
     churchSearch: any;
@@ -135,7 +133,7 @@ export class FirstPage {
     }
 
     validarObrigatorios() {
-        if (this.data.type == '') {
+        if (this.data.role == '') {
             this.toastCtrl.create({
                 message: "O campo Membro/Visitante precisa ser preenchido.",
                 duration: 3000,
@@ -237,10 +235,44 @@ export class FirstPage {
         }
     }
 
+    login() {
+        let loading = this.loadingCtrl.create();
+        loading.present();
+
+        this.user.login({email: this.data.email, password: this.data.password, church: this.user.getChurch(), token: this.data.token})
+            .then((resp: any) => {
+                loading.dismiss();
+
+                if (resp.status) {
+                    this.navCtrl.setRoot(MainPage);
+                    this.navCtrl.popToRoot();
+                } else {
+                    this.toastCtrl.create({
+                        message: 'Não foi possível acessar utilizando os dados informados.',
+                        duration: 3000,
+                        position: 'top'
+                    }).present();
+                }
+            })
+            .catch((error: any) => {
+                loading.dismiss();
+
+                this.navCtrl.setRoot(MainPage);
+                this.navCtrl.popToRoot();
+
+                this.toastCtrl.create({
+                    message: 'Não foi possível se conectar com o servidor.',
+                    duration: 3000,
+                    position: 'top'
+                }).present();
+            });
+    }
+
     continueMember(church) {
         this.user.setChurch(church.id);
+        this.data.church_id = church.id;
 
-        if (this.data.type == 'Visitante') {
+        if (this.data.role == 'Visitante') {
             return this.continueVisitor();
         }
 
@@ -251,7 +283,6 @@ export class FirstPage {
         loading.present();
 
         if (this.data.token) {
-            this.data.church_id = church.id;
             this.data.role = "Membro";
 
             this.user.signup(this.data)
@@ -261,15 +292,13 @@ export class FirstPage {
                     if (resp.status) {
                         this.nativeStorage.setItem('sessao', true);
                         this.nativeStorage.setItem('login', this.data.email);
-
                         this.toastCtrl.create({
                             message: "Cadastro realizadao com sucesso!",
                             duration: 3000,
                             position: 'top'
                         }).present();
 
-                        this.navCtrl.setRoot(MainPage);
-                        this.navCtrl.popToRoot();
+                        this.login();
                     } else {
                         let toast = this.toastCtrl.create({
                             message: resp.msg,
@@ -301,8 +330,7 @@ export class FirstPage {
                             position: 'top'
                         }).present();
 
-                        this.navCtrl.setRoot(MainPage);
-                        this.navCtrl.popToRoot();
+                        this.login();
                     } else {
                         let toast = this.toastCtrl.create({
                             message: resp.msg,
@@ -328,7 +356,7 @@ export class FirstPage {
     }
 
     openTerms() {
-        this.modalCtrl.create(ModalTermsPage).present();
+        this.modalCtrl.create("ModalTermsPage").present();
     }
 
     setItems() {
@@ -357,39 +385,41 @@ export class FirstPage {
 
         let that = this;
 
-        this.firebaseInit();
         firebase.auth().signOut()
             .then(() => {
-                this.nativeStorage.setItem('waiting-signup-social', true);
+                this.nativeStorage.setItem('waiting-login-social', true);
 
                 const provider = new firebase.auth.FacebookAuthProvider();
                 provider.addScope('public_profile');
 
-                // firebase
-                //     .auth()
-                //     .signInWithRedirect(provider)
-                //     .then(() => {
-                //
-                //     })
+                // firebase.auth().signInWithRedirect(provider).then(function (result) {
+                //     console.log("loginFacebook signInWithRedirect", result);
+                //     return firebase.auth().getRedirectResult();
+                // }).catch(function (error) {
+                //     // Handle Errors here.
+                //     // var errorCode = error.code;
+                //     // var errorMessage = error.message;
+                //     console.log("loginFacebook error", error);
+                // });
 
-                firebase.auth().signInWithRedirect(provider).then(function () {
-                    return firebase.auth().getRedirectResult();
-                }).then(function (result) {
-                    console.log("loginFacebook: ", result);
-                    that.loginSocial(result.user);
-
-                    // This gives you a Google Access Token.
-                    // You can use it to access the Google API.
-                    // var token = result.credential.accessToken;
-                    // The signed-in user info.
-                    // var user = result.user;
-                    // ...
+                firebase.auth().signInWithRedirect(provider).then(() => {
+                    firebase.auth().getRedirectResult().then(result => {
+                        console.log("loginFacebook getRedirectResult", result);
+                        that.loginSocial(result.user);
+                    }).catch(function (error) {
+                        console.log("loginFacebook getRedirectResult error", error);
+                        that.toastCtrl.create({
+                            message: error.message,//'Não foi possível autenticar seu usuário.',
+                            duration: 10000,
+                            position: 'top'
+                        }).present();
+                    });
                 }).catch(function (error) {
-                    // Handle Errors here.
-                    // var errorCode = error.code;
-                    // var errorMessage = error.message;
+                    console.log("loginFacebook signInWithRedirect error", error);
                 });
-            });
+            }).catch(function (error) {
+            console.log("loginFacebook signOut error", error);
+        });
     }
 
     loginGoogle() {
@@ -399,65 +429,132 @@ export class FirstPage {
 
         let that = this;
 
-        this.firebaseInit();
         firebase.auth().signOut()
             .then(() => {
-                this.nativeStorage.setItem('waiting-signup-social', true);
+                this.nativeStorage.setItem('waiting-login-social', true);
 
                 const provider = new firebase.auth.GoogleAuthProvider();
                 provider.addScope('profile');
                 provider.addScope('email');
 
-                // firebase.auth().signInWithRedirect(provider)
-                //     .then(() => {
-                // });
-
-                firebase.auth().signInWithRedirect(provider).then(function () {
-                    return firebase.auth().getRedirectResult();
-                }).then(function (result) {
-                    console.log("loginGoogle: ", result);
-                    that.loginSocial(result.user);
-
-                    // This gives you a Google Access Token.
-                    // You can use it to access the Google API.
-                    // var token = result.credential.accessToken;
-                    // The signed-in user info.
-                    // var user = result.user;
-                    // ...
+                firebase.auth().signInWithRedirect(provider).then(() => {
+                    firebase.auth().getRedirectResult().then(result => {
+                        console.log("loginGoogle getRedirectResult", result);
+                        that.loginSocial(result.user);
+                    }).catch(function (error) {
+                        console.log("loginGoogle getRedirectResult error", error);
+                        that.toastCtrl.create({
+                            message: error.message,//'Não foi possível autenticar seu usuário.',
+                            duration: 10000,
+                            position: 'top'
+                        }).present();
+                    });
                 }).catch(function (error) {
-                    // Handle Errors here.
-                    // var errorCode = error.code;
-                    // var errorMessage = error.message;
+                    console.log("loginGoogle signInWithRedirect error", error);
                 });
-            });
+            }).catch(function (error) {
+            console.log("loginGoogle signOut error", error);
+        });
+
+        // firebase.auth().signOut()
+        //     .then(() => {
+        //         this.nativeStorage.setItem('waiting-login-social', true);
+        //
+        //         const provider = new firebase.auth.GoogleAuthProvider();
+        //         provider.addScope('profile');
+        //         provider.addScope('email');
+        //
+        //         // firebase.auth().signInWithRedirect(provider)
+        //         //     .then(() => {
+        //         // });
+        //
+        //         firebase.auth().signInWithRedirect(provider).then(function () {
+        //             return firebase.auth().getRedirectResult();
+        //         }).then(function (result) {
+        //             console.log("loginGoogle: ", result);
+        //             that.loginSocial(result.user);
+        //
+        //             // This gives you a Google Access Token.
+        //             // You can use it to access the Google API.
+        //             // var token = result.credential.accessToken;
+        //             // The signed-in user info.
+        //             // var user = result.user;
+        //             // ...
+        //         }).catch(function (error) {
+        //             // Handle Errors here.
+        //             // var errorCode = error.code;
+        //             // var errorMessage = error.message;
+        //             console.log("loginGoogle error", error);
+        //         });
+        //     });
     }
 
     firebaseLoginResult() {
         let that = this;
 
-        if (this.waitingSignupSocial) {
-            let loading = this.loadingCtrl.create();
+        if (that.waitingSignupSocial) {
+            let loading = that.loadingCtrl.create();
             loading.present();
 
-            firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    that.loginSocial(user);
+            firebase.auth().onAuthStateChanged((user) => { // displayName, email, emailVerified, phoneNumber, photoURL, uid
+                console.log("firebaseLoginResult onAuthStateChanged", user);
 
+                if (user) {
                     loading.dismiss();
+                    that.loginSocial(user);
                 } else {
-                    loading.dismiss();
+                    firebase.auth().getRedirectResult().then(result => {
+                        console.log("loginFacebook getRedirectResult", result);
+                        loading.dismiss();
+                        if (result.user) {
+                            that.loginSocial(result.user);
+                        }
+                    }).catch(function (error) {
+                        console.log("loginFacebook getRedirectResult error", error);
+                        loading.dismiss();
+
+                        that.toastCtrl.create({
+                            message: error.message,//'Não foi possível autenticar seu usuário.',
+                            duration: 10000,
+                            position: 'top'
+                        }).present();
+                    });
+                }
+            });
+
+
+        }
+    }
+
+    doLoginSocial(user) {
+        this.user.login({token: user.uid, email: (user.email ? user.email : (user.uid + "@beconnect.com.br")), password: null, church: this.data.church_id})
+            .then((resp: any) => {
+                if (resp.status) {
+                    this.nativeStorage.setItem('sessao', true);
+                    this.nativeStorage.setItem('login', user.email)
+                        .then(
+                            () => console.log('Stored item!'),
+                            error => console.error('Error storing item', error)
+                        );
+                    this.nativeStorage.setItem('church', this.data.church_id);
+
+                    this.navCtrl.setRoot(MainPage);
+                    this.navCtrl.popToRoot();
+                } else {
                     this.toastCtrl.create({
-                        message: 'Não foi possível autenticar seu usuário.',
+                        message: 'Não foi possível acessar utilizando os dados informados.',
                         duration: 3000,
                         position: 'top'
                     }).present();
                 }
-            })
-        }
+            }).catch((error: any) => {
+            this.navCtrl.setRoot(MainPage);
+            this.navCtrl.popToRoot();
+            this.toastCtrl.create({message: "Não foi possível se comunicar com o servidor.", duration: 3000, position: 'top'}).present();
+        });
     }
 
-    loginSocial(user) {
-        this.nativeStorage.remove('waiting-signup-social');
+    doSignupSocial(user) {
         this.data.name = user.displayName;
         this.data.email = user.email;
         // this.data.cel = user.celNumber;
@@ -471,6 +568,21 @@ export class FirstPage {
         this.slides.slideTo(3, 500);
         this.slides.lockSwipes(true);
     }
+
+    loginSocial(user) {
+        this.nativeStorage.remove('waiting-signup-social');
+
+        this.user.getSocialToken(user.uid).then((resp: any) => {
+            if (resp.status) {
+                this.doLoginSocial(user);
+            } else {
+                this.doSignupSocial(user);
+            }
+        }).catch((error: any) => {
+            this.navCtrl.setRoot(MainPage);
+            this.navCtrl.popToRoot();
+            this.toastCtrl.create({message: "Não foi possível se comunicar com o servidor.", duration: 3000, position: 'top'}).present();
+        });    }
 
     firebaseInit() {
         this.firebaseLoginResult();

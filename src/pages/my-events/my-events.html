@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>Meus Eventos</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="openMessages()">
+                <ion-icon name="mail"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid h-100>
+        <ion-row align-items-center justify-content-center h-100>
+            <ion-col text-center>
+                <p>Você não tem eventos ainda.</p>
+                <p>Clique no botão abaixo para encontrar e se juntar a algum evento.</p>
+                <button ion-button color="primary" (click)="openEventFind()"><ion-icon name="search" class="margin-right"></ion-icon> Encontrar Meu Evento / Conferência</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

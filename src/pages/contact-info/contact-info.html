@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>Meu Contato & QR Code</ion-title>
+
+        <ion-buttons end>
+            <button ion-button (click)="save()">
+                SALVAR
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-icon name="barcode" item-start></ion-icon>
+            Meu QR Code<br />
+            <a href="javascript:;">Ver Meu Código</a>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="contact" item-start></ion-icon>
+            Meus Dados de Contato
+            <p class="white-space-normal">Estas informações são privadas a menos que você compartilhe elas com alguém</p>
+        </ion-item>
+    </ion-list>
+
+    <form>
+        <ion-list>
+            <ion-item padding-horizontal>
+                <ion-label stacked>Telefone</ion-label>
+                <ion-input type="text" name="phone" [(ngModel)]="data.phone"></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>E-mail</ion-label>
+                <ion-input type="email" name="email" [(ngModel)]="data.email"></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Endereço</ion-label>
+                <ion-input type="text" name="address" [(ngModel)]="data.address"></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>WhatsApp</ion-label>
+                <ion-input type="text" name="whatsapp" [(ngModel)]="data.whatsapp"></ion-input>
+            </ion-item>
+
+            <ion-item padding-horizontal>
+                <ion-label stacked>Skype</ion-label>
+                <ion-input type="text" name="skype" [(ngModel)]="data.skype"></ion-input>
+            </ion-item>
+        </ion-list>
+    </form>
+</ion-content>

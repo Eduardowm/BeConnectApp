@@ -1,0 +1,28 @@
+page-modal-session-view {
+  h1 {
+    font-weight: 600;
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: 1.4rem;
+  }
+
+  h4 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: red;
+  }
+
+  .link-location {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+}

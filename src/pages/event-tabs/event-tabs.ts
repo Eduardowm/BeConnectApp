@@ -8,10 +8,10 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 })
 export class EventTabsPage {
     tab1Root: any = 'EventViewPage';
-    tab2Root: any = 'EventCalendarPage';
-    tab3Root: any = 'EventsPage';
-    tab4Root: any = 'EventsPage';
-    tab5Root: any = 'EventsPage';
+    tab2Root: any = 'EventAgendaPage';
+    tab3Root: any = 'EventAttendeesPage';
+    tab4Root: any = 'EventCommunityPage';
+    tab5Root: any = 'EventMessagesPage';
 
     tab1Title = 'Início';
     tab2Title = 'Agenda';

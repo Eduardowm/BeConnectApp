@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>Meus Contatos</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="toggleSearchbar()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+            <button ion-button (click)="export()">
+                EXPORTAR
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar no-border-top *ngIf="searchVisible">
+        <ion-searchbar placeholder="Buscar" (ionInput)="onSearchInput($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid h-100>
+        <ion-row align-items-center justify-content-center h-100>
+            <ion-col text-center>
+                <p class="big-icon">
+                    <ion-icon name="card"></ion-icon>
+                </p>
+                <p>BeConnect pode digitalizar cartões de contato que você recebeu e automaticamente criar contatos para você! É só tirar uma foto com nosso escaner.</p>
+                <button ion-button color="primary">
+                    <ion-icon name="camera" margin-right></ion-icon>
+                    Escanear Cartão
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

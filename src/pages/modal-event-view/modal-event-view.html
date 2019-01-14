@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{event.name}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<ion-grid>
+    <ion-row>
+        <ion-col col-3>
+            <img [src]="event.picture_url" />
+        </ion-col>
+        <ion-col col-9>
+            <h1>{{event.name}}</h1>
+            <p>{{event.city}}, {{event.state}}</p>
+            <p>{{event.start_date | dateFormat: 'MMM DD HH:mm'}}</p>
+        </ion-col>
+        <ion-col col-12>
+            <p>{{event.description}}</p>
+            <button ion-button color="primary" (click)="join()" block>Participar</button>
+        </ion-col>
+    </ion-row>
+</ion-grid>
+</ion-content>

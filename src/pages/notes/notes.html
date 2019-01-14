@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>Minhas Anotações</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="toggleSearchbar()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+            <button ion-button (click)="export()">
+                EXPORTAR
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar no-border-top *ngIf="searchVisible">
+        <ion-searchbar placeholder="Buscar" (ionInput)="onSearchInput($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid h-100>
+        <ion-row align-items-center justify-content-center h-100>
+            <ion-col text-center>
+                <p class="big-icon">
+                    <ion-icon name="create"></ion-icon>
+                </p>
+                <p>Você não tem nenhuma anotação ainda.</p>
+                <p>Você pode realizar anotações nas Sessões e Perfis.</p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

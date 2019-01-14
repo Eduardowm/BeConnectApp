@@ -1,0 +1,118 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>
+            Encontrar Evento
+        </ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="toggleSearchbar()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar no-border-top *ngIf="searchVisible">
+        <ion-searchbar placeholder="Buscar" (ionInput)="onSearchInput($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div>
+        <ion-segment [(ngModel)]="tab">
+            <ion-segment-button value="Agora">Agora</ion-segment-button>
+            <ion-segment-button value="Em Breve">Em Breve</ion-segment-button>
+            <ion-segment-button value="Passados">Passados</ion-segment-button>
+        </ion-segment>
+    </div>
+
+    <div [ngSwitch]="tab">
+        <ion-list *ngSwitchCase="'Agora'">
+            <div *ngFor="let eventGroup of now_events">
+                <ion-item-divider color="light">{{eventGroup.name}}</ion-item-divider>
+                <ion-item *ngFor="let event of eventGroup.events" (click)="openEvent(event)">
+                    <ion-grid no-padding no-margin>
+                        <ion-row align-items-center>
+                            <ion-col col-2 col-start>
+                                <ion-avatar item-start no-margin>
+                                    <img [src]="event.picture_url">
+                                </ion-avatar>
+                            </ion-col>
+
+                            <ion-col col-10>
+                                <h1>{{event.name}}</h1>
+                                <p>
+                                    <ion-icon name="calendar"></ion-icon>
+                                    {{event.start_date | dateFormat: 'MMM DD HH:mm'}} - {{event.end_date | dateFormat: 'MMM DD HH:mm'}}
+                                </p>
+                                <p>
+                                    <ion-icon name="pin"></ion-icon>
+                                    {{event.city}}, {{event.state}}
+                                </p>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </div>
+        </ion-list>
+        <ion-list *ngSwitchCase="'Em Breve'">
+            <div *ngFor="let eventGroup of soon_events">
+                <ion-item-divider color="light">{{eventGroup.name}}</ion-item-divider>
+                <ion-item *ngFor="let event of eventGroup.events" (click)="openEvent(event)">
+                    <ion-grid no-padding no-margin>
+                        <ion-row align-items-center>
+                            <ion-col col-2 col-start>
+                                <ion-avatar item-start no-margin>
+                                    <img [src]="event.picture_url">
+                                </ion-avatar>
+                            </ion-col>
+
+                            <ion-col col-10>
+                                <h1>{{event.name}}</h1>
+                                <p>
+                                    <ion-icon name="calendar"></ion-icon>
+                                    {{event.start_date | dateFormat: 'MMM DD HH:mm'}} - {{event.end_date | dateFormat: 'MMM DD HH:mm'}}
+                                </p>
+                                <p>
+                                    <ion-icon name="pin"></ion-icon>
+                                    {{event.city}}, {{event.state}}
+                                </p>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </div>
+        </ion-list>
+        <ion-list *ngSwitchCase="'Passados'">
+            <div *ngFor="let eventGroup of past_events">
+                <ion-item-divider color="light">{{eventGroup.name}}</ion-item-divider>
+                <ion-item *ngFor="let event of eventGroup.events" (click)="openEvent(event)">
+                    <ion-grid no-padding no-margin>
+                        <ion-row align-items-center>
+                            <ion-col col-2 col-start>
+                                <ion-avatar item-start no-margin>
+                                    <img [src]="event.picture_url">
+                                </ion-avatar>
+                            </ion-col>
+
+                            <ion-col col-10>
+                                <h1>{{event.name}}</h1>
+                                <p>
+                                    <ion-icon name="calendar"></ion-icon>
+                                    {{event.start_date | dateFormat: 'MMM DD HH:mm'}} - {{event.end_date | dateFormat: 'MMM DD HH:mm'}}
+                                </p>
+                                <p>
+                                    <ion-icon name="pin"></ion-icon>
+                                    {{event.city}}, {{event.state}}
+                                </p>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </div>
+        </ion-list>
+    </div>
+</ion-content>

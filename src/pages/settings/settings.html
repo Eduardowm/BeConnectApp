@@ -1,45 +1,62 @@
 <ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
 
-  <ion-navbar>
-    <ion-title>{{ pageTitle }}</ion-title>
-  </ion-navbar>
-
+        <ion-title text-center>Configurações</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
+    <ion-list no-margin>
+        <ion-list-header>Notificações</ion-list-header>
+        <ion-item>Receber notificações de:</ion-item>
 
-  <form [formGroup]="form" *ngIf="settingsReady">
-    <ion-list *ngIf="page == 'main'">
-      <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION1' | translate }}</ion-label>
-        <ion-toggle formControlName="option1"></ion-toggle>
-      </ion-item>
+        <ion-item>
+            <ion-label>Atualizações de Eventos<br/>
+                <small>atualizações de agenda</small>
+            </ion-label>
+            <ion-checkbox [(ngModel)]="settings.notification.event_update"></ion-checkbox>
+        </ion-item>
 
-      <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION2' | translate }}</ion-label>
-        <ion-input formControlName="option2"></ion-input>
-      </ion-item>
+        <ion-item>
+            <ion-label>Atividades de Eventos<br/>
+                <small>novo participante, nova foto, atividade na sessão</small>
+            </ion-label>
+            <ion-checkbox [(ngModel)]="settings.notification.event_activity"></ion-checkbox>
+        </ion-item>
 
-      <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION3' | translate }}</ion-label>
-        <ion-select formControlName="option3">
-          <ion-option value="1" checked="true">1</ion-option>
-          <ion-option value="2">2</ion-option>
-          <ion-option value="3">3</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-list-header>Contas Sociais</ion-list-header>
 
-      <button ion-item [navPush]="subSettings" [navParams]="profileSettings">
-        {{ 'SETTINGS_PROFILE_BUTTON' | translate }}
-      </button>
+        <ion-item>
+            <img src="assets/img/icon-linkedin.png" item-start w-35-px>
+            Linkedin
+            <a href="javascript:;" item-end>Conectar</a>
+        </ion-item>
+
+        <ion-item>
+            <img src="assets/img/icon-facebook.png" item-start w-35-px>
+            Facebook
+            <a href="javascript:;" item-end>Conectar</a>
+        </ion-item>
+
+        <ion-item>
+            <img src="assets/img/icon-twitter.png" item-start w-35-px>
+            Twitter
+            <a href="javascript:;" item-end>Conectar</a>
+        </ion-item>
+
+        <ion-list-header>Visibilidade do Perfil</ion-list-header>
+
+        <ion-item>
+            <ion-label>Outros participantes podem me ver</ion-label>
+            <ion-checkbox [(ngModel)]="settings.profile_visibility.others_attendees_can_see_me"></ion-checkbox>
+        </ion-item>
+
+        <ion-list-header>Conta</ion-list-header>
+        <ion-item>Sair</ion-item>
+
+        <ion-list-header text-center no-margin><b>BeConnect</b><br/>Versão 1.0.0</ion-list-header>
     </ion-list>
-
-    <ion-list *ngIf="page == 'profile'">
-      <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION4' | translate }}</ion-label>
-        <ion-input formControlName="option4"></ion-input>
-      </ion-item>
-    </ion-list>
-  </form>
-
 </ion-content>

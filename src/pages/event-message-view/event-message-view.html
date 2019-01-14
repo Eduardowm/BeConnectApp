@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>{{chat.user_name}}</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only>
+                <ion-icon name="person-ad"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item>
+            <ion-grid no-padding no-margin text-center>
+                <ion-row>
+                    <ion-col>
+                        <ion-badge item-end>{{chat.last_message_date | dateFormat: 'DD/MM/YY'}}</ion-badge>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+
+        <ion-item *ngFor="let message of messages">
+            <ion-grid no-padding no-margin>
+                <ion-row>
+                    <ion-col col-2>
+                        <ion-avatar>
+                            <img src="{{message.user_img_url}}"/>
+                        </ion-avatar>
+                    </ion-col>
+                    <ion-col col-10>
+                        <h1>{{message.user_name}}</h1>
+                        <div class="message">
+                            <div class="arrow-left"></div>
+                            <p>{{message.content}}</p>
+                        </div>
+                        <small float-right>{{message.date | dateFormat: 'hh:mma'}}</small>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-2>
+                    <button ion-button icon-only color="royal">
+                        <ion-icon name="camera"></ion-icon>
+                    </button>
+                </ion-col>
+
+                <ion-col>
+                    <ion-item>
+                        <ion-label fixed>Escreva uma mensagem</ion-label>
+                        <ion-input type="text"></ion-input>
+                    </ion-item>
+                </ion-col>
+
+                <ion-col col-2>
+                    <ion-buttons end>
+                        <button ion-button icon-end color="royal">
+                            Enviar
+                        </button>
+                    </ion-buttons>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>

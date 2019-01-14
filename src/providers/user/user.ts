@@ -119,6 +119,18 @@ export class User {
         });
     }
 
+    getSocialToken(token) {
+        return new Promise((resolve, reject) => {
+            this.api.get('get-social-token/' + token)
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
     /**
      * Log the user out, which forgets the session
      */

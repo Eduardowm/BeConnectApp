@@ -2,13 +2,6 @@ import {Component} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Events} from "../../providers/providers";
 
-/**
- * Generated class for the EventMassCheckinPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
     selector: 'page-event-mass-checkin',
@@ -36,13 +29,8 @@ export class EventMassCheckinPage {
                 public toastCtrl: ToastController,
                 public events: Events) {
         this.event = navParams.get('event');
-        console.log(navParams.get('event'));
 
         this.loadSub();
-    }
-
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad EventMassCheckinPage');
     }
 
     loadSub() {
@@ -59,7 +47,6 @@ export class EventMassCheckinPage {
                         if (!person.imgProfile.startsWith('http')) {
                             person.imgProfile = 'https://beconnect.com.br/' + person.imgProfile;
                         }
-                        console.log(person.imgProfile);
                     }
 
                     this.setItems();

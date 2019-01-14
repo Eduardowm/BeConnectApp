@@ -1,0 +1,97 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>
+            <ion-select [(ngModel)]="tracks" name="tracks" cancelText="Cancelar" multiple="true" placeholder="Flitros">
+                <ion-option value="">Filtros</ion-option>
+            </ion-select>
+        </ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="toggleSearchbar()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar no-border-top *ngIf="searchVisible">
+        <ion-searchbar placeholder="Buscar" (ionInput)="onSearchInput($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar no-border-top toolbar-nav>
+        <ion-segment [(ngModel)]="tab">
+            <ion-segment-button value="Full Agenda">Agenda Completa</ion-segment-button>
+            <ion-segment-button value="My Agenda">Minha Agenda</ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col *ngFor="let day of days" [ngClass]="{'selected-day' : selectedDay == day}" class="day">
+                <div class="weekDay">{{day.weekDay}}</div>
+                <div class="monthDay">{{day.monthDay}}</div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div [hidden]="tab!='Full Agenda'">
+        <ion-list *ngFor="let session of sessions" (click)="openSession(session)">
+            <ion-item-divider color="light">{{session.start_date | dateFormat: 'h:mm a'}}</ion-item-divider>
+            <ion-item>
+                <ion-grid no-padding no-margin>
+                    <ion-row>
+                        <ion-col col-3 col-start>
+                            <span>{{session.start_date | dateFormat: 'h:mm a'}}</span>
+                            <span>{{session.end_date | dateFormat: 'h:mm a'}}</span>
+                            <span [class]="session.track_class"></span>
+                        </ion-col>
+
+                        <ion-col col-9>
+                            <h1>{{session.name}}</h1>
+                            <h2 *ngIf="session.location">Location: {{session.location}}</h2>
+                            <ion-row>
+                                <ion-col>
+                                    <button ion-button color="primary" clear small icon-start>
+                                        <ion-icon name='people'></ion-icon>
+                                        {{session.people_confirmed_count}}
+                                    </button>
+                                </ion-col>
+                                <ion-col>
+                                    <button ion-button color="primary" clear small icon-start>
+                                        <ion-icon name='thumbs-up'></ion-icon>
+                                        {{session.likes_count}}
+                                    </button>
+                                </ion-col>
+                                <ion-col>
+                                    <button ion-button color="primary" clear small icon-start>
+                                        <ion-icon name='chatbubbles'></ion-icon>
+                                        {{session.comments_count}}
+                                    </button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+    </div>
+
+    <div [hidden]="tab!='My Agenda'">
+        <ion-grid>
+            <ion-row>
+                <ion-col text-center>
+                    <h1>Nada adicionado para este dia</h1>
+                    <p>Adicione algum evento a sua agenda através do menu Agenda Completa</p>
+                    <button ion-button color="primary">+ Adicionar Evento</button>
+                    <p>Adicione sua própria atividade</p>
+                    <button ion-button color="primary">+ Adicionar Minha Atividade</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>

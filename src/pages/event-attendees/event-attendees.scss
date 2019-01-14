@@ -1,0 +1,58 @@
+page-event-attendees {
+  .segment-md .segment-button {
+    background: white;
+  }
+
+  .day {
+    text-align: center;
+  }
+
+  .selected-day {
+    border-bottom: 3px solid;
+    font-weight: bold;
+  }
+
+  [col-start] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .circle {
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-radius: 1rem;
+  }
+
+  .blue-circle {
+    @extend .circle;
+    background-color: map_get($colors, secondary);
+  }
+
+  .purple-circle {
+    @extend .circle;
+    background-color: map_get($colors, primary);
+  }
+
+  .list-header {
+    background-color: #dedede;
+    margin-bottom: 0;
+  }
+
+  h1, h2 {
+    white-space: normal;
+  }
+
+  ion-select {
+    max-width: 100%;
+  }
+
+  ion-item {
+    border-bottom: 1px solid !important;
+  }
+}

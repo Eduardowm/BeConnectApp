@@ -98,13 +98,13 @@
       "cordova-plugin-buildinfo": {},
       "cordova-plugin-browsertab": {},
       "cordova-plugin-inappbrowser": {},
+      "cordova-universal-links-plugin": {},
       "cordova-plugin-customurlscheme": {
-        "URL_SCHEME": "com.firebase.cordova",
+        "URL_SCHEME": "br.com.beconnect",
         "ANDROID_SCHEME": " ",
         "ANDROID_HOST": " ",
         "ANDROID_PATHPREFIX": "/"
-      },
-      "cordova-universal-links-plugin": {}
+      }
     },
     "platforms": [
       "browser"

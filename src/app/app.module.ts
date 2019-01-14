@@ -20,7 +20,6 @@ import {Api} from '../providers/providers';
 import {MyApp} from './app.component';
 import {NativeStorage} from "@ionic-native/native-storage";
 import {AndroidPermissions} from "@ionic-native/android-permissions";
-import {ModalTermsPage} from "../pages/modal-terms/modal-terms";
 import {SocialSharing} from "@ionic-native/social-sharing";
 import {DatePipe} from '@angular/common';
 import {BackgroundGeolocation} from '@ionic-native/background-geolocation';
@@ -58,8 +57,7 @@ export function provideSettings(storage: Storage) {
 
 @NgModule({
     declarations: [
-        MyApp,
-        ModalTermsPage
+        MyApp
     ],
     imports: [
         BrowserModule,
@@ -81,8 +79,7 @@ export function provideSettings(storage: Storage) {
     ],
     bootstrap: [IonicApp],
     entryComponents: [
-        MyApp,
-        ModalTermsPage
+        MyApp
     ],
     providers: [
         Api,
