@@ -122,4 +122,151 @@ export class Events {
                     });
         });
     }
+
+    past() {
+        return new Promise((resolve, reject) => {
+            let churchId = this.user.getChurch();
+            this.api.get('old-events/' + churchId)
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    personSubs() {
+        return new Promise((resolve, reject) => {
+            let churchId = this.user.getChurch();
+            let personId = this.user.getUser();
+            this.api.get('person-subs/' + personId + '/' + churchId)
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    getInfo(id) {
+        return new Promise((resolve, reject) => {
+            this.api.get('getEventInfo/' + id)
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    exhibitors() {
+        return new Promise((resolve, reject) => {
+            this.api.get('exhibitors')
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    exhibitorsCat(category) {
+        return new Promise((resolve, reject) => {
+            this.api.get('exhibitors/' + category)
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    exhibitorsCategories() {
+        return new Promise((resolve, reject) => {
+            this.api.get('exhibitors-categories')
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    // exhibitorsFeed () {
+    //     return new Promise((resolve, reject) => {
+    //         this.api.get('exhibitors-categories')
+    //             .subscribe((result: any) => {
+    //                     resolve(result);
+    //                 },
+    //                 (error) => {
+    //                     reject(error);
+    //                 });
+    //     });
+    // }
+
+    sponsors() {
+        return new Promise((resolve, reject) => {
+            this.api.get('sponsors')
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    sponsorsCat(category) {
+        return new Promise((resolve, reject) => {
+            this.api.get('sponsors-cat/' + category)
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    sponsorsCategories() {
+        return new Promise((resolve, reject) => {
+            this.api.get('sponsors-categories/')
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    doc(event_id?) {
+        if (event_id) {
+            return new Promise((resolve, reject) => {
+                this.api.get('doc/' + event_id)
+                    .subscribe((result: any) => {
+                            resolve(result);
+                        },
+                        (error) => {
+                            reject(error);
+                        });
+            });
+        }
+
+        return new Promise((resolve, reject) => {
+            this.api.get('doc')
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
 }

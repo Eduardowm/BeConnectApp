@@ -4,6 +4,7 @@ import { Settings } from './settings/settings';
 import { User } from './user/user';
 import { Churchs } from './churchs/churchs';
 import { Events } from './events/events';
+import { Sessions } from './sessions/sessions';
 import { Groups } from './groups/groups';
 
 export {
@@ -13,5 +14,6 @@ export {
     User,
     Churchs,
     Events,
+    Sessions,
     Groups
 };

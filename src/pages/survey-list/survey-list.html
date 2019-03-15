@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Lista de Pesquisas</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item *ngFor="let survey of surveys" (click)="openSurvey(survey)">
+            {{survey.name}}
+            <ion-note item-end></ion-note>
+        </ion-item>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{exhibitorsGroup.name}}</ion-title>
+    </ion-navbar>
+
+    <ion-toolbar no-border-top>
+        <ion-searchbar placeholder="Pesquise por nome, localização ou cupom" (ionInput)="onSearchInput($event)" (ionCancel)="onSearchCancel($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngFor="let exhibitorLetter of exhibitorsGroup.exhibitors">
+        <ion-list-header>{{exhibitorLetter.name}}</ion-list-header>
+        <ion-item *ngFor="let exhibitor of exhibitorLetter.exhibitors" (click)="openExhibitor(exhibitor)">
+            <img item-start [src]="exhibitor.image_url" w-32 h-32/>
+            <p>{{exhibitor.name}}</p>
+            <p>{{exhibitor.coupon}}</p>
+            <p>{{exhibitor.location}}</p>
+        </ion-item>
+    </ion-list>
+</ion-content>

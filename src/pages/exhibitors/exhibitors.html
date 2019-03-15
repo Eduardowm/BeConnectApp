@@ -1,0 +1,13 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Expositores</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item detail-push *ngFor="let group of exhibitors" (click)="openExhibitorsGroup(group)">
+            {{group.name}} ({{group.count}})
+        </ion-item>
+    </ion-list>
+</ion-content>

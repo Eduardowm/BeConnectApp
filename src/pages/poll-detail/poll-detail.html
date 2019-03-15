@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Detalhes da Enquete</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content *ngIf="poll">
+    <h1>{{poll.name}}</h1>
+    <small *ngIf="poll.closed">Fechada</small>
+
+    <ion-list *ngIf="poll.closed">
+        <ion-list-header>Resultados da Enquete</ion-list-header>
+        <p><b>Número total de votos: {{poll.vote_count}}</b></p>
+        <ion-item *ngFor="let option of poll.options">
+            <h4>{{option.name}}</h4>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-6>
+                        {{option.vote_count}}/{{poll.vote_count}}
+                    </ion-col>
+                    <ion-col text-right col-6>
+                        {{option.vote_percent}}%
+                    </ion-col>
+                    <ion-col col-12>
+                        <span class="percent-bar"></span>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="!poll.closed">
+        <ion-list-header>Responder Enquete</ion-list-header>
+        <ion-list radio-group [(ngModel)]="vote_option">
+            <ion-item *ngFor="let option of poll.options">
+                <ion-label class="white-space-normal">{{option.name}}</ion-label>
+                <ion-radio [value]="option.id"></ion-radio>
+            </ion-item>
+        </ion-list>
+
+        <button ion-button outline>Enviar</button>
+    </ion-list>
+</ion-content>

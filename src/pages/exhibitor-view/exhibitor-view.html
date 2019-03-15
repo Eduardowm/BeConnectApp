@@ -1,0 +1,158 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Detalhe</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content *ngIf="exhibitor">
+    <ion-grid no-padding>
+        <ion-row>
+            <ion-col text-center col-12>
+                <img [src]="exhibitor.image_url">
+                <h1>{{exhibitor.name}}</h1>
+                <h5>{{exhibitor.location}}</h5>
+                <a href="javascript:;">
+                    <ion-icon name="pin"></ion-icon>
+                    Ver Mapa</a>
+            </ion-col>
+
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item-divider color="light" text-left>
+                        <b>Fotos ({{exhibitor.photo_count}})</b>
+                        <a href="javascript:;" item-end><ion-icon name="camera"></ion-icon> Postar Foto</a>
+                    </ion-item-divider>
+                </ion-item-group>
+            </ion-col>
+
+            <ion-col col-12>
+                <ion-row>
+                    <ion-col col-3 *ngFor="let photo of exhibitor.photos">
+                        <img [src]="photo.url">
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+
+        <ion-row text-center>
+            <ion-col border-bottom border-right border-top>
+                <ion-icon name="thumbs-up"></ion-icon>
+                <p>Curtir ({{exhibitor.likes.length}})</p>
+            </ion-col>
+            <ion-col border-bottom border-top>
+                <ion-icon name="chatbubbles"></ion-icon>
+                <p>Comentar ({{exhibitor.comments.length}})</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row text-center>
+            <ion-col>
+                <p>Cadastre-se para ver as ofertas</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item>
+                        <p>{{exhibitor.description}}</p>
+                    </ion-item>
+                </ion-item-group>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item-divider color="light">Contato</ion-item-divider>
+                    <ion-item>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col-3>
+                                    <ion-icon name="pin"></ion-icon>
+                                </ion-col>
+                                <ion-col col-9>
+                                    {{exhibitor.location}}
+                                </ion-col>
+
+                                <ion-col col-3>
+                                    <ion-icon name="globe"></ion-icon>
+                                </ion-col>
+                                <ion-col col-9>
+                                    {{exhibitor.website}}
+                                </ion-col>
+
+                                <ion-col col-3>
+                                    <ion-icon name="mail"></ion-icon>
+                                </ion-col>
+                                <ion-col col-9>
+                                    {{exhibitor.email}}
+                                </ion-col>
+
+                                <ion-col col-3>
+                                    <ion-icon name="phone"></ion-icon>
+                                </ion-col>
+                                <ion-col col-9>
+                                    {{exhibitor.phone}}
+                                </ion-col>
+
+                                <ion-col col-3>
+                                    <ion-icon name="user"></ion-icon>
+                                </ion-col>
+                                <ion-col col-9>
+                                    {{exhibitor.owner}}
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-item>
+                </ion-item-group>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item-divider color="light">Sobre</ion-item-divider>
+                    <ion-item><p>{{exhibitor.about}}</p></ion-item>
+                </ion-item-group>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item-divider color="light">Curtidas ({{exhibitor.like_count}})</ion-item-divider>
+                    <ion-item *ngFor="let like of exhibitor.likes">
+                        <ion-avatar item-start>
+                            <img [src]="like.image_url">
+                        </ion-avatar>
+                        <h2>{{like.name}}</h2>
+                        <p>{{like.ocupation}}</p>
+                        <p>{{like.company}}</p>
+                        <ion-note item-end>Bio</ion-note>
+                    </ion-item>
+
+                </ion-item-group>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <ion-item-group>
+                    <ion-item-divider color="light">Comentários ({{exhibitor.comment_count}})</ion-item-divider>
+                    <ion-item *ngFor="let comment of exhibitor.comments">
+                        <ion-avatar item-start>
+                            <img [src]="comment.image_url">
+                            <p><small>{{comment.name}}</small></p>
+                        </ion-avatar>
+                        <small>{{comment.date}}</small>
+                        <p class="comment">{{comment.content}}</p>
+                    </ion-item>
+                </ion-item-group>
+            </ion-col>
+        </ion-row>
+
+        <ion-textarea name="content" [(ngModel)]="message.content" rows="10"></ion-textarea>
+        <button ion-button outline block right>Comentar</button>
+    </ion-grid>
+</ion-content>

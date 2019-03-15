@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Pesquisa</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding *ngIf="survey">
+    <ion-list>
+        <ion-item *ngFor="let option of survey.options">
+            <p>{{option.name}}</p>
+
+            <ion-list radio-group [(ngModel)]="option.value">
+                <ion-item *ngFor="let item of option.items">
+                    <ion-label class="white-space-normal">{{item.name}}</ion-label>
+                    <ion-radio [value]="item.id"></ion-radio>
+                </ion-item>
+            </ion-list>
+        </ion-item>
+    </ion-list>
+
+    <button ion-button block>Enviar</button>
+</ion-content>

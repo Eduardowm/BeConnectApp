@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title text-center>Adicionar Lead Manualmente</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <form (submit)="doSignup()">
+        <ion-list>
+            <ion-item>
+                <ion-label class="input-label" floating>Nome Completo</ion-label>
+                <ion-input type="text" name="name" class="secondary-input" [(ngModel)]="data.name"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="input-label" floating>E-mail</ion-label>
+                <ion-input type="email" name="email" class="secondary-input" [(ngModel)]="data.email"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="input-label" floating>Telefone</ion-label>
+                <ion-input type="text" name="phone" class="secondary-input" [(ngModel)]="data.phone"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="input-label" floating>Empresa</ion-label>
+                <ion-input type="text" name="company" class="secondary-input" [(ngModel)]="data.company"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="input-label" floating>Título</ion-label>
+                <ion-input type="text" name="title" class="secondary-input" [(ngModel)]="data.title"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="input-label" floating>Observação</ion-label>
+                <ion-textarea name="note" [(ngModel)]="data.note" rows="10"></ion-textarea>
+            </ion-item>
+
+            <div padding>
+                <button ion-button color="primary" block>Enviar</button>
+            </div>
+        </ion-list>
+    </form>
+</ion-content>

@@ -35,7 +35,7 @@
                     <!--<button ion-button outline round>Ver mais</button>-->
                     <!--</ion-badge>-->
                 </ion-list-header>
-                <ion-card>
+                <ion-card *ngIf="nextEvent">
                     <img src="assets/img/church1.png" (click)="abrirProximoEvento()">
                     <ion-card-content>
                         <ion-card-title>{{nextEvent.name}}</ion-card-title>

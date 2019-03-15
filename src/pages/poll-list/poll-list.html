@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Lista de Enquetes</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-list-header>Enquetes abertas para voto</ion-list-header>
+        <ion-item *ngFor="let poll of openPolls">
+            <h1>{{poll.name}}</h1>
+            <button ion-button (click)="openPoll(poll)">Responder Enquete</button>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+        <ion-list-header>Enquetes fechadas</ion-list-header>
+        <ion-item *ngFor="let poll of closedPolls">
+            <h1>{{poll.name}}</h1>
+            <p><small>Fechada</small></p>
+            <button ion-button outline (click)="openPoll(poll)">Ver Resultados</button>
+        </ion-item>
+    </ion-list>
+</ion-content>

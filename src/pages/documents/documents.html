@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Documentos</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div text-center>
+        <button ion-button>Exportar Todos Documentos</button>
+    </div>
+
+    <ion-list *ngFor="let documentGroup of documentGroups">
+        <ion-list-header>{{documentGroup.name}}</ion-list-header>
+        <ion-item *ngFor="let document of documentGroup.documents">
+            <img item-start [src]="document.image_url" w-32 h-32/>
+            <p>{{document.name}}</p>
+            <small>{{document.size}}</small>
+            <ion-note item-end></ion-note>
+        </ion-item>
+    </ion-list>
+</ion-content>

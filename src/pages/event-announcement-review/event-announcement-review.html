@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Revisão</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <p><b>Evento:</b></p>
+                <p>{{data.event_name}}</p>
+            </ion-col>
+
+            <ion-col col-12>
+                <p><b>Categorias:</b></p>
+                <p>{{data.recipients}}</p>
+            </ion-col>
+
+            <ion-col col-12>
+                <p><b>Título:</b></p>
+                <p>{{data.title}}</p>
+            </ion-col>
+
+            <ion-col col-12>
+                <p><b>Conteúdo:</b></p>
+                <p>{{data.content}}</p>
+            </ion-col>
+
+            <ion-col col-12>
+                <p><b>Opção de Envio:</b></p>
+                <p>{{data.send_option}}</p>
+            </ion-col>
+
+            <ion-col col-6>
+                <button ion-button outline block>Cancelar</button>
+            </ion-col>
+
+            <ion-col col-6>
+                <button ion-button block (click)="send()">Enviar</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

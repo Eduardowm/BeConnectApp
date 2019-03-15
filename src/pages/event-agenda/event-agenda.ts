@@ -55,6 +55,6 @@ export class EventAgendaPage {
     }
 
     openSession(session) {
-        this.modalCtrl.create("ModalSessionViewPage", {session}).present();
+        this.navCtrl.push("ModalSessionViewPage", {session});
     }
 }

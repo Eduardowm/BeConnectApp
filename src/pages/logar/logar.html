@@ -1,4 +1,4 @@
-<ion-content class="dark">
+<ion-content>
     <form (submit)="doLogin()">
         <div class="logo"></div>
 
@@ -20,9 +20,16 @@
                 <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
             </ion-item>
 
-            <div padding>
-                <button ion-button block>{{ 'LOGIN_BUTTON' | translate }}</button>
-            </div>
+            <ion-grid padding>
+                <ion-row>
+                    <ion-col>
+                        <button ion-button block (click)="signup()" type="button" round>Cadastrar</button>
+                    </ion-col>
+                    <ion-col>
+                        <button ion-button block round>{{ 'LOGIN_BUTTON' | translate }}</button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
 
             <ion-grid padding>
                 <ion-row>
@@ -40,6 +47,6 @@
             </ion-grid>
         </ion-list>
 
-        <p ion-text text-center color="light" (click)="forgotPassword()">Não lembra sua senha? <a href="javascript:;">Recupere agora mesmo</a></p>
+        <p ion-text text-center (click)="forgotPassword()">Não lembra sua senha? <a href="javascript:;">Recupere agora mesmo</a></p>
     </form>
 </ion-content>

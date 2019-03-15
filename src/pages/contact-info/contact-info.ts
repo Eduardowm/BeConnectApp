@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {User} from "../../providers/user/user";
 
 /**
  * Generated class for the ContactInfoPage page.
@@ -22,11 +23,17 @@ export class ContactInfoPage {
       skype: ''
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public user: User) {
+      this.buildAddress();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContactInfoPage');
   }
 
+    buildAddress() {
+      this.data.address = this.user.getUserInfo().neighborhood + ", " + this.user.getUserInfo().number + " - " + this.user.getUserInfo().city + " / " + this.user.getUserInfo().state
+    }
 }

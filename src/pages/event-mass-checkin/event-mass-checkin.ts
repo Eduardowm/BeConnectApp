@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Events} from "../../providers/providers";
+import {Sessions} from "../../providers/providers";
 
 @IonicPage()
 @Component({
@@ -12,6 +13,7 @@ export class EventMassCheckinPage {
     churchSearchShouldShowCancel: boolean = true;
 
     event: any;
+    session: any;
     items: any;
     subList: any = {
         status: true,
@@ -23,12 +25,18 @@ export class EventMassCheckinPage {
         ]
     };
 
+    checkin_count: number = 0;
+    people_count: number = 0;
+    searchVisible: boolean = false;
+
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public loadingCtrl: LoadingController,
                 public toastCtrl: ToastController,
-                public events: Events) {
+                public events: Events,
+                public sessions: Sessions) {
         this.event = navParams.get('event');
+        this.session = navParams.get('session');
 
         this.loadSub();
     }
@@ -47,6 +55,39 @@ export class EventMassCheckinPage {
                         if (!person.imgProfile.startsWith('http')) {
                             person.imgProfile = 'https://beconnect.com.br/' + person.imgProfile;
                         }
+
+                        if (person.check) {
+                            this.checkin_count++;
+                        }
+
+                        this.people_count++;
+                    }
+
+                    this.setItems();
+                })
+                .catch((error: any) => {
+                    loading.dismiss();
+                    // this.toast.create({ message: 'Erro ao criar o usuário. Erro: ' + error.error, position: 'botton', duration: 3000 }).present();
+                });
+        } else if (this.session) {
+            let loading = this.loadingCtrl.create();
+            loading.present();
+            this.sessions.getSubList(this.session.id)
+                .then((result: any) => {
+                    loading.dismiss();
+
+                    this.subList = result;
+
+                    for (let person of this.subList.people) {
+                        if (!person.imgProfile.startsWith('http')) {
+                            person.imgProfile = 'https://beconnect.com.br/' + person.imgProfile;
+                        }
+
+                        if (person.check) {
+                            this.checkin_count++;
+                        }
+
+                        this.people_count++;
                     }
 
                     this.setItems();
@@ -115,5 +156,13 @@ export class EventMassCheckinPage {
 
     onChurchSearchCancel(ev: any) {
         this.setItems();
+    }
+
+    toggleSearchbar() {
+        this.searchVisible = !this.searchVisible;
+    }
+
+    toggleUser(user) {
+        console.log(user);
     }
 }

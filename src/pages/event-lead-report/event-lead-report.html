@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Relatório de Leads</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid>
+        <ion-row>
+            <ion-col text-center>
+                <p>{{leads_count}} lead(s) foram escaneados.</p>
+
+                <p>{{name}}, {{count}}</p>
+
+                <p>Você deseja enviar um lembrete aos expositores/patrocinadores que não escanearam leads para tomarem conhecimento da vantagem do BeConnect?</p>
+
+                <button ion-button color="primary" block (click)="sendReminder()">
+                    Enviar Lembrete
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

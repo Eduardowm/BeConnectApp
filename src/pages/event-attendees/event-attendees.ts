@@ -42,6 +42,6 @@ export class EventAttendeesPage {
     }
 
     openParticipant(participant) {
-        this.modalCtrl.create("ModalParticipantViewPage", {participant}).present();
+        this.navCtrl.push("ModalParticipantViewPage", {participant});
     }
 }

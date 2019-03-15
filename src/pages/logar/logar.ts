@@ -379,4 +379,7 @@ export class LogarPage {
         // this.navCtrl.setRoot(HomePage);
     }
 
+    signup() {
+        this.navCtrl.push('FirstPage', {goToSignup: true});
+    }
 }

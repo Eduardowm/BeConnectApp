@@ -1,9 +1,17 @@
+<ion-header *ngIf="logoChanged">
+    <ion-navbar>
+        <ion-title text-center>
+            <img src="assets/img/logo.png" class="header-logo">
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
 <ion-content>
-    <div class="logo">
+    <div class="logo" [ngClass]="{'no-margin-top': logoChanged}" *ngIf="!logoChanged">
         <ion-img [src]="logo" [width]="logoWidth" [height]="logoHeight"></ion-img>
     </div>
 
-    <ion-slides>
+    <ion-slides [ngClass]="{'margin-top': logoChanged}">
         <ion-slide>
             <h1>Conectando pessoas a comunidades cristãs</h1>
             <p>Seja a conexão</p>
@@ -82,15 +90,19 @@
 
         <ion-slide>
             <h1>Qual é a sua igreja?</h1>
-            <ion-list>
-                <ion-searchbar
-                        [(ngModel)]="churchSearch"
-                        [showCancelButton]="churchSearchShouldShowCancel"
-                        (ionInput)="onChurchSearchInput($event)"
-                        (ionCancel)="onChurchSearchCancel($event)"
-                        placeholder="Buscar">
-                </ion-searchbar>
 
+            <ion-searchbar
+                    [(ngModel)]="churchSearch"
+                    [showCancelButton]="churchSearchShouldShowCancel"
+                    (ionInput)="onChurchSearchInput($event)"
+                    (ionCancel)="onChurchSearchCancel($event)"
+                    placeholder="Buscar">
+            </ion-searchbar>
+
+            <ion-list class="church-list">
+                <ion-item *ngIf="items && items.length <= 0">
+                    <h2>Nenhum resultado encontrado.</h2>
+                </ion-item>
                 <ion-item *ngFor="let church of items" (click)="continueMember(church)">
                     <ion-thumbnail item-start>
                         <img src="assets/img/church2.png">

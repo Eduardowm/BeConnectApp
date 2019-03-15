@@ -29,8 +29,12 @@ page-first {
   }
 
   @keyframes animatedBackground {
-    from { background-position: 0 0; }
-    to { background-position: 100% 0; }
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 100% 0;
+    }
   }
 
   .splash-info {
@@ -62,4 +66,17 @@ page-first {
       background-color: rgb(220, 220, 220);
     }
   }
+
+  .church-list {
+    overflow-y: scroll;
+    max-height: 65vh;
+  }
+
+  .slides.margin-top {
+    margin-top: 50px;
+  }
+}
+
+.header-logo {
+  width: 40px;
 }

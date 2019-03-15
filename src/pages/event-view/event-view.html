@@ -1,6 +1,10 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Início</ion-title>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>Início</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -20,12 +24,12 @@
             <ion-col col-12>
                 <h1>{{event.name}}</h1>
                 <h2>{{event.event_date | dateFormat: 'MMM DD HH:mm'}} | {{event.street}}, {{event.number}}, {{event.city}}</h2>
-                <a href="javascript:;">Trocar evento</a>
+                <a href="javascript:;" (click)="changeEvent()">Trocar evento</a>
             </ion-col>
 
             <ion-col col-12>
                 <div class="map-background">
-                    <h3>Ver Localização</h3>
+                    <a href="geo:?q={{event_location}}" target="_system"><h3>Ver Localização</h3></a>
                 </div>
             </ion-col>
 
@@ -51,13 +55,19 @@
                         </ion-avatar>
                         Check-In de Sessões
                     </ion-item>
-                    <ion-item>
+                    <ion-item (click)="appAccessRequests()">
+                        <ion-avatar item-start>
+                            <ion-icon name="phone-portrait"></ion-icon>
+                        </ion-avatar>
+                        Requisições de Acesso ao Aplicativo
+                    </ion-item>
+                    <ion-item (click)="appDownloadStats()">
                         <ion-avatar item-start>
                             <ion-icon name="cloud-download"></ion-icon>
                         </ion-avatar>
                         Relatório de Download do Aplicativo
                     </ion-item>
-                    <ion-item>
+                    <ion-item (click)="leadsReport()">
                         <ion-avatar item-start>
                             <ion-icon name="analytics"></ion-icon>
                         </ion-avatar>
@@ -76,7 +86,7 @@
                 <h3>Geração de Leads</h3>
                 <h4>* Acesso restrito para patrocinadores e expositores</h4>
                 <ion-list>
-                    <ion-item>
+                    <ion-item (click)="addLeadManually()">
                         <ion-avatar item-start>
                             <ion-icon name="barcode"></ion-icon>
                         </ion-avatar>
@@ -90,49 +100,49 @@
                 <ion-grid>
                     <ion-row>
                         <ion-col col-6>
-                            <button ion-button block outline>
+                            <button ion-button block outline (click)="logistics()">
                                 <ion-icon name="map"></ion-icon>
                                 Logísticas
                             </button>
                         </ion-col>
                         <ion-col col-6>
-                            <button ion-button block outline>
+                            <button ion-button block outline (click)="photos()">
                                 <ion-icon name="images"></ion-icon>
                                 Fotos
                             </button>
                         </ion-col>
                         <ion-col col-6>
-                            <button ion-button block outline>
+                            <button ion-button block outline (click)="exhibitors()">
                                 <ion-icon name="briefcase"></ion-icon>
                                 Expositores
                             </button>
                         </ion-col>
                         <ion-col col-6>
-                            <button ion-button block outline>
+                            <button ion-button block outline (click)="polls()">
                                 <ion-icon name="pie"></ion-icon>
                                 Enquetes
                             </button>
                         </ion-col>
                         <ion-col col-6>
-                            <button ion-button block outline>
+                            <button ion-button block outline (click)="sponsors()">
                                 <ion-icon name="pricetag"></ion-icon>
                                 Patrocinadores
                             </button>
                         </ion-col>
                         <ion-col col-6>
-                            <button ion-button block outline>
+                            <button ion-button block outline (click)="surveys()">
                                 <ion-icon name="search"></ion-icon>
                                 Pesquisas
                             </button>
                         </ion-col>
                         <ion-col col-6>
-                            <button ion-button block outline>
+                            <button ion-button block outline (click)="documents()">
                                 <ion-icon name="document"></ion-icon>
                                 Documentos
                             </button>
                         </ion-col>
                         <ion-col col-6>
-                            <button ion-button block outline>
+                            <button ion-button block outline (click)="twitter()">
                                 <ion-icon name="logo-twitter"></ion-icon>
                                 Twitter
                             </button>

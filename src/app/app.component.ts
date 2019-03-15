@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 import {TranslateService} from '@ngx-translate/core';
-import {Config, Nav, Platform, AlertController, LoadingController} from 'ionic-angular';
+import {Config, Nav, Platform, AlertController, LoadingController, MenuController} from 'ionic-angular';
 
 import {FirstRunPage, MainPage} from '../pages/pages';
 import {Settings} from '../providers/providers';
@@ -23,7 +23,7 @@ import * as firebase from 'firebase';
                     <ion-title>BeConnect</ion-title>
                     <ion-buttons end>
                         <button ion-button icon-only (click)="changeChurch()">
-                            <img src="assets/img/church_icon.png" class="church-icon"/>
+                            <ion-icon name="swap"></ion-icon>
                         </button>
                     </ion-buttons>
                 </ion-toolbar>
@@ -38,11 +38,14 @@ import * as firebase from 'firebase';
                         </ion-col>
                         <ion-col col-8>
                             <p class="avatar-title">{{user.getUserInfo().name}}</p>
-                            <p class="avatar-email" (click)="openPage({component: 'ProfilePage'})"><ion-icon name="create"></ion-icon> Editar Perfil</p>
+                            <p class="avatar-email" (click)="openPage({component: 'ProfilePage'})">
+                                <ion-icon name="create"></ion-icon>
+                                Editar Perfil
+                            </p>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
-                
+
                 <ion-list>
                     <button menuClose ion-item *ngFor="let p of pages" menuItem (click)="openPage(p)">
                         <ion-icon name="{{p.icon}}"></ion-icon>
@@ -96,7 +99,8 @@ export class MyApp {
                 public _churchs: Churchs,
                 public loadingCtrl: LoadingController,
                 public user: User,
-                private nativeStorage: NativeStorage) {
+                private nativeStorage: NativeStorage,
+                private menuController: MenuController) {
         this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION, this.androidPermissions.PERMISSION.ACCESS_NOTIFICATION_POLICY]);
 
         // private oneSignal: OneSignal) {
@@ -174,6 +178,7 @@ export class MyApp {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
+        this.menuController.close();
     }
 
     exitApp() {
@@ -196,6 +201,8 @@ export class MyApp {
 
                 let alert = this.alertCtrl.create();
                 alert.setTitle('Qual igreja você deseja acessar?');
+
+                console.log(result);
 
                 for (let church of result) {
                     alert.addInput({

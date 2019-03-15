@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>App Download Stats</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid>
+        <ion-row>
+            <ion-col text-center>
+                <p>Número de participantes que baixaram o BeConnect até agora:</p>
+                <h1><b>{{data.download_count}}</b></h1>
+                <h3>{{data.download_percent}}% do total de participantes</h3>
+                <br/>
+                <p>Detalhes por categorias</p>
+                <table>
+                    <tbody>
+                    <tr *ngFor="let category of data.categories">
+                        <td>{{category.name}}</td>
+                        <td>{{category.download_count}}</td>
+                        <td>{{category.count}}</td>
+                        <td>{{category.download_percent}}%</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>A taxa média de downloads do BeConnect é {{data.download_average_percent}}%.<br/>Aumente sua taxa de download:</p>
+                <button ion-button color="primary" block (click)="sendEmailReminder()">
+                    <ion-icon name="mail"></ion-icon>
+                    Enviar e-mail de lembrança
+                </button>
+                <button ion-button color="primary" block (click)="shareOnSocialMedia()">
+                    <ion-icon name="share"></ion-icon>
+                    Compartilhar nas Redes Sociais
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

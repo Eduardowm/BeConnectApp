@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Enviar E-mail de Lembrança</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col col-12 text-center force-padding>
+        <h4>* Acesso restrito aos administradores</h4>
+      </ion-col>
+
+      <ion-col col-12>
+        <ion-list>
+          <ion-list-header>
+            Escolha as Categorias
+          </ion-list-header>
+          <ion-item *ngFor="let recipient of recipients">
+            <ion-label>{{recipient.name}} ({{recipient.count}})</ion-label>
+            <ion-checkbox color="dark" [(ngModel)]="recipient.checked" name="{{recipient.id}}"></ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+      <ion-col col-12>
+        <ion-list>
+          <ion-list-header>
+            Escrever Mensagem
+          </ion-list-header>
+
+          <ion-item>
+            <ion-label floating>Título</ion-label>
+            <ion-input type="text" name="title" [(ngModel)]="message.title"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Conteúdo</ion-label>
+            <ion-textarea name="content" [(ngModel)]="message.content" rows="10"></ion-textarea>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+      <ion-col col-6 force-padding>
+        <button ion-button outline block>Salvar</button>
+      </ion-col>
+
+      <ion-col col-6 force-padding>
+        <button ion-button block (click)="send()">Enviar</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

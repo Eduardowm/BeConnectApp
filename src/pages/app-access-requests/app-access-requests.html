@@ -1,0 +1,73 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>Pedidos de Acesso ao App</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item-divider color="light">Aguardando Aprovação ({{pendingRequests.length}})</ion-item-divider>
+        <ion-item *ngFor="let request of pendingRequests">
+            <ion-grid no-padding no-margin>
+                <ion-row>
+                    <ion-col col-12>
+                        <small>Pedido em {{request.date | dateFormat: 'h:mm a'}}</small>
+                    </ion-col>
+                    <ion-col col-2 col-start>
+                        <ion-avatar item-start no-margin>
+                            <img [src]="request.picture_url">
+                        </ion-avatar>
+                    </ion-col>
+
+                    <ion-col col-7>
+                        <h4>{{request.name}}</h4>
+                        <h4>{{request.email}}</h4>
+                        <h4>{{request.occupation}}</h4>
+                        <h4>{{request.location}}</h4>
+                    </ion-col>
+
+                    <ion-col col-3>
+                        <button ion-button color="primary" block (click)="approve(request)">Aprovar</button>
+                        <button ion-button color="primary" outline block (click)="ignore(request)">Ignorar</button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+
+        <ion-item-divider color="light">Pedidos Resolvidos ({{resolvedRequests.length}})</ion-item-divider>
+        <ion-item *ngFor="let request of resolvedRequests">
+            <ion-grid no-padding no-margin>
+                <ion-row>
+                    <ion-col col-12>
+                        <small>Pedido em {{request.date | dateFormat: 'h:mm a'}}</small>
+                    </ion-col>
+                    <ion-col col-2 col-start>
+                        <ion-avatar item-start no-margin>
+                            <img [src]="request.picture_url">
+                        </ion-avatar>
+                    </ion-col>
+
+                    <ion-col col-7>
+                        <h4>{{request.name}}</h4>
+                        <h4>{{request.email}}</h4>
+                        <h4>{{request.occupation}}</h4>
+                        <h4>{{request.location}}</h4>
+                    </ion-col>
+
+                    <ion-col col-3 *ngIf="!request.approved">
+                        <button ion-button color="primary" outline block disabled>Ignorado</button>
+                        <button ion-button color="primary" block clear (click)="change(request)">Alterar</button>
+                    </ion-col>
+
+                    <ion-col col-3 *ngIf="request.approved">
+                        <button ion-button color="primary" outline block disabled><ion-icon name="checkmark"></ion-icon> Aprovado</button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+</ion-content>

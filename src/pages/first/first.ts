@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, LoadingController, NavController} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {ViewChild} from '@angular/core';
 import {Slides, ToastController, ModalController, Platform} from 'ionic-angular';
 import {NativeStorage} from "@ionic-native/native-storage";
@@ -45,6 +45,9 @@ export class FirstPage {
     logo: string = 'assets/img/logo-escuro.png';
     logoWidth: number = 256;
     logoHeight: number = 256;
+    logoChanged: boolean = false;
+
+    goToSignup: boolean = false;
 
     constructor(public navCtrl: NavController,
                 private nativeStorage: NativeStorage,
@@ -53,7 +56,9 @@ export class FirstPage {
                 public modalCtrl: ModalController,
                 public user: User,
                 public loadingCtrl: LoadingController,
-                public platform: Platform) {
+                public platform: Platform,
+                public navParams: NavParams) {
+        this.goToSignup = this.navParams.get('goToSignup');
     }
 
     ionViewDidLoad() {
@@ -65,7 +70,18 @@ export class FirstPage {
         });
 
         this.platform.ready().then((readySource) => {
-            this.checarSessao();
+            if (!this.goToSignup) {
+                this.checarSessao();
+            } else {
+                let loading = this.loadingCtrl.create();
+                loading.present();
+
+                let that = this;
+                setTimeout(function() {
+                    that.hasRegister(false);
+                    loading.dismiss();
+                }, 500);
+            }
 
             this.nativeStorage.getItem('waiting-signup-social').then(data => {
                 this.waitingSignupSocial = true;
@@ -86,6 +102,7 @@ export class FirstPage {
         } else {
             this.logo = 'assets/img/logo-horizontal.png';
             this.logoHeight /= 2;
+            this.logoChanged = true;
             this.slides.lockSwipes(false);
             this.slides.slideTo(2, 500);
             this.slides.lockSwipes(true);
@@ -582,7 +599,8 @@ export class FirstPage {
             this.navCtrl.setRoot(MainPage);
             this.navCtrl.popToRoot();
             this.toastCtrl.create({message: "Não foi possível se comunicar com o servidor.", duration: 3000, position: 'top'}).present();
-        });    }
+        });
+    }
 
     firebaseInit() {
         this.firebaseLoginResult();

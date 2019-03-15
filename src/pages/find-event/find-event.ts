@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Events} from "../../providers/events/events";
 
 /**
  * Generated class for the FindEventPage page.
@@ -14,95 +15,57 @@ import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angula
     templateUrl: 'find-event.html',
 })
 export class FindEventPage {
-    searchVisible: boolean = false;
-    tab: string = 'Agora';
-
-    now_events: any = [
-        {
-            name: 'Hoje',
-            events: [
-                {
-                    picture_url: 'assets/img/church1.png',
-                    name: 'Frontier Culture Museum 2018',
-                    start_date: Date.now(),
-                    end_date: Date.now(),
-                    city: 'Staunton',
-                    state: 'VA',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias animi culpa dicta distinctio eaque esse harum illo inventore ipsam iusto laudantium maxime minus molestias possimus, praesentium quae totam unde.'
-                },
-                {
-                    picture_url: 'assets/img/church2.png',
-                    name: '2019 National IMP Sales Meeting',
-                    start_date: Date.now(),
-                    end_date: Date.now(),
-                    city: 'Orlando',
-                    state: 'FL',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias animi culpa dicta distinctio eaque esse harum illo inventore ipsam iusto laudantium maxime minus molestias possimus, praesentium quae totam unde.'
-                },
-                {
-                    picture_url: 'assets/img/church3.png',
-                    name: 'Real Estate Ignite 2018',
-                    start_date: Date.now(),
-                    end_date: Date.now(),
-                    city: 'Las Vegas',
-                    state: 'NV',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias animi culpa dicta distinctio eaque esse harum illo inventore ipsam iusto laudantium maxime minus molestias possimus, praesentium quae totam unde.'
-                },
-            ]
-        },
-        {
-            name: 'Essa Semana',
-            events: [
-                {
-                    picture_url: 'assets/img/church1.png',
-                    name: 'Frontier Culture Museum 2018',
-                    start_date: Date.now(),
-                    end_date: Date.now(),
-                    city: 'Staunton',
-                    state: 'VA',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias animi culpa dicta distinctio eaque esse harum illo inventore ipsam iusto laudantium maxime minus molestias possimus, praesentium quae totam unde.'
-                },
-                {
-                    picture_url: 'assets/img/church2.png',
-                    name: '2019 National IMP Sales Meeting',
-                    start_date: Date.now(),
-                    end_date: Date.now(),
-                    city: 'Orlando',
-                    state: 'FL',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias animi culpa dicta distinctio eaque esse harum illo inventore ipsam iusto laudantium maxime minus molestias possimus, praesentium quae totam unde.'
-                },
-                {
-                    picture_url: 'assets/img/church3.png',
-                    name: 'Real Estate Ignite 2018',
-                    start_date: Date.now(),
-                    end_date: Date.now(),
-                    city: 'Las Vegas',
-                    state: 'NV',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad alias animi culpa dicta distinctio eaque esse harum illo inventore ipsam iusto laudantium maxime minus molestias possimus, praesentium quae totam unde.'
-                },
-            ]
-        }
-    ];
-
-    soon_events: any = [];
-    past_events: any = [];
+    tab: any = 'Coming Soon';
+    comingSoonEvents: any = [];
+    allUpcomingEvents: any = [];
+    pastEvents: any = [];
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
-                public modalCtrl: ModalController) {
+                public events: Events,
+                public loadingCtrl: LoadingController) {
+        this.load();
     }
 
-    toggleSearchbar() {
-        this.searchVisible = !this.searchVisible;
-    }
-
-    onSearchInput($event) {
-    }
-
-    onSearchCancel($event) {
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad FindEventPage');
     }
 
     openEvent(event) {
-        this.modalCtrl.create("ModalEventViewPage", {event}).present();
+        this.navCtrl.push('EventTabsPage', {event});
+    }
+
+    load() {
+        let loading = this.loadingCtrl.create();
+        loading.present();
+
+        this.events.nextWeek()
+            .then((result: any) => {
+                this.comingSoonEvents = result;
+            })
+            .catch((error: any) => {
+                loading.dismiss();
+                console.log("Error", error);
+            });
+
+        this.events.next()
+            .then((result: any) => {
+                loading.dismiss();
+                this.allUpcomingEvents = result;
+            })
+            .catch((error: any) => {
+                loading.dismiss();
+                console.log("Error", error);
+            });
+
+        this.events.past()
+            .then((result: any) => {
+                loading.dismiss();
+                this.pastEvents = result;
+            })
+            .catch((error: any) => {
+                loading.dismiss();
+                console.log("Error", error);
+            });
     }
 }

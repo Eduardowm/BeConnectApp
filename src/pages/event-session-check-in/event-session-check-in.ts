@@ -7,7 +7,6 @@ import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angula
     templateUrl: 'event-session-check-in.html',
 })
 export class EventSessionCheckInPage {
-    tab: string = 'Full Agenda';
     tracks: any;
     searchVisible: boolean = false;
     days: any = [
@@ -75,7 +74,7 @@ export class EventSessionCheckInPage {
     onSearchCancel($event) {
     }
 
-    openSession(session) {
-        this.modalCtrl.create("EventSessionCheckInModalPage", {session}).present();
+    openSessionMassCheckin(session) {
+        this.navCtrl.push('EventMassCheckinPage', {session});
     }
 }

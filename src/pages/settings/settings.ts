@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {NativeStorage} from "@ionic-native/native-storage";
+
+import * as firebase from 'firebase';
 
 /**
  * Generated class for the SettingsPage page.
@@ -24,11 +27,22 @@ export class SettingsPage {
         }
     };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private nativeStorage: NativeStorage) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
   }
 
+    exitApp() {
+        firebase.auth().signOut();
+        this.nativeStorage.remove('login');
+        this.nativeStorage.remove('church');
+        this.nativeStorage.remove('password');
+        //this.platform.exitApp();
+        this.navCtrl.setRoot("LogarPage");
+        this.navCtrl.popToRoot();
+    }
 }

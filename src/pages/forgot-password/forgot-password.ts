@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 // import {FirstRunPage} from "../pages";
 import {User} from "../../providers/user/user";
@@ -11,14 +11,12 @@ import {User} from "../../providers/user/user";
 export class ForgotPasswordPage {
     email: any;
 
-    constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public user: User,
-        public toastCtrl: ToastController,
-        public alertCtrl: AlertController,
-        public loadingCtrl: LoadingController
-    ) {
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                public user: User,
+                public toastCtrl: ToastController,
+                public alertCtrl: AlertController,
+                public loadingCtrl: LoadingController) {
     }
 
     ionViewDidLoad() {
@@ -27,17 +25,25 @@ export class ForgotPasswordPage {
 
     // Attempt to login in through our User service
     doForgotPassword() {
+        let loading = this.loadingCtrl.create();
+        loading.present();
+
         this.user.forgotPassword(this.email)
             .then((result: any) => {
-                this.navCtrl.push('LogarPage');
-                let toast = this.toastCtrl.create({
+                loading.dismiss();
+
+                // this.navCtrl.push('LogarPage');
+                this.toastCtrl.create({
                     message: "Foi enviado um e-mail com instruções para recuperação da sua conta para o endereço informado.",
                     duration: 10000,
                     position: 'top'
-                });
-                toast.present();
+                }).present();
+
+                this.recoveryCode();
             })
             .catch((error: any) => {
+                loading.dismiss();
+
                 let toast = this.toastCtrl.create({
                     message: error.mensagem,
                     duration: 3000,
@@ -118,6 +124,7 @@ export class ForgotPasswordPage {
                         duration: 3000,
                         position: 'top'
                     }).present();
+                    this.navCtrl.pop();
                 } else {
                     this.toastCtrl.create({
                         message: result.msg,

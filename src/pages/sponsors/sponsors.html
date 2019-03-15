@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Patrocinadores</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngFor="let sponsor of sponsors" (click)="openSponsor(sponsor)">
+        <ion-list-header>{{sponsor.name}}</ion-list-header>
+        <ion-item>
+            <img [src]="sponsor.image_url"/>
+        </ion-item>
+    </ion-list>
+</ion-content>

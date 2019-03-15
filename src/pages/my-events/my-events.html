@@ -5,22 +5,37 @@
         </button>
 
         <ion-title text-center>Meus Eventos</ion-title>
-
-        <ion-buttons end>
-            <button ion-button icon-only (click)="openMessages()">
-                <ion-icon name="mail"></ion-icon>
-            </button>
-        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-    <ion-grid h-100>
-        <ion-row align-items-center justify-content-center h-100>
-            <ion-col text-center>
-                <p>Você não tem eventos ainda.</p>
-                <p>Clique no botão abaixo para encontrar e se juntar a algum evento.</p>
-                <button ion-button color="primary" (click)="openEventFind()"><ion-icon name="search" class="margin-right"></ion-icon> Encontrar Meu Evento / Conferência</button>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <h5 text-center *ngIf="events.length <= 0">Você ainda não possui eventos.<br/>Clique abaixo para encontrar o seu primeiro.</h5>
+
+                <ion-list *ngIf="events.length > 0">
+                    <ion-item *ngFor="let event of events" (click)="openEvent(event)">
+                        <ion-thumbnail item-start>
+                            <img *ngIf="event.imgEvent" [src]="event.imgEvent">
+                            <img *ngIf="!event.imgEvent" src="assets/img/church1.png">
+                        </ion-thumbnail>
+                        <h1>{{event.name}}</h1>
+                        <ion-icon name="calendar"></ion-icon>
+                        {{event.eventDate | dateFormat: 'MMM D, YYYY'}}<br/>
+                        <ion-icon name="pin"></ion-icon>
+                        {{event.street}} - {{event.number}}, {{event.city}}
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <button ion-button block (click)="findEvent()">
+                    <ion-icon name="search"></ion-icon>
+                    Encontrar meu Evento
+                </button>
             </ion-col>
         </ion-row>
     </ion-grid>
