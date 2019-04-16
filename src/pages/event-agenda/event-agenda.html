@@ -32,7 +32,7 @@
 
     <ion-grid>
         <ion-row>
-            <ion-col *ngFor="let day of days" [ngClass]="{'selected-day' : selectedDay == day}" class="day">
+            <ion-col *ngFor="let day of days" [ngClass]="{'selected-day' : selectedDay == day}" class="day" (click)="selectDay(day)">
                 <div class="weekDay">{{day.weekDay}}</div>
                 <div class="monthDay">{{day.monthDay}}</div>
             </ion-col>
@@ -40,40 +40,41 @@
     </ion-grid>
 
     <div [hidden]="tab!='Full Agenda'">
-        <ion-list *ngFor="let session of sessions" (click)="openSession(session)">
-            <ion-item-divider color="light">{{session.start_date | dateFormat: 'h:mm a'}}</ion-item-divider>
+        <ion-list *ngFor="let session of selectedDaySessions" (click)="openSession(session)">
+            <ion-item-divider color="light">{{session.start_time | dateFormat: 'h:mm a'}}</ion-item-divider>
             <ion-item>
                 <ion-grid no-padding no-margin>
                     <ion-row>
                         <ion-col col-3 col-start>
-                            <span>{{session.start_date | dateFormat: 'h:mm a'}}</span>
-                            <span>{{session.end_date | dateFormat: 'h:mm a'}}</span>
-                            <span [class]="session.track_class"></span>
+                            <span>{{session.start_time | dateFormat: 'h:mm a'}}</span>
+                            <span>{{session.end_time | dateFormat: 'h:mm a'}}</span>
+                            <!--<span [class]="session.track_class"></span>-->
+                            <span class="blue-circle"></span>
                         </ion-col>
 
                         <ion-col col-9>
                             <h1>{{session.name}}</h1>
-                            <h2 *ngIf="session.location">Location: {{session.location}}</h2>
-                            <ion-row>
-                                <ion-col>
-                                    <button ion-button color="primary" clear small icon-start>
-                                        <ion-icon name='people'></ion-icon>
-                                        {{session.people_confirmed_count}}
-                                    </button>
-                                </ion-col>
-                                <ion-col>
-                                    <button ion-button color="primary" clear small icon-start>
-                                        <ion-icon name='thumbs-up'></ion-icon>
-                                        {{session.likes_count}}
-                                    </button>
-                                </ion-col>
-                                <ion-col>
-                                    <button ion-button color="primary" clear small icon-start>
-                                        <ion-icon name='chatbubbles'></ion-icon>
-                                        {{session.comments_count}}
-                                    </button>
-                                </ion-col>
-                            </ion-row>
+                            <h2 *ngIf="session.location">{{session.location}}</h2>
+                            <!--<ion-row>-->
+                            <!--<ion-col>-->
+                            <!--<button ion-button color="primary" clear small icon-start>-->
+                            <!--<ion-icon name='people'></ion-icon>-->
+                            <!--{{session.people_confirmed_count}}-->
+                            <!--</button>-->
+                            <!--</ion-col>-->
+                            <!--<ion-col>-->
+                            <!--<button ion-button color="primary" clear small icon-start>-->
+                            <!--<ion-icon name='thumbs-up'></ion-icon>-->
+                            <!--{{session.likes_count}}-->
+                            <!--</button>-->
+                            <!--</ion-col>-->
+                            <!--<ion-col>-->
+                            <!--<button ion-button color="primary" clear small icon-start>-->
+                            <!--<ion-icon name='chatbubbles'></ion-icon>-->
+                            <!--{{session.comments_count}}-->
+                            <!--</button>-->
+                            <!--</ion-col>-->
+                            <!--</ion-row>-->
                         </ion-col>
                     </ion-row>
                 </ion-grid>

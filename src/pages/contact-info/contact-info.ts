@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {User} from "../../providers/user/user";
 
 /**
@@ -11,29 +11,33 @@ import {User} from "../../providers/user/user";
 
 @IonicPage()
 @Component({
-  selector: 'page-contact-info',
-  templateUrl: 'contact-info.html',
+    selector: 'page-contact-info',
+    templateUrl: 'contact-info.html',
 })
 export class ContactInfoPage {
-  data: any = {
-      phone: '',
-      email: '',
-      address: '',
-      whatsapp: '',
-      skype: ''
-  };
+    data: any = {
+        phone: '',
+        email: '',
+        address: '',
+        whatsapp: '',
+        skype: ''
+    };
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public user: User) {
-      this.buildAddress();
-  }
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                public user: User) {
+        this.buildAddress();
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactInfoPage');
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad ContactInfoPage');
+    }
 
     buildAddress() {
-      this.data.address = this.user.getUserInfo().neighborhood + ", " + this.user.getUserInfo().number + " - " + this.user.getUserInfo().city + " / " + this.user.getUserInfo().state
+        this.data.address = this.user.getUserInfo().neighborhood ? (this.user.getUserInfo().neighborhood + ", " + this.user.getUserInfo().number + " - " + this.user.getUserInfo().city + " / " + this.user.getUserInfo().state) : 'Não Especificado'
+    }
+
+    viewMyQRCode() {
+        this.navCtrl.push('ViewMyQrCodePage');
     }
 }

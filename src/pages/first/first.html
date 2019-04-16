@@ -1,5 +1,11 @@
-<ion-header *ngIf="logoChanged">
+<ion-header *ngIf="logoChanged" [class.show-back-button]="goToSignup">
     <ion-navbar>
+        <ion-buttons left *ngIf="!goToSignup && !slides.isBeginning()">
+            <button ion-button icon-only (click)="backSlide()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+
         <ion-title text-center>
             <img src="assets/img/logo.png" class="header-logo">
         </ion-title>
@@ -8,12 +14,12 @@
 
 <ion-content>
     <div class="logo" [ngClass]="{'no-margin-top': logoChanged}" *ngIf="!logoChanged">
-        <ion-img [src]="logo" [width]="logoWidth" [height]="logoHeight"></ion-img>
+        <img [src]="logo" [width]="logoWidth" [height]="logoHeight" />
     </div>
 
     <ion-slides [ngClass]="{'margin-top': logoChanged}">
         <ion-slide>
-            <h1>Conectando pessoas a comunidades cristãs</h1>
+            <h1>Conectando pessoas a comunidades</h1>
             <p>Seja a conexão</p>
             <button ion-button color="primary" (click)="nextSlide()" block round>Vamos lá!</button>
         </ion-slide>
@@ -54,13 +60,13 @@
                     <ion-input type="text" [(ngModel)]="data.cel" [brmasker]="{mask:'00 00000-0000', len:13}"></ion-input>
                 </ion-item>
 
-                <ion-item padding-horizontal>
-                    <ion-label stacked>Você é um membro ou um visitante?</ion-label>
-                    <ion-select [(ngModel)]="data.role" cancelText="Cancelar">
-                        <ion-option>Membro</ion-option>
-                        <ion-option>Visitante</ion-option>
-                    </ion-select>
-                </ion-item>
+                <!--<ion-item padding-horizontal>-->
+                <!--<ion-label stacked>Você é um membro ou um visitante?</ion-label>-->
+                <!--<ion-select [(ngModel)]="data.role" cancelText="Cancelar">-->
+                <!--<ion-option>Membro</ion-option>-->
+                <!--<ion-option>Visitante</ion-option>-->
+                <!--</ion-select>-->
+                <!--</ion-item>-->
 
                 <ion-item>
                     <ion-label (click)="openTerms()" z-index-top><a href="javascript:;">Li e aceito os termos de uso</a></ion-label>
@@ -71,25 +77,25 @@
                     <button ion-button color="primary" block round (click)="signup()">Cadastrar</button>
                 </div>
 
-                <ion-grid>
-                    <ion-row>
-                        <ion-col>
-                            <button color="facebook" ion-button block round type="button" (click)="loginFacebook()">
-                                <ion-icon name="logo-facebook"></ion-icon>
-                            </button>
-                        </ion-col>
-                        <ion-col>
-                            <button color="google" ion-button block round type="button" (click)="loginGoogle()">
-                                <ion-icon name="logo-google"></ion-icon>
-                            </button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
+                <!--<ion-grid>-->
+                <!--<ion-row>-->
+                <!--<ion-col>-->
+                <!--<button color="facebook" ion-button block round type="button" (click)="loginFacebook()">-->
+                <!--<ion-icon name="logo-facebook"></ion-icon>-->
+                <!--</button>-->
+                <!--</ion-col>-->
+                <!--<ion-col>-->
+                <!--<button color="google" ion-button block round type="button" (click)="loginGoogle()">-->
+                <!--<ion-icon name="logo-google"></ion-icon>-->
+                <!--</button>-->
+                <!--</ion-col>-->
+                <!--</ion-row>-->
+                <!--</ion-grid>-->
             </ion-list>
         </ion-slide>
 
         <ion-slide>
-            <h1>Qual é a sua igreja?</h1>
+            <h1>Qual é a sua organização?</h1>
 
             <ion-searchbar
                     [(ngModel)]="churchSearch"
@@ -105,7 +111,7 @@
                 </ion-item>
                 <ion-item *ngFor="let church of items" (click)="continueMember(church)">
                     <ion-thumbnail item-start>
-                        <img src="assets/img/church2.png">
+                        <img src="assets/img/logo-outline-escuro.png">
                     </ion-thumbnail>
                     <h2>{{church.name}}</h2>
                     <!--<p>Hayao Miyazaki • 1988</p>-->

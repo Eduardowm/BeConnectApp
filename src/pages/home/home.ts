@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {ActionSheetController, AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Events} from "../../providers/events/events";
 import {User} from "../../providers/providers";
-import {DatePipe} from '@angular/common';
+// import {DatePipe} from '@angular/common';
 // import {BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse} from '@ionic-native/background-geolocation';
 import {LocationTrackerProvider} from "../../providers/location-tracker/location-tracker";
 import {DateFormatPipe} from "../../pipes/date-format/date-format";

@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {User} from "../../providers/user/user";
+import {LaunchNavigator} from "@ionic-native/launch-navigator";
+import {Events} from "../../providers/events/events";
 
 /**
  * Generated class for the EventViewPage page.
@@ -14,14 +17,35 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
     templateUrl: 'event-view.html',
 })
 export class EventViewPage {
-    event: any;
+    event: any = null;
     event_location: string = '';
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
-        this.event = navParams.get('event');
-        if (this.event) {
-            this.event_location = encodeURI(this.event.street + "," + this.event.number + "," + this.event.city);
-        }
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                public user: User,
+                private launchNavigator: LaunchNavigator,
+                public events: Events,
+                public loadingCtrl: LoadingController) {
+        let ev = navParams.get('event');
+        this.loadEvent(ev.id);
+    }
+
+    loadEvent(id) {
+        let loading = this.loadingCtrl.create();
+        loading.present();
+
+        this.events.getInfo(id)
+            .then((result: any) => {
+                loading.dismiss();
+                this.event_location = encodeURI(result.event.street + "," + result.event.number + "," + result.event.city);
+                result.event.imgEvent_bg = encodeURI('http://www.beconnect.com.br/' + result.event.imgEvent_bg);
+
+                this.event = result.event;
+            })
+            .catch((error: any) => {
+                loading.dismiss();
+                console.log("Error", error);
+            });
     }
 
     ionViewDidLoad() {
@@ -90,5 +114,9 @@ export class EventViewPage {
 
     changeEvent() {
         this.navCtrl.push('MyEventsPage');
+    }
+
+    openNavigator() {
+        this.launchNavigator.navigate([this.event.lat, this.event.lng]);
     }
 }

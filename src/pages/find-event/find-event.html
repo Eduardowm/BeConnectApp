@@ -7,9 +7,9 @@
 <ion-content>
     <div>
         <ion-segment [(ngModel)]="tab">
-            <ion-segment-button value="Coming Soon">
-                Em Breve
-            </ion-segment-button>
+            <!--<ion-segment-button value="Coming Soon">-->
+                <!--Em Breve-->
+            <!--</ion-segment-button>-->
             <ion-segment-button value="All Upcoming">
                 Futuramente
             </ion-segment-button>
@@ -20,24 +20,32 @@
     </div>
 
     <div [ngSwitch]="tab">
-        <ion-list *ngSwitchCase="'Coming Soon'">
-            <ion-item *ngFor="let event of comingSoonEvents" (click)="openEvent(event)">
-                <ion-thumbnail item-start>
-                    <img *ngIf="event.imgEvent" [src]="event.imgEvent">
-                    <img *ngIf="!event.imgEvent" src="assets/img/church1.png">
-                </ion-thumbnail>
-                <h1>{{event.name}}</h1>
-                <ion-icon name="calendar"></ion-icon>
-                {{event.event_date | dateFormat: 'MMM D, YYYY'}}<br/>
-                <ion-icon name="pin"></ion-icon>
-                {{event.street}} - {{event.number}}, {{event.city}}
-            </ion-item>
-        </ion-list>
+        <!--<ion-list *ngSwitchCase="'Coming Soon'">-->
+            <!--<ion-item *ngIf="comingSoonEvents.length <= 0">-->
+                <!--<p>Nenhum evento encontrado!</p>-->
+            <!--</ion-item>-->
+
+            <!--<ion-item *ngFor="let event of comingSoonEvents" (click)="openEvent(event)">-->
+                <!--<ion-thumbnail item-start>-->
+                    <!--<img *ngIf="event.imgEvent" [src]="'http://www.beconnect.com.br/' + event.imgEvent">-->
+                    <!--<img *ngIf="!event.imgEvent" src="assets/img/church1.png">-->
+                <!--</ion-thumbnail>-->
+                <!--<h1>{{event.name}}</h1>-->
+                <!--<ion-icon name="calendar"></ion-icon>-->
+                <!--{{event.event_date | dateFormat: 'MMM D, YYYY'}}<br/>-->
+                <!--<ion-icon name="pin"></ion-icon>-->
+                <!--{{event.street}} - {{event.number}}, {{event.city}}-->
+            <!--</ion-item>-->
+        <!--</ion-list>-->
 
         <ion-list *ngSwitchCase="'All Upcoming'">
+            <ion-item *ngIf="allUpcomingEvents.length <= 0">
+                <p>Nenhum evento encontrado!</p>
+            </ion-item>
+
             <ion-item *ngFor="let event of allUpcomingEvents" (click)="openEvent(event)">
                 <ion-thumbnail item-start>
-                    <img *ngIf="event.imgEvent" [src]="event.imgEvent">
+                    <img *ngIf="event.imgEvent" [src]="'http://www.beconnect.com.br/' + event.imgEvent">
                     <img *ngIf="!event.imgEvent" src="assets/img/church1.png">
                 </ion-thumbnail>
                 <h1>{{event.name}}</h1>
@@ -49,9 +57,13 @@
         </ion-list>
 
         <ion-list *ngSwitchCase="'Past'">
+            <ion-item *ngIf="pastEvents.length <= 0">
+                <p>Nenhum evento encontrado!</p>
+            </ion-item>
+
             <ion-item *ngFor="let event of pastEvents" (click)="openEvent(event)">
                 <ion-thumbnail item-start>
-                    <img *ngIf="event.imgEvent" [src]="event.imgEvent">
+                    <img *ngIf="event.imgEvent" [src]="'http://www.beconnect.com.br/' + event.imgEvent">
                     <img *ngIf="!event.imgEvent" src="assets/img/church1.png">
                 </ion-thumbnail>
                 <h1>{{event.name}}</h1>

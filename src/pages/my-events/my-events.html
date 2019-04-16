@@ -17,12 +17,12 @@
                 <ion-list *ngIf="events.length > 0">
                     <ion-item *ngFor="let event of events" (click)="openEvent(event)">
                         <ion-thumbnail item-start>
-                            <img *ngIf="event.imgEvent" [src]="event.imgEvent">
+                            <img *ngIf="event.imgEvent" [src]="'http://www.beconnect.com.br/' + event.imgEvent">
                             <img *ngIf="!event.imgEvent" src="assets/img/church1.png">
                         </ion-thumbnail>
                         <h1>{{event.name}}</h1>
                         <ion-icon name="calendar"></ion-icon>
-                        {{event.eventDate | dateFormat: 'MMM D, YYYY'}}<br/>
+                        {{event.event_date | dateFormat: 'MMM D, YYYY'}}<br/>
                         <ion-icon name="pin"></ion-icon>
                         {{event.street}} - {{event.number}}, {{event.city}}
                     </ion-item>

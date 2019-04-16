@@ -8,6 +8,12 @@ page-first {
     width: 256px;
     //height: 256px;
     margin-top: 10%;
+
+    img {
+      width: 256px;
+      height: 256px;
+      object-fit: cover;
+    }
   }
 
   ion-slides {
@@ -73,7 +79,13 @@ page-first {
   }
 
   .slides.margin-top {
-    margin-top: 50px;
+    margin-top: 10vh;
+  }
+
+  .show-back-button {
+    .back-button {
+      display: block;
+    }
   }
 }
 

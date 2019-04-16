@@ -32,11 +32,11 @@ import * as firebase from 'firebase';
             <ion-content>
                 <ion-grid class="avatar-box" *ngIf="user.getUserInfo()">
                     <ion-row>
-                        <ion-col col-4>
+                        <ion-col col-3 class="flex-center">
                             <img [src]="user.getUserInfo().imgProfile" class="avatar-img" *ngIf="user.getUserInfo().imgProfile"/>
                             <img src="../assets/img/default-avatar.png" class="avatar-img" *ngIf="!user.getUserInfo().imgProfile"/>
                         </ion-col>
-                        <ion-col col-8>
+                        <ion-col col-9>
                             <p class="avatar-title">{{user.getUserInfo().name}}</p>
                             <p class="avatar-email" (click)="openPage({component: 'ProfilePage'})">
                                 <ion-icon name="create"></ion-icon>
@@ -67,13 +67,14 @@ export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
     pages: any[] = [
-        {title: 'Meu Contato & QR Code', component: 'ContactInfoPage', icon: 'contact'},
-        {title: 'Meus Contatos', component: 'ContactsPage', icon: 'book'},
-        {title: 'Minhas Anotações', component: 'NotesPage', icon: 'create'},
+        // {title: 'Meu Contato & QR Code', component: 'ContactInfoPage', icon: 'contact'},
+        {title: 'QR Code', component: 'ViewMyQrCodePage', icon: 'qr-scanner'},
+        // {title: 'Meus Contatos', component: 'ContactsPage', icon: 'book'},
+        // {title: 'Minhas Anotações', component: 'NotesPage', icon: 'create'},
         {title: 'Configurações', component: 'SettingsPage', icon: 'cog'},
         {title: 'Ver Meus Eventos', component: 'MyEventsPage', icon: 'list-box'},
-        {title: 'Utilizar Para o Meu Evento', component: 'UseForMyEventPage', icon: 'phone-portrait'},
-        {title: 'Guia de Uso BeConnect', component: 'FaqPage', icon: 'help-buoy'},
+        // {title: 'Utilizar Para o Meu Evento', component: 'UseForMyEventPage', icon: 'phone-portrait'},
+        // {title: 'Guia de Uso BeConnect', component: 'FaqPage', icon: 'help-buoy'},
         {title: 'Enviar Feedback', component: 'FeedbackPage', icon: 'chatbubbles'}
 
         // {title: 'Início', component: 'HomePage', icon: 'home'},
@@ -200,7 +201,7 @@ export class MyApp {
                 loading.dismiss();
 
                 let alert = this.alertCtrl.create();
-                alert.setTitle('Qual igreja você deseja acessar?');
+                alert.setTitle('Qual organização você deseja acessar?');
 
                 console.log(result);
 

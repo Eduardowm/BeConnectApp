@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, LoadingController, ModalController, NavController, NavParams} from 'ionic-angular';
+import {Events} from "../../providers/events/events";
 
 /**
  * Generated class for the EventAttendeesPage page.
@@ -21,10 +22,15 @@ export class EventAttendeesPage {
         {picture_url: 'assets/img/user3.png', name: 'Sheeraz Ahmad', description: 'Summer Intern', address: 'La Jolla, California', badge: 'Faculty & Staff'},
     ];
     searchVisible: boolean = false;
+    event: any = null;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
-                public modalCtrl: ModalController) {
+                public modalCtrl: ModalController,
+                public eventsApi: Events,
+                public loadingCtrl: LoadingController,) {
+        this.event = this.navParams.get('event');
+        this.load();
     }
 
     ionViewDidLoad() {
@@ -43,5 +49,30 @@ export class EventAttendeesPage {
 
     openParticipant(participant) {
         this.navCtrl.push("ModalParticipantViewPage", {participant});
+    }
+
+    load() {
+        let loading = this.loadingCtrl.create();
+        loading.present();
+
+        this.participants = [];
+        this.eventsApi.getSubList(this.event.id)
+            .then((result: any) => {
+                if (result.status) {
+                    for (let person of result.people) {
+                        if (!person.imgProfile.startsWith('http')) {
+                            person.imgProfile = 'https://beconnect.com.br/' + person.imgProfile;
+                        }
+
+                        this.participants.push(person);
+                    }
+                }
+
+                loading.dismiss();
+            })
+            .catch((error: any) => {
+                loading.dismiss();
+                console.log("Error", error);
+            });
     }
 }

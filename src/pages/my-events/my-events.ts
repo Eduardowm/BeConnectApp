@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {Events} from "../../providers/events/events";
+import {NativeStorage} from "@ionic-native/native-storage";
+import {User} from "../../providers/user/user";
 
 /**
  * Generated class for the MyEventsPage page.
@@ -20,8 +22,43 @@ export class MyEventsPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public eventsApi: Events,
-                public loadingCtrl: LoadingController) {
-        this.load();
+                public loadingCtrl: LoadingController,
+                private nativeStorage: NativeStorage,
+                public user: User) {
+        this.checkQRCode();
+        this.checkSubscribedEvents();
+        // this.load();
+    }
+
+    checkSubscribedEvents() {
+        this.eventsApi.next()
+            .then((result: any) => {
+                for (let event of result) {
+                    this.eventsApi.subscribe(event.id, this.user.getUser());
+                }
+
+                this.events = result;
+            })
+            .catch((error: any) => {
+                console.log("Error", error);
+            });
+
+    }
+
+    checkQRCode() {
+        this.nativeStorage.getItem('qrcode--').then(
+            data => {
+            },
+            error => {
+                this.user.downloadPersonQRCode(this.user.getUser())
+                    .then((result: any) => {
+                        this.nativeStorage.setItem('qrcode--', result.nativeURL);
+                    })
+                    .catch((error: any) => {
+                        console.log("Error", error);
+                    });
+            }
+        );
     }
 
     ionViewDidLoad() {

@@ -34,7 +34,7 @@ export class FirstPage {
         church_id: null,
         terms: false,
         token: null,
-        role: '',
+        role: 'Visitante',
     };
 
     churchSearch: any;
@@ -77,7 +77,7 @@ export class FirstPage {
                 loading.present();
 
                 let that = this;
-                setTimeout(function() {
+                setTimeout(function () {
                     that.hasRegister(false);
                     loading.dismiss();
                 }, 500);
@@ -98,7 +98,8 @@ export class FirstPage {
 
     hasRegister(register) {
         if (register) {
-            this.navCtrl.push('LogarPage')
+            this.navCtrl.setRoot('LogarPage');
+            this.navCtrl.popToRoot();
         } else {
             this.logo = 'assets/img/logo-horizontal.png';
             this.logoHeight /= 2;
@@ -289,9 +290,9 @@ export class FirstPage {
         this.user.setChurch(church.id);
         this.data.church_id = church.id;
 
-        if (this.data.role == 'Visitante') {
-            return this.continueVisitor();
-        }
+        // if (this.data.role == 'Visitante') {
+        //     return this.continueVisitor();
+        // }
 
         this.nativeStorage.setItem('sessao', true);
 
@@ -309,6 +310,8 @@ export class FirstPage {
                     if (resp.status) {
                         this.nativeStorage.setItem('sessao', true);
                         this.nativeStorage.setItem('login', this.data.email);
+                        this.nativeStorage.setItem('church', this.data.church_id);
+                        // this.nativeStorage.setItem('password', this.data.password);
                         this.toastCtrl.create({
                             message: "Cadastro realizadao com sucesso!",
                             duration: 3000,
@@ -604,5 +607,17 @@ export class FirstPage {
 
     firebaseInit() {
         this.firebaseLoginResult();
+    }
+
+    backSlide() {
+        this.slides.lockSwipes(false);
+        this.slides.slidePrev(500);
+        this.slides.lockSwipes(true);
+
+        if (this.slides.getActiveIndex() == 1) {
+            this.logo = 'assets/img/logo-escuro.png';
+            this.logoHeight *= 2;
+            this.logoChanged = false;
+        }
     }
 }

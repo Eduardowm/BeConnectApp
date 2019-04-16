@@ -8,202 +8,206 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="event">
     <ion-grid text-center no-padding>
         <ion-row>
             <ion-col>
-                <span class="header-background"></span>
+                <span class="header-background" [ngStyle]="{'background-image': 'url(' + event.imgEvent_bg + ')'}"></span>
+                <!--<span *ngIf="!event || !event.imgEvent_bg" class="header-background"></span>-->
             </ion-col>
         </ion-row>
 
         <ion-row enter-top>
             <ion-col col-4 offset-4>
-                <img src="assets/img/church_icon_colored.png" class="event-img"/>
+                <img *ngIf="event.imgEvent" [src]="'http://www.beconnect.com.br/' + event.imgEvent">
+                <img *ngIf="!event.imgEvent" src="assets/img/church_icon_colored.png" class="event-img"/>
             </ion-col>
 
             <ion-col col-12>
                 <h1>{{event.name}}</h1>
-                <h2>{{event.event_date | dateFormat: 'MMM DD HH:mm'}} | {{event.street}}, {{event.number}}, {{event.city}}</h2>
+                <h2 *ngIf="event.event_date">{{event.event_date | dateFormat: 'MMM DD HH:mm'}} | {{event.street}}, {{event.number}}, {{event.city}}</h2>
+                <h2 *ngIf="!event.event_date && event.eventDate">{{event.eventDate | dateFormat: 'MMM DD HH:mm'}} | {{event.street}}, {{event.number}}, {{event.city}}</h2>
                 <a href="javascript:;" (click)="changeEvent()">Trocar evento</a>
             </ion-col>
 
             <ion-col col-12>
                 <div class="map-background">
-                    <a href="geo:?q={{event_location}}" target="_system"><h3>Ver Localização</h3></a>
+                    <!--<a href="geo:?q={{event_location}}" target="_system"><h3>Ver Localização</h3></a>-->
+                    <a href="javascript:;" (click)="openNavigator()"><h3>Ver Localização</h3></a>
                 </div>
             </ion-col>
 
-            <ion-col col-12>
+            <ion-col col-12 *ngIf="user.isAdmin()">
                 <h3>Administrativo</h3>
                 <h4>* Acesso restrito para administradores</h4>
                 <ion-list>
-                    <ion-item (click)="sendAnnouncement()">
-                        <ion-avatar item-start>
-                            <ion-icon name="megaphone"></ion-icon>
-                        </ion-avatar>
-                        Enviar Anúncio
-                    </ion-item>
+                    <!--<ion-item (click)="sendAnnouncement()">-->
+                        <!--<ion-avatar item-start>-->
+                            <!--<ion-icon name="megaphone"></ion-icon>-->
+                        <!--</ion-avatar>-->
+                        <!--Enviar Anúncio-->
+                    <!--</ion-item>-->
                     <ion-item (click)="checkinAttendees()">
                         <ion-avatar item-start>
                             <ion-icon name="people"></ion-icon>
                         </ion-avatar>
                         Check-In em Massa
                     </ion-item>
-                    <ion-item (click)="checkinSessions()">
-                        <ion-avatar item-start>
-                            <ion-icon name="checkbox"></ion-icon>
-                        </ion-avatar>
-                        Check-In de Sessões
-                    </ion-item>
-                    <ion-item (click)="appAccessRequests()">
-                        <ion-avatar item-start>
-                            <ion-icon name="phone-portrait"></ion-icon>
-                        </ion-avatar>
-                        Requisições de Acesso ao Aplicativo
-                    </ion-item>
-                    <ion-item (click)="appDownloadStats()">
-                        <ion-avatar item-start>
-                            <ion-icon name="cloud-download"></ion-icon>
-                        </ion-avatar>
-                        Relatório de Download do Aplicativo
-                    </ion-item>
-                    <ion-item (click)="leadsReport()">
-                        <ion-avatar item-start>
-                            <ion-icon name="analytics"></ion-icon>
-                        </ion-avatar>
-                        Relatório de Leads
-                    </ion-item>
-                    <ion-item>
-                        <ion-avatar item-start>
-                            <ion-icon name="code-working"></ion-icon>
-                        </ion-avatar>
-                        Outros
-                    </ion-item>
+                    <!--<ion-item (click)="checkinSessions()">-->
+                        <!--<ion-avatar item-start>-->
+                            <!--<ion-icon name="checkbox"></ion-icon>-->
+                        <!--</ion-avatar>-->
+                        <!--Check-In de Sessões-->
+                    <!--</ion-item>-->
+                    <!--<ion-item (click)="appAccessRequests()">-->
+                    <!--<ion-avatar item-start>-->
+                    <!--<ion-icon name="phone-portrait"></ion-icon>-->
+                    <!--</ion-avatar>-->
+                    <!--Requisições de Acesso ao Aplicativo-->
+                    <!--</ion-item>-->
+                    <!--<ion-item (click)="appDownloadStats()">-->
+                    <!--<ion-avatar item-start>-->
+                    <!--<ion-icon name="cloud-download"></ion-icon>-->
+                    <!--</ion-avatar>-->
+                    <!--Relatório de Download do Aplicativo-->
+                    <!--</ion-item>-->
+                    <!--<ion-item (click)="leadsReport()">-->
+                    <!--<ion-avatar item-start>-->
+                    <!--<ion-icon name="analytics"></ion-icon>-->
+                    <!--</ion-avatar>-->
+                    <!--Relatório de Leads-->
+                    <!--</ion-item>-->
+                    <!--<ion-item>-->
+                    <!--<ion-avatar item-start>-->
+                    <!--<ion-icon name="code-working"></ion-icon>-->
+                    <!--</ion-avatar>-->
+                    <!--Outros-->
+                    <!--</ion-item>-->
                 </ion-list>
             </ion-col>
 
-            <ion-col col-12>
-                <h3>Geração de Leads</h3>
-                <h4>* Acesso restrito para patrocinadores e expositores</h4>
-                <ion-list>
-                    <ion-item (click)="addLeadManually()">
-                        <ion-avatar item-start>
-                            <ion-icon name="barcode"></ion-icon>
-                        </ion-avatar>
-                        Escanear QR Code ou Adicionar Lead Manualmente
-                    </ion-item>
-                </ion-list>
-            </ion-col>
+            <!--<ion-col col-12>-->
+            <!--<h3>Geração de Leads</h3>-->
+            <!--<h4>* Acesso restrito para patrocinadores e expositores</h4>-->
+            <!--<ion-list>-->
+            <!--<ion-item (click)="addLeadManually()">-->
+            <!--<ion-avatar item-start>-->
+            <!--<ion-icon name="barcode"></ion-icon>-->
+            <!--</ion-avatar>-->
+            <!--Escanear QR Code ou Adicionar Lead Manualmente-->
+            <!--</ion-item>-->
+            <!--</ion-list>-->
+            <!--</ion-col>-->
 
-            <ion-col col-12>
-                <h3>Recursos</h3>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-6>
-                            <button ion-button block outline (click)="logistics()">
-                                <ion-icon name="map"></ion-icon>
-                                Logísticas
-                            </button>
-                        </ion-col>
-                        <ion-col col-6>
-                            <button ion-button block outline (click)="photos()">
-                                <ion-icon name="images"></ion-icon>
-                                Fotos
-                            </button>
-                        </ion-col>
-                        <ion-col col-6>
-                            <button ion-button block outline (click)="exhibitors()">
-                                <ion-icon name="briefcase"></ion-icon>
-                                Expositores
-                            </button>
-                        </ion-col>
-                        <ion-col col-6>
-                            <button ion-button block outline (click)="polls()">
-                                <ion-icon name="pie"></ion-icon>
-                                Enquetes
-                            </button>
-                        </ion-col>
-                        <ion-col col-6>
-                            <button ion-button block outline (click)="sponsors()">
-                                <ion-icon name="pricetag"></ion-icon>
-                                Patrocinadores
-                            </button>
-                        </ion-col>
-                        <ion-col col-6>
-                            <button ion-button block outline (click)="surveys()">
-                                <ion-icon name="search"></ion-icon>
-                                Pesquisas
-                            </button>
-                        </ion-col>
-                        <ion-col col-6>
-                            <button ion-button block outline (click)="documents()">
-                                <ion-icon name="document"></ion-icon>
-                                Documentos
-                            </button>
-                        </ion-col>
-                        <ion-col col-6>
-                            <button ion-button block outline (click)="twitter()">
-                                <ion-icon name="logo-twitter"></ion-icon>
-                                Twitter
-                            </button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-col>
+            <!--<ion-col col-12>-->
+            <!--<h3>Recursos</h3>-->
+            <!--<ion-grid>-->
+            <!--<ion-row>-->
+            <!--<ion-col col-6>-->
+            <!--<button ion-button block outline (click)="logistics()">-->
+            <!--<ion-icon name="map"></ion-icon>-->
+            <!--Logísticas-->
+            <!--</button>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-6>-->
+            <!--<button ion-button block outline (click)="photos()">-->
+            <!--<ion-icon name="images"></ion-icon>-->
+            <!--Fotos-->
+            <!--</button>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-6>-->
+            <!--<button ion-button block outline (click)="exhibitors()">-->
+            <!--<ion-icon name="briefcase"></ion-icon>-->
+            <!--Expositores-->
+            <!--</button>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-6>-->
+            <!--<button ion-button block outline (click)="polls()">-->
+            <!--<ion-icon name="pie"></ion-icon>-->
+            <!--Enquetes-->
+            <!--</button>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-6>-->
+            <!--<button ion-button block outline (click)="sponsors()">-->
+            <!--<ion-icon name="pricetag"></ion-icon>-->
+            <!--Patrocinadores-->
+            <!--</button>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-6>-->
+            <!--<button ion-button block outline (click)="surveys()">-->
+            <!--<ion-icon name="search"></ion-icon>-->
+            <!--Pesquisas-->
+            <!--</button>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-6>-->
+            <!--<button ion-button block outline (click)="documents()">-->
+            <!--<ion-icon name="document"></ion-icon>-->
+            <!--Documentos-->
+            <!--</button>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-6>-->
+            <!--<button ion-button block outline (click)="twitter()">-->
+            <!--<ion-icon name="logo-twitter"></ion-icon>-->
+            <!--Twitter-->
+            <!--</button>-->
+            <!--</ion-col>-->
+            <!--</ion-row>-->
+            <!--</ion-grid>-->
+            <!--</ion-col>-->
         </ion-row>
     </ion-grid>
 
     <!--<ion-card card-full>-->
 
-        <!--<img src="assets/img/church1.png"/>-->
+    <!--<img src="assets/img/church1.png"/>-->
 
-        <!--<ion-row no-padding>-->
-            <!--<ion-col text-left>-->
-                <!--<button ion-button clear small color="danger" icon-start>-->
-                    <!--<ion-icon name='star'></ion-icon>-->
-                    <!--{{event.event_date | dateFormat: 'DD/MM/YY HH:mm'}}-->
-                <!--</button>-->
-            <!--</ion-col>-->
-            <!--<ion-col text-right>-->
-                <!--<button ion-button clear small color="secondary" icon-start (click)="checkin(event.id)">-->
-                    <!--<ion-icon name='checkmark-circle-outline'></ion-icon>-->
-                    <!--Checkin-->
-                <!--</button>-->
-            <!--</ion-col>-->
-        <!--</ion-row>-->
+    <!--<ion-row no-padding>-->
+    <!--<ion-col text-left>-->
+    <!--<button ion-button clear small color="danger" icon-start>-->
+    <!--<ion-icon name='star'></ion-icon>-->
+    <!--{{event.event_date | dateFormat: 'DD/MM/YY HH:mm'}}-->
+    <!--</button>-->
+    <!--</ion-col>-->
+    <!--<ion-col text-right>-->
+    <!--<button ion-button clear small color="secondary" icon-start (click)="checkin(event.id)">-->
+    <!--<ion-icon name='checkmark-circle-outline'></ion-icon>-->
+    <!--Checkin-->
+    <!--</button>-->
+    <!--</ion-col>-->
+    <!--</ion-row>-->
 
-        <!--<ion-card-content no-padding-top>-->
-            <!--<ion-card-title></ion-card-title>-->
-            <!--<p>-->
-                <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consequuntur iure mollitia necessitatibus saepe! Commodi consequatur hic in reiciendis voluptas. Adipisci-->
-                <!--autem-->
-                <!--blanditiis dicta dolorum illum molestias quibusdam saepe sequi!-->
-            <!--</p>-->
-        <!--</ion-card-content>-->
+    <!--<ion-card-content no-padding-top>-->
+    <!--<ion-card-title></ion-card-title>-->
+    <!--<p>-->
+    <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consequuntur iure mollitia necessitatibus saepe! Commodi consequatur hic in reiciendis voluptas. Adipisci-->
+    <!--autem-->
+    <!--blanditiis dicta dolorum illum molestias quibusdam saepe sequi!-->
+    <!--</p>-->
+    <!--</ion-card-content>-->
 
-        <!--<ion-item>-->
-            <!--<ion-icon name='people' item-start style="color: #d03e84"></ion-icon>-->
-            <!--Participantes-->
-            <!--<ion-badge item-end>253</ion-badge>-->
-        <!--</ion-item>-->
+    <!--<ion-item>-->
+    <!--<ion-icon name='people' item-start style="color: #d03e84"></ion-icon>-->
+    <!--Participantes-->
+    <!--<ion-badge item-end>253</ion-badge>-->
+    <!--</ion-item>-->
 
-        <!--<ion-item>-->
-            <!--<ion-icon name='image' item-start style="color: #55acee"></ion-icon>-->
-            <!--Fotos-->
-            <!--<ion-badge item-end>35</ion-badge>-->
-        <!--</ion-item>-->
+    <!--<ion-item>-->
+    <!--<ion-icon name='image' item-start style="color: #55acee"></ion-icon>-->
+    <!--Fotos-->
+    <!--<ion-badge item-end>35</ion-badge>-->
+    <!--</ion-item>-->
 
-        <!--<ion-item>-->
-            <!--<ion-icon name='chatboxes' item-start style="color: #d03e84"></ion-icon>-->
-            <!--Comentários-->
-            <!--<ion-badge item-end>100</ion-badge>-->
-        <!--</ion-item>-->
+    <!--<ion-item>-->
+    <!--<ion-icon name='chatboxes' item-start style="color: #d03e84"></ion-icon>-->
+    <!--Comentários-->
+    <!--<ion-badge item-end>100</ion-badge>-->
+    <!--</ion-item>-->
 
-        <!--<ion-item>-->
-            <!--<ion-icon name='bonfire' item-start style="color: #55acee"></ion-icon>-->
-            <!--Atividades-->
-            <!--<ion-badge item-end>16</ion-badge>-->
-        <!--</ion-item>-->
+    <!--<ion-item>-->
+    <!--<ion-icon name='bonfire' item-start style="color: #55acee"></ion-icon>-->
+    <!--Atividades-->
+    <!--<ion-badge item-end>16</ion-badge>-->
+    <!--</ion-item>-->
     <!--</ion-card>-->
 
     <!--<form>-->

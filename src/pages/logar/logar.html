@@ -1,10 +1,16 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title text-center>
+            <img src="assets/img/logo-marca-escuro.png" class="header-logo">
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
 <ion-content>
     <form (submit)="doLogin()">
-        <div class="logo"></div>
-
         <ion-list>
             <ion-item padding-horizontal>
-                <ion-label stacked>Igreja</ion-label>
+                <ion-label stacked>Organização</ion-label>
                 <ion-select [(ngModel)]="account.church" name="church" cancelText="Cancelar">
                     <ion-option *ngFor="let church of churchs" [value]="church.id">{{church.name}}</ion-option>
                 </ion-select>
@@ -31,22 +37,33 @@
                 </ion-row>
             </ion-grid>
 
-            <ion-grid padding>
-                <ion-row>
-                    <ion-col>
-                        <button color="facebook" ion-button block round type="button" (click)="loginFacebook()">
-                            <ion-icon name="logo-facebook"></ion-icon>
-                        </button>
-                    </ion-col>
-                    <ion-col>
-                        <button color="google" ion-button block round type="button" (click)="loginGoogle()">
-                            <ion-icon name="logo-google"></ion-icon>
-                        </button>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
+            <!--<ion-grid padding>-->
+                <!--<ion-row>-->
+                    <!--<ion-col>-->
+                        <!--<button color="facebook" ion-button block round type="button" (click)="loginFacebook()">-->
+                            <!--<ion-icon name="logo-facebook"></ion-icon>-->
+                        <!--</button>-->
+                    <!--</ion-col>-->
+                    <!--<ion-col>-->
+                        <!--<button color="google" ion-button block round type="button" (click)="loginGoogle()">-->
+                            <!--<ion-icon name="logo-google"></ion-icon>-->
+                        <!--</button>-->
+                    <!--</ion-col>-->
+                <!--</ion-row>-->
+            <!--</ion-grid>-->
         </ion-list>
 
         <p ion-text text-center (click)="forgotPassword()">Não lembra sua senha? <a href="javascript:;">Recupere agora mesmo</a></p>
+
+        <ion-grid padding *ngIf="has_qr_code">
+            <ion-row>
+                <ion-col>
+                    <button ion-button block (click)="viewMyQRCode()" type="button" round>
+                        <ion-icon name="barcode" class="margin-right"></ion-icon>
+                        Ver Meu QR Code
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </form>
 </ion-content>

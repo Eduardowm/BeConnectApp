@@ -8,8 +8,33 @@ page-logar {
     margin-top: 10%;
     background-position: center;
   }
+  .header-logo {
+    width: 40px;
+  }
+
+  ion-header {
+    padding: 2rem 0;
+  }
 
   .list-ios > .item-block:first-child {
     border-top: none;
+  }
+
+  .toolbar-background {
+    background: transparent;
+  }
+
+  .header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+    display: none;
+  }
+
+  //.scroll-content {
+  //  display: flex;
+  //  justify-content: center;
+  //  align-items: center;
+  //}
+
+  form {
+    width: 100%;
   }
 }

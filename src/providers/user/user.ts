@@ -3,6 +3,9 @@ import 'rxjs/add/operator/toPromise';
 import {Injectable} from '@angular/core';
 
 import {Api} from '../api/api';
+import {HttpClient} from "@angular/common/http";
+import {FileTransfer, FileTransferObject} from '@ionic-native/file-transfer';
+import {File} from '@ionic-native/file';
 
 @Injectable()
 export class User {
@@ -10,8 +13,12 @@ export class User {
     _church: any = 1;
     _role: any;
     _userInfo: any;
+    private fileTransfer: FileTransferObject;
 
-    constructor(public api: Api) {
+    constructor(public api: Api,
+                public http: HttpClient,
+                private file: File,
+                private transfer: FileTransfer) {
     }
 
     login(accountInfo: any) {
@@ -83,9 +90,9 @@ export class User {
         });
     }
 
-    checkin(eventId: any, visitor: boolean = false) {
+    checkin(eventId: any, visitor: boolean = false, person_id: any = null) {
         return new Promise((resolve, reject) => {
-            this.api.get('check-in/' + eventId + '/' + this.getUser() + '/' + (visitor ? 1 : 0), {})
+            this.api.get('check-in/' + eventId + '/' + (person_id ? person_id : this.getUser()) + '/' + (visitor ? 1 : 0), {})
                 .subscribe((result: any) => {
                         resolve(result);
                     },
@@ -131,6 +138,50 @@ export class User {
         });
     }
 
+    getPersonQRCode(person_id) {
+        return new Promise((resolve, reject) => {
+            this.api.get('qrcode/' + person_id)
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    downloadPersonQRCode(person_id) {
+        // return new Promise((resolve, reject) => {
+        //     this.http.get('http://beconnect.com.br/qrcodes/' + person_id + '.png', {responseType: 'blob'}).subscribe((result: any) => {
+        //             resolve(result);
+        //         },
+        //         (error) => {
+        //             reject(error);
+        //         });
+        // });
+
+        return new Promise((resolve, reject) => {
+            this.fileTransfer = this.transfer.create();
+            this.fileTransfer.download('https://beconnect.com.br/qrcodes/' + person_id + '.png', this.file.dataDirectory + 'qrcode.png').then((entry) => {
+                resolve(entry);
+            }, (error) => {
+                reject(error);
+            });
+        });
+    }
+
+    feedback(person_id, feedback) {
+        return new Promise((resolve, reject) => {
+            this.api.post('feedback-store', {person_id, feedback})
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
     /**
      * Log the user out, which forgets the session
      */
@@ -167,4 +218,13 @@ export class User {
     getUserInfo() {
         return this._userInfo;
     }
+
+    isAdmin() {
+        return this.getRole() == "Líder" || this.getRole() == "Administrador";
+    }
+
+    // 1 Líder
+    // 2 Membro
+    // 3 Visitante
+    // 5 Administrador
 }

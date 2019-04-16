@@ -15,7 +15,7 @@ import {Events} from "../../providers/events/events";
     templateUrl: 'find-event.html',
 })
 export class FindEventPage {
-    tab: any = 'Coming Soon';
+    tab: any = 'All Upcoming';
     comingSoonEvents: any = [];
     allUpcomingEvents: any = [];
     pastEvents: any = [];
@@ -39,22 +39,24 @@ export class FindEventPage {
         let loading = this.loadingCtrl.create();
         loading.present();
 
-        this.events.nextWeek()
-            .then((result: any) => {
-                this.comingSoonEvents = result;
-            })
-            .catch((error: any) => {
-                loading.dismiss();
-                console.log("Error", error);
-            });
+        // this.events.nextWeek()
+        //     .then((result: any) => {
+        //         if (result.constructor === Array) {
+        //             this.comingSoonEvents = result;
+        //         } else {
+        //             this.comingSoonEvents = [];
+        //         }
+        //     })
+        //     .catch((error: any) => {
+        //         loading.dismiss();
+        //         console.log("Error", error);
+        //     });
 
         this.events.next()
             .then((result: any) => {
-                loading.dismiss();
                 this.allUpcomingEvents = result;
             })
             .catch((error: any) => {
-                loading.dismiss();
                 console.log("Error", error);
             });
 

@@ -269,4 +269,40 @@ export class Events {
                     });
         });
     }
+
+    sessions(event_id) {
+        return new Promise((resolve, reject) => {
+            this.api.get('sessions/' + event_id)
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    subscribe(event_id, person_id) {
+        return new Promise((resolve, reject) => {
+            this.api.get('sub/' + event_id + '/' + person_id)
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    isSubscribed(event_id, person_id) {
+        return new Promise((resolve, reject) => {
+            this.api.get('is-sub/' + event_id + '/' + person_id)
+                .subscribe((result: any) => {
+                        resolve(result);
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
 }

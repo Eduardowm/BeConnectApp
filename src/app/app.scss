@@ -122,14 +122,17 @@ h2 {
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
-  padding: 2.5rem 1.5rem;
+  padding: 0.5rem 1.5rem;
 
   .avatar-img {
     border-width: 2px;
     border-style: solid;
     border-radius: 100%;
     border-color: #fafafa;
-    max-height: 100px;
+    width: 6rem;
+    height: 6rem;
+    display: block;
+    margin: auto;
   }
 
   .avatar-title {
@@ -430,4 +433,15 @@ td {
 
 [h-32] {
   height: 32px;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.d-block-center {
+  display: block;
+  margin: auto;
 }

@@ -23,11 +23,12 @@ export class LogarPage {
         // church: 1
         email: '',
         password: '',
-        church: 1,
+        church: 8,
         token: null
     };
 
     waitingLoginSocial: boolean = false;
+    has_qr_code: boolean = false;
 
     // Our translated text strings
     private loginErrorString: string;
@@ -46,7 +47,7 @@ export class LogarPage {
         });
 
         if (!this.platform.is('cordova')) {
-            this.account.email = 'admin@admin.com';
+            this.account.email = 'admin@admin.com.br';
             this.account.password = 'secret';
             this.account.church = 1;
             // this.doLogin();
@@ -74,6 +75,8 @@ export class LogarPage {
             this.waitingLoginSocial = true;
         });
 
+        this.checkQRCode();
+
         let loading = this.loadingCtrl.create();
         loading.present();
 
@@ -93,6 +96,14 @@ export class LogarPage {
             });
     }
 
+    checkQRCode() {
+        this.nativeStorage.getItem('qrcode--').then(
+            data => {
+                this.has_qr_code = true;
+            }
+        );
+    }
+
     ionViewWillEnter() {
         this.firebaseInit();
     }
@@ -110,11 +121,7 @@ export class LogarPage {
 
                 if (resp.status) {
                     this.nativeStorage.setItem('sessao', true);
-                    this.nativeStorage.setItem('login', this.account.email)
-                        .then(
-                            () => console.log('Stored item!'),
-                            error => console.error('Error storing item', error)
-                        );
+                    this.nativeStorage.setItem('login', this.account.email);
                     this.nativeStorage.setItem('church', this.account.church);
                     this.nativeStorage.setItem('password', this.account.password);
 
@@ -381,5 +388,9 @@ export class LogarPage {
 
     signup() {
         this.navCtrl.push('FirstPage', {goToSignup: true});
+    }
+
+    viewMyQRCode() {
+        this.navCtrl.push('ViewMyQrCodePage', {cache: true});
     }
 }

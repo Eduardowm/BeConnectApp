@@ -49,21 +49,23 @@ export class EventMassCheckinPage {
                 .then((result: any) => {
                     loading.dismiss();
 
-                    this.subList = result;
+                    if (result.constructor == Array) {
+                        this.subList = result;
 
-                    for (let person of this.subList.people) {
-                        if (!person.imgProfile.startsWith('http')) {
-                            person.imgProfile = 'https://beconnect.com.br/' + person.imgProfile;
+                        for (let person of this.subList.people) {
+                            if (!person.imgProfile.startsWith('http')) {
+                                person.imgProfile = 'https://beconnect.com.br/' + person.imgProfile;
+                            }
+
+                            if (person.check) {
+                                this.checkin_count++;
+                            }
+
+                            this.people_count++;
                         }
 
-                        if (person.check) {
-                            this.checkin_count++;
-                        }
-
-                        this.people_count++;
+                        this.setItems();
                     }
-
-                    this.setItems();
                 })
                 .catch((error: any) => {
                     loading.dismiss();
@@ -164,5 +166,9 @@ export class EventMassCheckinPage {
 
     toggleUser(user) {
         console.log(user);
+    }
+
+    checkinViaQRCode() {
+        this.navCtrl.push('ModalScannerPage', {event: this.event});
     }
 }

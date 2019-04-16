@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title text-center>QR Code</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <img [src]="qrCodeImage" alt="QR Code" class="d-block-center"/>
+    <p>Utilize o seu QR Code para:</p>
+    <ul>
+        <li>Verificar se o seu evento está utilizando o BeConnect.</li>
+        <li>Compartilhar o seu contato com expositores e patrocinadores do evento.</li>
+    </ul>
+</ion-content>

@@ -32,6 +32,10 @@ import {LocationTrackerProvider} from '../providers/location-tracker/location-tr
 import {LocalNotifications} from '@ionic-native/local-notifications';
 import {DateFormatPipe} from "../pipes/date-format/date-format";
 import {Sessions} from "../providers/sessions/sessions";
+import {BarcodeScanner} from "@ionic-native/barcode-scanner";
+import {LaunchNavigator} from "@ionic-native/launch-navigator";
+import {File} from '@ionic-native/file';
+import {FileTransfer} from '@ionic-native/file-transfer';
 
 registerLocaleData(lcoalePt);
 
@@ -106,7 +110,11 @@ export function provideSettings(storage: Storage) {
         {provide: LOCALE_ID, useValue: "pt"},
         LocationTrackerProvider,
         DateFormatPipe,
-        Sessions
+        Sessions,
+        BarcodeScanner,
+        LaunchNavigator,
+        File,
+        FileTransfer
     ]
 })
 export class AppModule {
