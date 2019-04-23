@@ -39,7 +39,7 @@ export class ModalScannerPage {
                     .then((result: any) => {
                         loading.dismiss();
 
-                        this.toastCtrl.create({message: result.msg, position: 'top', duration: 8000}).present();
+                        this.toastCtrl.create({message: result.msg, position: 'top', duration: 4000}).present();
                         this.viewCtrl.dismiss();
                     })
                     .catch((error: any) => {

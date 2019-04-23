@@ -49,12 +49,14 @@ export class EventMassCheckinPage {
                 .then((result: any) => {
                     loading.dismiss();
 
-                    if (result.constructor == Array) {
+                    if (result.status) {
                         this.subList = result;
 
                         for (let person of this.subList.people) {
-                            if (!person.imgProfile.startsWith('http')) {
+                            if (person.imgProfile && !person.imgProfile.startsWith('http')) {
                                 person.imgProfile = 'https://beconnect.com.br/' + person.imgProfile;
+                            } else {
+                                person.imgProfile = 'assets/img/default-avatar.png'
                             }
 
                             if (person.check) {
@@ -65,6 +67,7 @@ export class EventMassCheckinPage {
                         }
 
                         this.setItems();
+                        console.log(this.items);
                     }
                 })
                 .catch((error: any) => {
@@ -124,7 +127,7 @@ export class EventMassCheckinPage {
                             duration: 3000,
                             position: 'top'
                         }).present();
-                        this.navCtrl.push('EventsPage');
+                        // this.navCtrl.push('EventsPage');
                     } else {
                         this.toastCtrl.create({
                             message: result.msg,
@@ -164,8 +167,14 @@ export class EventMassCheckinPage {
         this.searchVisible = !this.searchVisible;
     }
 
-    toggleUser(user) {
-        console.log(user);
+    toggleUser(user, $event) {
+        // this.events.isSubscribed(this.event.id, user.id)
+        //     .then((result: any) => {
+        //         this.toastCtrl.create({message: result.msg, position: 'top', duration: 4000}).present();
+        //     })
+        //     .catch((error: any) => {
+        //         console.log(error);
+        //     });
     }
 
     checkinViaQRCode() {

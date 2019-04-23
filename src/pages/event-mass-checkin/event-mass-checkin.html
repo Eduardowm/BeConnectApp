@@ -23,7 +23,7 @@
 <ion-content>
     <ion-list>
         <ion-item *ngFor="let user of items">
-            <ion-toggle [(ngModel)]="user.check" (click)="toggleUser(user)"></ion-toggle>
+            <ion-toggle [(ngModel)]="user.check" (ngModelChange)="toggleUser(user, $event)"></ion-toggle>
             <ion-label>{{user.name}}</ion-label>
             <!--<ion-icon name='body' item-start></ion-icon>-->
             <img [src]="user.imgProfile" item-start class="user-img"/>
@@ -33,13 +33,21 @@
 
 <ion-footer>
     <ion-toolbar no-border-top>
-        <ion-buttons end>
-            <div text-center>
-                <button ion-button color="white" block (click)="checkinViaQRCode()">
-                    <ion-icon name="qr-scanner" class="margin-right"></ion-icon>
-                    Check-In Via QR Code
-                </button>
-            </div>
-        </ion-buttons>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-4>
+                    <button ion-button clear color="white" block (click)="save()">
+                        <ion-icon name="save" class="margin-right"></ion-icon>
+                        Salvar
+                    </button>
+                </ion-col>
+                <ion-col text-right>
+                    <button ion-button clear color="white" block (click)="checkinViaQRCode()">
+                        <ion-icon name="qr-scanner" class="margin-right"></ion-icon>
+                        Check-In Via QR Code
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </ion-toolbar>
 </ion-footer>
