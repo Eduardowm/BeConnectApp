@@ -42,7 +42,7 @@
     "@ngx-translate/http-loader": "^2.0.0",
     "brmasker-ionic-3": "^1.1.0",
     "cordova-android": "7.0.0",
-    "cordova-browser": "5.0.4",
+    "cordova-browser": "6.0.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-badge": "^0.8.7",
